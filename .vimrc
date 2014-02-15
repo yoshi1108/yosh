@@ -124,4 +124,4 @@ let g:calendar_google_task = 1
 let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
 
 " ■ 開いたファイルのディレクトリをカレントディレクトリにする
-au   BufEnter *   execute ":lcd " . expand("%:p:h")
+"au   BufEnter *   execute ":lcd " . expand("%:p:h")
