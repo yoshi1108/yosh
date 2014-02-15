@@ -1,3 +1,4 @@
+
 set viminfo='50,<2000,s100,:0,
 
 " ¡unite
