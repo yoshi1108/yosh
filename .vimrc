@@ -1,4 +1,3 @@
-
 set viminfo='50,<2000,s100,:0,
 
 " ¡unite
@@ -13,6 +12,11 @@ nnoremap <silent> ,vr :UniteResume<CR>
 
 " ¡ ƒ^ƒu‘€ì
 map <C-TAB> :tabnext<CR>
+
+" ¡ ‰æ–Ê‚Å‚©‚­‚·‚é
+if has('win32') 
+    nmap <Leader>s :SM 4<CR>
+endif
 
 "map <C-w> :tabclose<CR>
 map <C-n> :tabnew<CR>
