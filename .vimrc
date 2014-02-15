@@ -18,6 +18,9 @@ if has('win32')
     nmap <Leader>s :SM 4<CR>
 endif
 
+" ■ 開いてるファイルのディレクトリをカレントディレクトリ
+nmap <Leader>cd :cd %:p:h<CR>
+
 "map <C-w> :tabclose<CR>
 map <C-n> :tabnew<CR>
 
