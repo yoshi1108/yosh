@@ -1,14 +1,5 @@
 set viminfo='50,<2000,s100,:0,
 
-
-
-
-
-
-
-
-
-
 " ¡unite
 nnoremap    [unite]   <Nop>
 nmap    <Leader>f [unite]
