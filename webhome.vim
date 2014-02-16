@@ -5,9 +5,9 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-if exists("g:loaded_webhome")
-	finish
-endif
+"if exists("g:loaded_webhome")
+"	finish
+"endif
 let g:loaded_webhome = 1
 
 if !executable('curl')
@@ -22,11 +22,50 @@ command! Webhome :call s:Webhome()
 
 let s:home_url = "http://yoshi1108.web.fc2.com/"
 
+function! s:dump(node, syntax)
+  let syntax = a:syntax
+  if type(a:node) == 1
+    if len(syntax) | exe "echohl ".syntax | endif
+    echon webapi#html#decodeEntityReference(a:node)
+    echohl None
+  elseif type(a:node) == 3
+    for n in a:node
+      call s:dump(n, syntax)
+    endfor
+    return
+  elseif type(a:node) == 4
+      "echo a:node.name
+      "echo a:node.attr
+    let syndef = {'kt' : 'Type', 'mi' : 'Number', 'nb' : 'Statement', 'kp' : 'Statement', 'nn' : 'Define', 'nc' : 'Constant', 'no' : 'Constant', 'k'  : 'Include', 's'  : 'String', 's1' : 'String', 'err': 'Error', 'kd' : 'StorageClass', 'c1' : 'Comment', 'ss' : 'Delimiter', 'vi' : 'Identifier'}
+    for a in keys(syndef)
+      if has_key(a:node.attr, 'class') && a:node.attr['class'] == a | let syntax = syndef[a] | endif
+    endfor
+    if has_key(a:node.attr, 'class') && a:node.attr['class'] == 'line' | echon "\n" | endif
+    for c in a:node.child
+      call s:dump(c, syntax)
+      unlet c
+    endfor
+  endif
+endfunction
+
 function! s:Webhome()
+   :vnew 'webhome'
    let res = webapi#http#get(s:home_url)
-   " new buffer 
-   :new 'webhome'
-   " line add
+   "let obj = webapi#json#decode(res.content)
+   "let dom = webapi#html#parse(res)
+   "for file in dom.childNodes('div')
+   
+   "for file in dom.childNodes()
+   "  unlet! meta
+   "  let meta = file.childNodes('div')
+   "  if len(meta) > 1
+   "    echo "URL:".meta[1].find('a').attr['href']
+   "  endif
+   "  echo "\n"
+   "  call s:dump(file.find('pre'), '')
+   "endfor
+   "echo "hoge\n"
+   
    call append('.', res.content)
 endfunction
 
