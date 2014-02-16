@@ -11,6 +11,6 @@
 -bbt=1  # Medium block brace tightness
 -nsfs   # No space before semicolons
 -nolq   # Don't outdent long quoted strings
--nwrs=s
--nwls=s
+#-nwrs=s
+#-nwls=s
 -wbb="% + - * / x != == >= <= =~ !~ < > | & >= < = **= += *= &= <<= &&= -= /= |= >>= ||= .= %= ^= x="
