@@ -15,15 +15,17 @@ if !executable('curl')
   finish
 endif
 
+command! Webhome :call s:Webhome()
+
 "map <unique> <Leader>h  <Plug>Webhome
 "autocmd BufWriteCmd <buffer> call s:web_home()
 
 let s:home_url = "http://yoshi1108.web.fc2.com/"
 
-function! Webhome()
+function! s:Webhome()
    let res = webapi#http#get(s:home_url)
    " new buffer 
-   :new 
+   :new 'webhome'
    " line add
    call append('.', res.content)
 endfunction
