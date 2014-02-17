@@ -1,5 +1,5 @@
 " Vim global plugin for correcting typing mistakes
-" Last Change:  2014 Feb 16
+" Last Change:  2014 Feb 17
 " Maintainer:   yosh <yoshi1108@gmail.com>
 
 let s:home_url = "http://yoshi1108.web.fc2.com/"
