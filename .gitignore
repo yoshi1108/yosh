@@ -1,3 +1,5 @@
+*~
+*.swp
 .bash_history
 .cache
 .eclipse
@@ -28,3 +30,6 @@ _viminfo
 diary
 ntuser.dat.LOG
 ntuser.ini
+.unite
+デスクトップ
+スタ*メニュ*
