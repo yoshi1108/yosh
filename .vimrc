@@ -9,6 +9,7 @@ function! g:Date()
 endfunction
 set statusline+=\ \%{g:Date()}
 
+
 " Å°unite
 nnoremap    [unite]   <Nop>
 nmap    <Leader>f [unite]
