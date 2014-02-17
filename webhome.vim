@@ -6,11 +6,11 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 " ■ DEBUG中はコメントアウト
-"if exists("g:loaded_webhome")
-"	finish
-"endif
-"let g:loaded_webhome = 1
-"map <unique> <Leader>h  <Plug>Webhome
+if exists("g:loaded_webhome")
+	finish
+endif
+let g:loaded_webhome = 1
+map <unique> <Leader>h  <Plug>Webhome
 
 command! Webhome :call s:Webhome()
 
@@ -28,50 +28,23 @@ function! s:Webhome()
 
    " 元のHTMLのまま出力
    let s:resu = webapi#http#get(s:home_url) 
-   let s:result_str = substitute(s:resu.content, "<[^>]*>", ",", "g")
+   let s:result_str = substitute(s:resu.content, "<[^>]*>", " ", "g")
    let s:result_str = substitute(s:result_str, "&nbsp;", "\n", "g")
-   let s:result_str = substitute(s:result_str, " ", "", "g")
-   let s:result_str = substitute(s:result_str, "^,", "", "g")
-   echo (s:result_str)
-   
-   " 結果
-   let s:result = ""
-   
-   let s:hoge = s:M.parse(s:home_url)
-
-   " URL先のHTMLをXMLにパース
-   let s:xml = s:M.parseURL(s:home_url)
-   
-   "echo(s:xml.childNodes('body') )
-
-   for node_body in s:xml.childNode('body').childNodes('div')
-	   "echo(node_div.childNode().value()) 
-	   "echo(node_body.value()) 
-   endfor
-   "for node_body in s:xml.childNodes('body')
-   "    "echo (node_body.childNode('div').value())
-   "    "s:result = node_body.childNode('div').value()
-   "    let s:cnt = 0
-   "    "for node_div in node_body.childNodes('div')
-   "    for node_div in node_body.childNodes('div')
-   "        "echo(node_div.childNode().value()) 
-   "        echo(node_div.value()) 
-   "        "echo(node_div) 
-   " 	   "s:cnt = s:cnt + 1
-   "        "s:result = node_div.childNode().value()
-   "        "s:result = s:result
-   "    endfor
-   "endfor
    " ■ DEBUG中はコメントアウト
-   ":vnew 'webhome'
-   "call append('.', s:res.content)
-
-   " ■ DEBUG用
-   echo s:result
+   :new 'webhome'
+   for line in split(s:result_str, '\n')
+	   let line = substitute(line, "^ *", "", "g")
+	   let line = substitute(line, " *$", "", "g")
+	   if ( line == "" ) 
+		   continue
+	   endif
+	   "echo (line)
+           call append('$', line)
+   endfor
 endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
 " ■ DEBUG用
-:Webhome
+":Webhome
