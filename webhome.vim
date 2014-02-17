@@ -20,6 +20,7 @@ if !executable('curl')
 endif
 
 let s:home_url = "http://yoshi1108.web.fc2.com/"
+let $http_proxy   = 'http://proxygate2.nic.nec.co.jp:8080'
 
 function! s:Webhome()
    let s:V = vital#of('vital')
