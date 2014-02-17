@@ -9,7 +9,7 @@ set viminfo='50,<2000,s100,:0,
 " ■バックアップを/tmpにとる
 set backupdir=/tmp
 
-" ■ステータスラインに日時を表示する
+" ■ステータスラインにファイルエンコーディングと日時を表示する
 function! GetStatusEx()
   let str = ''
   if &ft != ''
@@ -30,10 +30,7 @@ endfunction
 function! g:Date()
     return strftime("%x(%a) %H:%M")
 endfunction
-"set statusline=%<%f\ %m%r%h%w%=%{GetStatusEx()}\ \ %l,%c%V%8P
 set statusline=%<%f\ %m%r%h%w%=\%{g:Date()}\ \%{GetStatusEx()}\ \ %l,%c%V%8P
-"set statusline+=\ \%{g:Date()}
-
 
 " ■unite
 nnoremap    [unite]   <Nop>
@@ -145,8 +142,21 @@ set clipboard+=autoselect
 nnoremap <RightMouse> "*p
 inoremap <RightMouse> <C-r><C-o>
 
-" ■ startify
-let g:startify_custom_header = g:Date()
+" ■ startify 
+if has('unix') 
+    let s:memofile = "~/memo.txt"
+elseif has('win32')
+    let s:memofile = "C:/Documents and Settings/yoshihara/memo.txt"
+endif
+
+let s:memo_list = []
+for line in readfile(s:memofile)
+	call add(s:memo_list, line)
+endfor
+
+let g:startify_custom_header = map([g:Date()], '"   ". v:val')
+let g:startify_custom_footer = map(s:memo_list, '"   ". v:val')
+
 let g:startify_bookmarks = [
   \ '~/.vimrc',
   \ 'c:\oracle',
