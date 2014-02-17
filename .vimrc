@@ -3,6 +3,12 @@ set viminfo='50,<2000,s100,:0,
 " ■バックアップを/tmpにとる
 set backupdir=/tmp
 
+" ■ステータスラインに日時を表示する
+function! g:Date()
+    return strftime("%x(%a) %H:%M")
+endfunction
+set statusline+=\ \%{g:Date()}
+
 " ■unite
 nnoremap    [unite]   <Nop>
 nmap    <Leader>f [unite]
