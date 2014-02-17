@@ -56,6 +56,7 @@ NeoBundle 'groovy.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-scripts/L9'
 NeoBundle 'vim-scripts/AutoComplPop'
+NeoBundle 'vim-jp/vital.vim'
 filetype plugin indent on
 
 " Å°quickRun
