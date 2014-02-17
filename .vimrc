@@ -1,5 +1,8 @@
 set viminfo='50,<2000,s100,:0,
 
+" ■バックアップを/tmpにとる
+set backupdir=/tmp
+
 " ■unite
 nnoremap    [unite]   <Nop>
 nmap    <Leader>f [unite]
