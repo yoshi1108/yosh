@@ -5,7 +5,7 @@
 let s:home_url = "http://yoshi1108.web.fc2.com/"
 let s:proxy="false"
 
-" ƒfƒoƒbƒOƒ‚[ƒh
+" ãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰
 let s:DEBUG="true"
 
 if ( s:proxy == "true") 
