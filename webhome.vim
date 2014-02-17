@@ -4,6 +4,8 @@
 
 let s:home_url = "http://yoshi1108.web.fc2.com/"
 let s:proxy="false"
+
+" デバッグモード
 let s:DEBUG="true"
 
 if ( s:proxy == "true") 
@@ -33,7 +35,6 @@ endif
 function! s:Webhome()
    let s:V = vital#of('vital')
    let s:M = s:V.import('Web.Xml')
-   " 元のHTMLのまま出力
    let s:resu = webapi#http#get(s:home_url) 
    let s:result_str = substitute(s:resu.content, "<[^>]*>", " ", "g")
    let s:result_str = substitute(s:result_str, "&nbsp;", "\n", "g")
