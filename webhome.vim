@@ -1,16 +1,20 @@
 " Vim global plugin for correcting typing mistakes
 " Last Change:  2014 Feb 16
 " Maintainer:   yosh <yoshi1108@gmail.com>
+
+let s:DEBUG="true"
  
 let s:save_cpo = &cpo
 set cpo&vim
 
 " ■ DEBUG中はコメントアウト
-if exists("g:loaded_webhome")
+if ( s:DEBUG == "false" )
+    if exists("g:loaded_webhome")
 	finish
+    endif
+    let g:loaded_webhome = 1
+    map <unique> <Leader>h  <Plug>Webhome
 endif
-let g:loaded_webhome = 1
-map <unique> <Leader>h  <Plug>Webhome
 
 command! Webhome :call s:Webhome()
 
@@ -30,21 +34,26 @@ function! s:Webhome()
    let s:resu = webapi#http#get(s:home_url) 
    let s:result_str = substitute(s:resu.content, "<[^>]*>", " ", "g")
    let s:result_str = substitute(s:result_str, "&nbsp;", "\n", "g")
-   " ■ DEBUG中はコメントアウト
-   :new 'webhome'
+   if (s:DEBUG != "true")
+       :new 'webhome'
+   endif
    for line in split(s:result_str, '\n')
 	   let line = substitute(line, "^ *", "", "g")
 	   let line = substitute(line, " *$", "", "g")
 	   if ( line == "" ) 
 		   continue
 	   endif
-	   "echo (line)
-           call append('$', line)
+           if (s:DEBUG == "true")
+	       echo (line)
+	   else
+               call append('$', line)
+	   endif
    endfor
 endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
 
-" ■ DEBUG用
-":Webhome
+if (s:DEBUG == "true")
+    :Webhome
+endif
