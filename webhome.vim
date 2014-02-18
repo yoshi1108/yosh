@@ -1,13 +1,22 @@
 " Vim global plugin for correcting typing mistakes
-" Last Change:  2014 Feb 16
+" Last Change:  2014 Feb 17
 " Maintainer:   yosh <yoshi1108@gmail.com>
 
+let s:home_url = "http://yoshi1108.web.fc2.com/"
+let s:proxy="false"
+
+" „Éá„Éê„ÉÉ„Ç∞„É¢„Éº„Éâ
 let s:DEBUG="true"
+
+if ( s:proxy == "true") 
+    let $http_proxy   = 'http://proxygate2.nic.nec.co.jp:8080'
+else
+    let $http_proxy   = ''
+endif
  
 let s:save_cpo = &cpo
 set cpo&vim
 
-" Å° DEBUGíÜÇÕÉRÉÅÉìÉgÉAÉEÉg
 if ( s:DEBUG == "false" )
     if exists("g:loaded_webhome")
 	finish
@@ -23,14 +32,9 @@ if !executable('curl')
   finish
 endif
 
-let s:home_url = "http://yoshi1108.web.fc2.com/"
-let $http_proxy   = 'http://proxygate2.nic.nec.co.jp:8080'
-
 function! s:Webhome()
    let s:V = vital#of('vital')
    let s:M = s:V.import('Web.Xml')
-
-   " å≥ÇÃHTMLÇÃÇ‹Ç‹èoóÕ
    let s:resu = webapi#http#get(s:home_url) 
    let s:result_str = substitute(s:resu.content, "<[^>]*>", " ", "g")
    let s:result_str = substitute(s:result_str, "&nbsp;", "\n", "g")

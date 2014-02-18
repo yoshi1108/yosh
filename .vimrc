@@ -1,6 +1,43 @@
+" æ–‡å­—ã‚³ãƒ¼ãƒ‰è¨­å®š
+if has('gui_running') && !has('unix')
+  set encoding=utf-8
+endif
+
+set fileencodings=ucs-bom,iso-2022-jp,utf-8,cp932,euc-jp,default,latin
+
+" ã‚³ãƒãƒ³ãƒ‰å±¥æ­´ã®è¨­å®š
 set viminfo='50,<2000,s100,:0,
 
-" ¡unite
+" é–‹ã„ãŸãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‘ã‚¹ã‚’ã‚«ãƒ¬ãƒ³ãƒˆã«ã™ã‚‹
+set autochdir
+
+" â– ãƒãƒƒã‚¯ã‚¢ãƒƒãƒ—ã‚’/tmpã«ã¨ã‚‹
+set backupdir=/tmp
+
+" â– ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ©ã‚¤ãƒ³ã«ãƒ•ã‚¡ã‚¤ãƒ«ã‚¨ãƒ³ã‚³ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã¨æ—¥æ™‚ã‚’è¡¨ç¤ºã™ã‚‹
+function! GetStatusEx()
+  let str = ''
+  if &ft != ''
+    let str = str . '[' . &ft . ']'
+  endif
+  if has('multi_byte')
+    if &fenc != ''
+      let str = str . '[' . &fenc . ']'
+    elseif &enc != ''
+      let str = str . '[' . &enc . ']'
+    endif
+  endif
+  if &ff != ''
+    let str = str . '[' . &ff . ']'
+  endif
+  return str
+endfunction
+function! g:Date()
+    return strftime("%x(%a) %H:%M")
+endfunction
+set statusline=%<%f\ %m%r%h%w%=\%{g:Date()}\ \%{GetStatusEx()}\ \ %l,%c%V%8P
+
+" â– unite
 nnoremap    [unite]   <Nop>
 nmap    <Leader>f [unite]
 nnoremap [unite]u  :<C-u>Unite -no-split<Space>
@@ -10,34 +47,34 @@ nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
 
-" ¡ ƒ^ƒu‘€ì
+" â–  ã‚¿ãƒ–æ“ä½œ
 map <C-TAB> :tabnext<CR>
 
-" ¡ ‰æ–Ê‚Å‚©‚­‚·‚é
+" â–  ç”»é¢ã§ã‹ãã™ã‚‹
 if has('win32') 
     nmap <Leader>s :SM 4<CR>
 endif
 
-" ¡ ŠJ‚¢‚Ä‚éƒtƒ@ƒCƒ‹‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ
+" â–  é–‹ã„ã¦ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª
 nmap <Leader>cd :cd %:p:h<CR>
 
 "map <C-w> :tabclose<CR>
 map <C-n> :tabnew<CR>
 
-" ¡ƒCƒ“ƒNƒŠƒƒ“ƒ^ƒ‹ƒT[ƒ`
+" â– ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ã‚¿ãƒ«ã‚µãƒ¼ãƒ
 set incsearch
 
-" ¡ Ctrl-space‚Å•âŠ®
+" â–  Ctrl-spaceã§è£œå®Œ
 if has('unix') 
     inoremap <Nul> <C-n>
 elseif has('win32')
     inoremap <C-Space> <C-n>
 endif
 
-" ¡ perltidy
+" â–  perltidy
 map ,pt ! perl c:\Perl\bin\perltidy.pl -st<CR>
 
-" ¡ neobundle
+" â–  neobundle
 set nocompatible
 if has('vim_starting')
 	set runtimepath+=C:/tools/vim74-kaoriya-win32/plugins/neobundle.vim-master/plugin/neobundle.vim
@@ -56,9 +93,10 @@ NeoBundle 'groovy.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-scripts/L9'
 NeoBundle 'vim-scripts/AutoComplPop'
+NeoBundle 'vim-jp/vital.vim'
 filetype plugin indent on
 
-" ¡quickRun
+" â– quickRun
 let g:quickrun_config = {
 \   "_" : {
 \       "outputter" : "multi:buffer:quickfix",
@@ -69,7 +107,7 @@ let g:quickrun_config = {
 
 " \       "outputter/buffer/split" : ":botright 8sp",
 
-" ¡ƒCƒ“ƒT[ƒgƒ‚[ƒh‚ÌƒnƒCƒ‰ƒCƒg
+" â– ã‚¤ãƒ³ã‚µãƒ¼ãƒˆãƒ¢ãƒ¼ãƒ‰æ™‚ã®ãƒã‚¤ãƒ©ã‚¤ãƒˆ
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
 
 if has('syntax') 
@@ -100,7 +138,7 @@ function! s:GetHighlight(hi)
 	return hl
 endfunction
 
-" ¡ ‘I‘ğ‰ÓŠ‚ÌƒRƒs[A‰EƒNƒŠƒbƒN‚Åƒy[ƒXƒg
+" â–  é¸æŠç®‡æ‰€ã®ã‚³ãƒ”ãƒ¼ã€å³ã‚¯ãƒªãƒƒã‚¯ã§ãƒšãƒ¼ã‚¹ãƒˆ
 " copy paste GUI
 set guioptions+=a
 " copy paste CUI
@@ -109,24 +147,33 @@ set clipboard+=autoselect
 nnoremap <RightMouse> "*p
 inoremap <RightMouse> <C-r><C-o>
 
-" ¡ startify
-" ƒwƒbƒ_[•”•ª‚É•\¦‚·‚é•¶š—ñ‚ğİ’è‚·‚é(dateƒRƒ}ƒ“ƒh‚ğÀs‚µ‚Ä“ú•t‚ğİ’è‚µ‚Ä‚¢‚é)
-"let g:startify_custom_header =
-"  \ map(split(system('date'), '\n'), '"   ". v:val') + ['','']
-" ƒfƒtƒHƒ‹ƒg‚¾‚ÆAÅ‹ßg‚Á‚½ƒtƒ@ƒCƒ‹‚Ìæ“ª‚Í”š‚È‚Ì‚ÅAg—p‚·‚éƒAƒ‹ƒtƒ@ƒxƒbƒg‚ğw’è
-" ‚æ‚­g‚¤ƒtƒ@ƒCƒ‹‚ğƒuƒbƒNƒ}[ƒN‚Æ‚µ‚Ä“o˜^‚µ‚Ä‚¨‚­
+" â–  startify 
+if has('unix') 
+    let s:memofile = "~/memo.txt"
+elseif has('win32')
+    let s:memofile = "C:/Documents and Settings/yoshihara/memo.txt"
+endif
+
+let s:memo_list = []
+for line in readfile(s:memofile)
+	call add(s:memo_list, line)
+endfor
+
+let g:startify_custom_header = map([g:Date()], '"   ". v:val')
+let g:startify_custom_footer = map(s:memo_list, '"   ". v:val')
+
 let g:startify_bookmarks = [
   \ '~/.vimrc',
   \ 'c:\oracle',
   \ 'y:\',
   \ ]
 
-" ¡calender-vimİ’è
+" â– calender-vimè¨­å®š
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 
-" ¡quickRun‚Ìgroovyİ’è
+" â– quickRunã®groovyè¨­å®š
 let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
 
-" ¡ ŠJ‚¢‚½ƒtƒ@ƒCƒ‹‚ÌƒfƒBƒŒƒNƒgƒŠ‚ğƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚É‚·‚é
+" â–  é–‹ã„ãŸãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ã™ã‚‹
 "au   BufEnter *   execute ":lcd " . expand("%:p:h")
