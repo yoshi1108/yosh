@@ -43,7 +43,7 @@ function! s:Webhome()
 	   if ( line == "" ) 
 		   continue
 	   endif
-           if (s:DEBUG == "true")
+           if (s:DEBUG != "true")
 	       echo (line)
 	   else
                call append('$', line)
