@@ -1,10 +1,15 @@
+" 文字コード設定
 if has('gui_running') && !has('unix')
   set encoding=utf-8
 endif
 
 set fileencodings=ucs-bom,iso-2022-jp,utf-8,cp932,euc-jp,default,latin
 
+" コマンド履歴の設定
 set viminfo='50,<2000,s100,:0,
+
+" 開いたファイルのパスをカレントにする
+set autochdir
 
 " ■バックアップを/tmpにとる
 set backupdir=/tmp
