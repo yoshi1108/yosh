@@ -5,7 +5,7 @@ endif
 set fileencodings=ucs-bom,iso-2022-jp,utf-8,cp932,euc-jp,default,latin
 
 " ■ Windows gitのdiff設定
-"let $TERM='msys'
+let $TERM='msys'
 
 " コマンド履歴の設定
 set viminfo='50,<2000,s100,:0,
