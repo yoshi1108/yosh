@@ -1,15 +1,17 @@
-" 文字コード設定
+" ■文字コード設定
 if has('gui_running') && !has('unix')
   set encoding=utf-8
 endif
-
 set fileencodings=ucs-bom,iso-2022-jp,utf-8,cp932,euc-jp,default,latin
+
+" ■ Windows gitのdiff設定
+"let $TERM='msys'
 
 " コマンド履歴の設定
 set viminfo='50,<2000,s100,:0,
 
 " 開いたファイルのパスをカレントにする
-set autochdir
+"set autochdir
 
 " ■バックアップを/tmpにとる
 set backupdir=/tmp
@@ -151,7 +153,7 @@ inoremap <RightMouse> <C-r><C-o>
 if has('unix') 
     let s:memofile = "~/memo.txt"
 elseif has('win32')
-    let s:memofile = "C:/Documents and Settings/yoshihara/memo.txt"
+    let s:memofile = $HOMEPATH . "/memo.txt"
 endif
 
 let s:memo_list = []
@@ -175,5 +177,3 @@ let g:calendar_google_task = 1
 " ■quickRunのgroovy設定
 let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
 
-" ■ 開いたファイルのディレクトリをカレントディレクトリにする
-"au   BufEnter *   execute ":lcd " . expand("%:p:h")
