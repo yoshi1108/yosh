@@ -3,7 +3,7 @@
 " Maintainer:   yosh <yoshi1108@gmail.com>
 
 let s:home_url = "http://yoshi1108.web.fc2.com/"
-let s:proxy="false"
+let s:proxy="true"
 
 " デバッグモード
 let s:DEBUG="true"
@@ -47,7 +47,7 @@ function! s:Webhome()
 	   if ( line == "" ) 
 		   continue
 	   endif
-           if (s:DEBUG != "true")
+           if (s:DEBUG == "true")
 	       echo (line)
 	   else
                call append('$', line)
