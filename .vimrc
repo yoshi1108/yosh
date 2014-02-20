@@ -1,3 +1,4 @@
+:cd ~/
 " ■文字コード設定
 if has('gui_running') && !has('unix')
   set encoding=utf-8
