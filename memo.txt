@@ -3,6 +3,8 @@ amazonに入れて外から取得
 amazonに入れたkaoriya vim、gitを落とす環境
 gitを固めて環境つくる方法を作る
 
+
+
 フローラをLinuxにする
 Javaプロジェクトとかも
 プロキシを分ける設定を考える
