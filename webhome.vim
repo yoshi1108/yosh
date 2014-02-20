@@ -2,20 +2,23 @@
 " Last Change:  2014 Feb 17
 " Maintainer:   yosh <yoshi1108@gmail.com>
 
+let s:save_cpo = &cpo
+set cpo&vim
+
 let s:home_url = "http://yoshi1108.web.fc2.com/"
-let s:proxy="true"
+let s:proxy="false"
+
+" ローカルでSJIS設定
+setl encoding=sjis
 
 " デバッグモード
-let s:DEBUG="true"
+let s:DEBUG="false"
 
 if ( s:proxy == "true") 
     let $http_proxy   = 'http://proxygate2.nic.nec.co.jp:8080'
 else
     let $http_proxy   = ''
 endif
- 
-let s:save_cpo = &cpo
-set cpo&vim
 
 if ( s:DEBUG == "false" )
     if exists("g:loaded_webhome")
