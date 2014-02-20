@@ -52,7 +52,7 @@ nnoremap <silent> ,vr :UniteResume<CR>
 " ■Git
 nnoremap    [git]   <Nop>
 nmap    <Leader>g [git]
-nnoremap <silent> [git]c :Gwrite<CR>:Gcommit -m 'hoge':Git push<CR>
+nnoremap <silent> [git]c :Gwrite<CR>:Gcommit -m 'hoge'<CR>:Git push<CR>
 
 " ■ タブ操作
 map <C-TAB> :tabnext<CR>
