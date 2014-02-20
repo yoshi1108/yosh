@@ -49,6 +49,11 @@ nnoremap <silent> [unite]m :<C-u>Unite<Space>file_mru<CR>
 nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
 
+" ■Git
+nnoremap    [git]   <Nop>
+nmap    <Leader>g [git]
+nnoremap <silent> [git]c :Gwrite<CR>:Gcommit<CR>
+
 " ■ タブ操作
 map <C-TAB> :tabnext<CR>
 
