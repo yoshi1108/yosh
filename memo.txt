@@ -10,3 +10,6 @@ Javaプロジェクトとかも
 KLANを表示する
 FC2サイトにファイルをアップロードするプラグイン
 vim環境セット
+
+■kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる
+let $HOME='/oracle/home'
