@@ -6,7 +6,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 let s:home_url = "http://yoshi1108.web.fc2.com/"
-let s:proxy="false"
+let s:proxy="true"
 
 " ローカルでSJIS設定
 setl encoding=sjis
