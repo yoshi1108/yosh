@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="テスト計画" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="ユーザー定義変数" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+    </TestPlan>
+    <hashTree>
+      <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="RPS計算" enabled="true">
+        <stringProp name="filename"></stringProp>
+        <stringProp name="parameters"></stringProp>
+        <stringProp name="script">/********************
+*  初期パラメータセット
+*  
+*********************/
+
+// コマンドライン引数取得データ
+cont_num =  ${__P(cont_num)}; // コントローラ数
+
+// rps(20s周期でなので20で割る)
+var rps =  cont_num / 20;
+//log.info(&quot;秒間リクエスト : &quot; + rps);
+
+// 値セット
+vars.put(&apos;rps&apos;, rps);</stringProp>
+        <stringProp name="scriptLanguage">javascript</stringProp>
+      </BSFPreProcessor>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="poul #1" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="ループコントローラ" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(thread_num)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time"></stringProp>
+        <longProp name="ThreadGroup.start_time">1352953848000</longProp>
+        <longProp name="ThreadGroup.end_time">1352953848000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <stringProp name="TestPlan.comments">DGW#1</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="SerialId変更処理" enabled="true">
+          <stringProp name="scriptLanguage">javascript</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">/********************
+*  動的serialId変更
+* 
+*  まずpoul番号により、送信するserialIdを振り分ける。
+*  その後スレッド番号ごとに送信するSerialIdを決め、ループで回していく。
+*  どこまで送信したかの値の保持はpoul番号かつ各スレッドごとに行う。
+*
+*  例) 総コントローラ数：48、スレッド数：4の場合
+*  poll番号別に 0～12、13～24、25～36、37～48に分けられる。
+*  
+*  12個のpoul内でのコントローラ内の振り分けは以下の通りになる。
+*  1のスレッド : 1,2,3,1,2,3,・・・
+*  2のスレッド : 4,5,6,4,5,6,・・・
+*  3のスレッド : 7,8,9,7,8,9,・・・
+*  4のスレッド : 10.11.12,10,11,12,・・・・
+*  
+*  注）コントローラ数が割り切れないと送信されないデータが発生する。
+*********************/
+var poulNum = 1;
+
+// コマンドライン引数取得データ
+var all_cont_num = ${__P(cont_num)}; //総コントローラ数
+var this_cont_num = ${__P(cont_num)} / 4; // このpoul内で投げるコントローラ数
+var this_th_num = ${__P(thread_num)}; //このコントローラ内のスレッド数
+
+// 値計算
+var send_per_th = parseInt ( this_cont_num / this_th_num ) ; //1スレッド辺りの送信数
+
+var my_th_num = ${__threadNum}; //自分のスレッド番号
+var my_start_cont = (poulNum - 1) * this_cont_num + (my_th_num - 1) * send_per_th + 1; //自分のスタート位置
+var my_end_cont = my_start_cont + send_per_th - 1;//自分の終わり位置
+
+// メモリから自分のコントローラカウント数取得
+var loop_count = vars.get(&apos;loop_count_&apos; + poulNum + my_th_num);
+
+if (loop_count) {
+	loop_count++;
+} else {
+	loop_count = my_start_cont;
+}
+if ( loop_count &gt; my_end_cont){
+	// 初期値に戻す
+	loop_count = my_start_cont; 
+}
+
+// シリアルIDセット
+// 形式 999-00000xxxxx
+var serial_id = &quot;999&quot; + &quot;-&quot; + (&quot;000000000&quot; + loop_count).slice(-10);
+log.info(&quot;スレッド番号: &quot; + my_th_num + &quot; ★★シリアルID : &quot; + serial_id);
+
+// 値再セット
+vars.put(&apos;loop_count_&apos; + poulNum + my_th_num, loop_count);
+vars.put(&apos;serial_id_con&apos; , serial_id);
+
+</stringProp>
+        </BSFPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#xd;
+&lt;DeviceInfoReq&gt;&#xd;
+    &lt;SerialId&gt;${serial_id_con}&lt;/SerialId&gt;&#xd;
+&lt;/DeviceInfoReq&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">172.19.162.134</stringProp>
+          <stringProp name="HTTPSampler.port">8080</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">dpx/gen2/gen2-controller</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="poul #2" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="ループコントローラ" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(thread_num)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time"></stringProp>
+        <longProp name="ThreadGroup.start_time">1352953848000</longProp>
+        <longProp name="ThreadGroup.end_time">1352953848000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <stringProp name="TestPlan.comments">DGW#2</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="SerialId変更処理" enabled="true">
+          <stringProp name="scriptLanguage">javascript</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">/********************
+*  動的serialId変更
+* 
+*  まずpoul番号により、送信するserialIdを振り分ける。
+*  その後スレッド番号ごとに送信するSerialIdを決め、ループで回していく。
+*  どこまで送信したかの値の保持はpoul番号かつ各スレッドごとに行う。
+*
+*  例) 総コントローラ数：48、スレッド数：4の場合
+*  poll番号別に 0～12、13～24、25～36、37～48に分けられる。
+*  
+*  12個のpoul内でのコントローラ内の振り分けは以下の通りになる。
+*  1のスレッド : 1,2,3,1,2,3,・・・
+*  2のスレッド : 4,5,6,4,5,6,・・・
+*  3のスレッド : 7,8,9,7,8,9,・・・
+*  4のスレッド : 10.11.12,10,11,12,・・・・
+*  
+*  注）コントローラ数が割り切れないと送信されないデータが発生する。
+*********************/
+var poulNum = 2;
+
+// コマンドライン引数取得データ
+var all_cont_num = ${__P(cont_num)}; //総コントローラ数
+var this_cont_num = ${__P(cont_num)} / 4; // このpoul内で投げるコントローラ数
+var this_th_num = ${__P(thread_num)}; //このコントローラ内のスレッド数
+
+// 値計算
+var send_per_th = parseInt ( this_cont_num / this_th_num ) ; //1スレッド辺りの送信数
+
+var my_th_num = ${__threadNum}; //自分のスレッド番号
+var my_start_cont = (poulNum - 1) * this_cont_num + (my_th_num - 1) * send_per_th + 1; //自分のスタート位置
+var my_end_cont = my_start_cont + send_per_th - 1;//自分の終わり位置
+
+// メモリから自分のコントローラカウント数取得
+var loop_count = vars.get(&apos;loop_count_&apos; + poulNum + my_th_num);
+
+if (loop_count) {
+	loop_count++;
+} else {
+	loop_count = my_start_cont;
+}
+if ( loop_count &gt; my_end_cont){
+	// 初期値に戻す
+	loop_count = my_start_cont; 
+}
+
+// シリアルIDセット
+// 形式 999-00000xxxxx
+var serial_id = &quot;999&quot; + &quot;-&quot; + (&quot;000000000&quot; + loop_count).slice(-10);
+log.info(&quot;スレッド番号: &quot; + my_th_num + &quot; ★★シリアルID : &quot; + serial_id);
+
+// 値再セット
+vars.put(&apos;loop_count_&apos; + poulNum + my_th_num, loop_count);
+vars.put(&apos;serial_id_con&apos; , serial_id);
+
+</stringProp>
+        </BSFPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#xd;
+&lt;DeviceInfoReq&gt;&#xd;
+    &lt;SerialId&gt;${serial_id_con}&lt;/SerialId&gt;&#xd;
+&lt;/DeviceInfoReq&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">172.19.162.135</stringProp>
+          <stringProp name="HTTPSampler.port">8080</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">dpx/gen2/gen2-controller</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="poul #3" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="ループコントローラ" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(thread_num)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time"></stringProp>
+        <longProp name="ThreadGroup.start_time">1352953848000</longProp>
+        <longProp name="ThreadGroup.end_time">1352953848000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <stringProp name="TestPlan.comments">DGW#3</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="SerialId変更処理" enabled="true">
+          <stringProp name="scriptLanguage">javascript</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">/********************
+*  動的serialId変更
+* 
+*  まずpoul番号により、送信するserialIdを振り分ける。
+*  その後スレッド番号ごとに送信するSerialIdを決め、ループで回していく。
+*  どこまで送信したかの値の保持はpoul番号かつ各スレッドごとに行う。
+*
+*  例) 総コントローラ数：48、スレッド数：4の場合
+*  poll番号別に 0～12、13～24、25～36、37～48に分けられる。
+*  
+*  12個のpoul内でのコントローラ内の振り分けは以下の通りになる。
+*  1のスレッド : 1,2,3,1,2,3,・・・
+*  2のスレッド : 4,5,6,4,5,6,・・・
+*  3のスレッド : 7,8,9,7,8,9,・・・
+*  4のスレッド : 10.11.12,10,11,12,・・・・
+*  
+*  注）コントローラ数が割り切れないと送信されないデータが発生する。
+*********************/
+var poulNum = 3;
+
+// コマンドライン引数取得データ
+var all_cont_num = ${__P(cont_num)}; //総コントローラ数
+var this_cont_num = ${__P(cont_num)} / 4; // このpoul内で投げるコントローラ数
+var this_th_num = ${__P(thread_num)}; //このコントローラ内のスレッド数
+
+// 値計算
+var send_per_th = parseInt ( this_cont_num / this_th_num ) ; //1スレッド辺りの送信数
+
+var my_th_num = ${__threadNum}; //自分のスレッド番号
+var my_start_cont = (poulNum - 1) * this_cont_num + (my_th_num - 1) * send_per_th + 1; //自分のスタート位置
+var my_end_cont = my_start_cont + send_per_th - 1;//自分の終わり位置
+
+// メモリから自分のコントローラカウント数取得
+var loop_count = vars.get(&apos;loop_count_&apos; + poulNum + my_th_num);
+
+if (loop_count) {
+	loop_count++;
+} else {
+	loop_count = my_start_cont;
+}
+if ( loop_count &gt; my_end_cont){
+	// 初期値に戻す
+	loop_count = my_start_cont; 
+}
+
+// シリアルIDセット
+// 形式 999-00000xxxxx
+var serial_id = &quot;999&quot; + &quot;-&quot; + (&quot;000000000&quot; + loop_count).slice(-10);
+log.info(&quot;スレッド番号: &quot; + my_th_num + &quot; ★★シリアルID : &quot; + serial_id);
+
+// 値再セット
+vars.put(&apos;loop_count_&apos; + poulNum + my_th_num, loop_count);
+vars.put(&apos;serial_id_con&apos; , serial_id);
+
+</stringProp>
+        </BSFPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#xd;
+&lt;DeviceInfoReq&gt;&#xd;
+    &lt;SerialId&gt;${serial_id_con}&lt;/SerialId&gt;&#xd;
+&lt;/DeviceInfoReq&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">172.19.162.133</stringProp>
+          <stringProp name="HTTPSampler.port">8080</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">dpx/gen2/gen2-controller</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="poul #4" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="ループコントローラ" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(thread_num)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time"></stringProp>
+        <longProp name="ThreadGroup.start_time">1352953848000</longProp>
+        <longProp name="ThreadGroup.end_time">1352953848000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <stringProp name="TestPlan.comments">DGW#4</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="SerialId変更処理" enabled="true">
+          <stringProp name="scriptLanguage">javascript</stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="filename"></stringProp>
+          <stringProp name="script">/********************
+*  動的serialId変更
+* 
+*  まずpoul番号により、送信するserialIdを振り分ける。
+*  その後スレッド番号ごとに送信するSerialIdを決め、ループで回していく。
+*  どこまで送信したかの値の保持はpoul番号かつ各スレッドごとに行う。
+*
+*  例) 総コントローラ数：48、スレッド数：4の場合
+*  poll番号別に 0～12、13～24、25～36、37～48に分けられる。
+*  
+*  12個のpoul内でのコントローラ内の振り分けは以下の通りになる。
+*  1のスレッド : 1,2,3,1,2,3,・・・
+*  2のスレッド : 4,5,6,4,5,6,・・・
+*  3のスレッド : 7,8,9,7,8,9,・・・
+*  4のスレッド : 10.11.12,10,11,12,・・・・
+*  
+*  注）コントローラ数が割り切れないと送信されないデータが発生する。
+*********************/
+var poulNum = 4;
+
+// コマンドライン引数取得データ
+var all_cont_num = ${__P(cont_num)}; //総コントローラ数
+var this_cont_num = ${__P(cont_num)} / 4; // このpoul内で投げるコントローラ数
+var this_th_num = ${__P(thread_num)}; //このコントローラ内のスレッド数
+
+// 値計算
+var send_per_th = parseInt ( this_cont_num / this_th_num ) ; //1スレッド辺りの送信数
+
+var my_th_num = ${__threadNum}; //自分のスレッド番号
+var my_start_cont = (poulNum - 1) * this_cont_num + (my_th_num - 1) * send_per_th + 1; //自分のスタート位置
+var my_end_cont = my_start_cont + send_per_th - 1;//自分の終わり位置
+
+// メモリから自分のコントローラカウント数取得
+var loop_count = vars.get(&apos;loop_count_&apos; + poulNum + my_th_num);
+
+if (loop_count) {
+	loop_count++;
+} else {
+	loop_count = my_start_cont;
+}
+if ( loop_count &gt; my_end_cont){
+	// 初期値に戻す
+	loop_count = my_start_cont; 
+}
+
+// シリアルIDセット
+// 形式 999-00000xxxxx
+var serial_id = &quot;999&quot; + &quot;-&quot; + (&quot;000000000&quot; + loop_count).slice(-10);
+log.info(&quot;スレッド番号: &quot; + my_th_num + &quot; ★★シリアルID : &quot; + serial_id);
+
+// 値再セット
+vars.put(&apos;loop_count_&apos; + poulNum + my_th_num, loop_count);
+vars.put(&apos;serial_id_con&apos; , serial_id);
+
+</stringProp>
+        </BSFPreProcessor>
+        <hashTree/>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP リクエスト" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&#xd;
+&lt;DeviceInfoReq&gt;&#xd;
+    &lt;SerialId&gt;${serial_id_con}&lt;/SerialId&gt;&#xd;
+&lt;/DeviceInfoReq&gt;</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">172.19.162.174</stringProp>
+          <stringProp name="HTTPSampler.port">8080</stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">dpx/gen2/gen2-controller</stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.implementation">Java</stringProp>
+          <boolProp name="HTTPSampler.monitor">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+      </hashTree>
+      <Summariser guiclass="SummariserGui" testclass="Summariser" testname="結果の概要を生成" enabled="false"/>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="統計レポート" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="結果をツリーで表示" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="TableVisualizer" testclass="ResultCollector" testname="結果を表で表示" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <kg.apc.jmeter.vizualizers.CorrectedResultCollector guiclass="kg.apc.jmeter.vizualizers.TransactionsPerSecondGui" testclass="kg.apc.jmeter.vizualizers.CorrectedResultCollector" testname="jp@gc - Transactions per Second" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+        <longProp name="interval_grouping">1000</longProp>
+        <boolProp name="graph_aggregated">false</boolProp>
+        <stringProp name="include_sample_labels"></stringProp>
+        <stringProp name="exclude_sample_labels"></stringProp>
+      </kg.apc.jmeter.vizualizers.CorrectedResultCollector>
+      <hashTree/>
+      <kg.apc.jmeter.timers.VariableThroughputTimer guiclass="kg.apc.jmeter.timers.VariableThroughputTimerGui" testclass="kg.apc.jmeter.timers.VariableThroughputTimer" testname="jp@gc - Throughput Shaping Timer" enabled="true">
+        <collectionProp name="load_profile">
+          <collectionProp name="1779673189">
+            <stringProp name="1147750015">${rps}</stringProp>
+            <stringProp name="1147750015">${rps}</stringProp>
+            <stringProp name="-1843094817">${__P(test_time)}</stringProp>
+          </collectionProp>
+        </collectionProp>
+      </kg.apc.jmeter.timers.VariableThroughputTimer>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

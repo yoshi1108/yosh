@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="瞬時値取得APL" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="ユーザー定義変数" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="瞬時値パッチのCONEXIVEアクセス" enabled="true">
+        <stringProp name="TestPlan.comments">・各デバイスの瞬時値を取得
+・デバイス情報ビューよりデバイス(蓄電池、PV、負荷、整流器）の瞬時値を全コントローラ分一度に取得。(アクセス回数=1回)
+・コントローラ瞬時値テーブルより時刻を取得。また、蓄電池-PV設定ビューより蓄電池設定、PV設定を取得。これをコントローラ</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="ループコントローラ" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time"></stringProp>
+        <longProp name="ThreadGroup.start_time">1390456762000</longProp>
+        <longProp name="ThreadGroup.end_time">1390460362000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP ヘッダマネージャ" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">content-type</stringProp>
+              <stringProp name="Header.value">text/xml;charset=UTF-8</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="ユーザー定義変数" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="cont_num" elementType="Argument">
+              <stringProp name="Argument.name">cont_num</stringProp>
+              <stringProp name="Argument.value">${__P(cont_num)}</stringProp>
+              <stringProp name="Argument.desc">${__P(cont_num)} コントローラ数</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="loop_repeat" elementType="Argument">
+              <stringProp name="Argument.name">loop_repeat</stringProp>
+              <stringProp name="Argument.value">${__P(loop_repeat)}</stringProp>
+              <stringProp name="Argument.desc">100回ずつ瞬時値、設定情報を取得</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="デバイス情報ビュー " enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="TestPlan.comments">コントローラ数回処理を繰り返す</stringProp>
+          <stringProp name="LoopController.loops">${__javaScript(Math.ceil(${cont_num}/${loop_repeat}))}</stringProp>
+        </LoopController>
+        <hashTree>
+          <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="BSF PreProcessor" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">var ctrl_count_1 = 0;  //現在のコントロータのシリアス番号。初期値０．
+var ctrl_id_1 = &quot;&quot;;  //現在のコントローラのctrl_id文字列
+var ctrl_id_array_1 = &quot;&quot;;  //検索用ctrl_idの集合
+
+//前回保存された変数からctrl_countの値を取得。保存された値がない場合は、初期値０になる。
+if (vars.get(&apos;ctrl_count_1&apos;)) {
+	ctrl_count_1=vars.get(&apos;ctrl_count_1&apos;);
+}
+
+//以下の処理を繰り返し、検索用ctrl_id文字列を生成
+
+//ループの開始位置を記録
+var loop_begin_1 = ctrl_count_1;
+//ループ回数を定義する。総回数n回のうち、最初のn-1回で固定値loop_repeat回繰り返す。最後の1回で残りのコントローラ分繰り返す。
+var loop_num_1 = ((${cont_num}-loop_begin_1)&lt;${loop_repeat}) ? ${cont_num}%${loop_repeat} : ${loop_repeat};
+//ループ開始
+for (var i=1;i&lt;=loop_num_1;i++) {
+	ctrl_count_1++;
+//	log.info(&quot;★★★★ctrl_count: &quot;+ctrl_count);
+	//フォーマットに従ってctrl_idを生成する。
+	ctrl_id_1 = &quot;999&quot;+&quot;-&quot;+(&quot;000000000&quot;+ctrl_count_1).slice(-10);
+	//生成したctrl_idを検索用文字列ctrl_id_arrayに追加する。
+	ctrl_id_array_1=ctrl_id_array_1+&quot;,&quot;+ctrl_id_1;
+}
+//最初の余分な「,」を切り捨て
+ctrl_id_array_1=ctrl_id_array_1.slice(1);
+log.info(&quot;★★★★ctrl_id IN: &quot;+ctrl_id_array_1);
+
+//変数に保存
+vars.put(&apos;ctrl_count_1&apos;, ctrl_count_1);
+vars.put(&apos;ctrl_id_array_1&apos;, ctrl_id_array_1);
+</stringProp>
+          </BSFPreProcessor>
+          <hashTree/>
+          <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="コントローラ瞬時値取得" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="TestPlan.comments">・コントローラ瞬時値テーブルより時刻を取得。</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">http://172.19.162.154:8080/m2m-wfc/generic-interface/BIZtefH9jINHY3pdo0Q/gen2-workflow</stringProp>
+            <stringProp name="HTTPSamper.xml_data">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+  &lt;SOAP-ENV:Body xmlns:m2m=&quot;http://platform.m2m.nec.com/generics/schema&quot;&gt;
+ &lt;m2m:OBJECT TARGET=&quot;gen2_bat_pv_config_view&quot; TYPE=&quot;TABLE&quot;&gt;
+    &lt;m2m:METHOD NAME=&quot;READ&quot;&gt;
+    &lt;m2m:KEYS&gt;
+      &lt;m2m:KEY NAME=&quot;ctrl_id&quot; OPERATOR=&quot;IN&quot;&gt;${ctrl_id_array_1}&lt;/m2m:KEY&gt;
+    &lt;/m2m:KEYS&gt;
+    &lt;m2m:ORDERS&gt;
+      &lt;m2m:ORDER NAME=&quot;ctrl_id&quot; ORDERBY=&quot;ASC&quot; /&gt;
+    &lt;/m2m:ORDERS&gt;
+    &lt;m2m:RESULTS OFFSET=&quot;0&quot;&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_ope_mode&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;pv_link_mode&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;peakcut_pw&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;chg_st_time&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;dischg_st_time&quot; /&gt;
+    &lt;/m2m:RESULTS&gt;
+    &lt;/m2m:METHOD&gt;
+  &lt;/m2m:OBJECT&gt;
+ &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;</stringProp>
+            <stringProp name="SoapSampler.xml_data_file"></stringProp>
+            <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+            <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+          </SoapSampler>
+          <hashTree/>
+        </hashTree>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="蓄電池-PV設定ビュー " enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="TestPlan.comments">コントローラ数回処理を繰り返す</stringProp>
+          <stringProp name="LoopController.loops">${__javaScript(Math.ceil(${cont_num}/${loop_repeat}))}</stringProp>
+        </LoopController>
+        <hashTree>
+          <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="BSF PreProcessor" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">var ctrl_count_2 = 0;  //現在のコントロータのシリアス番号。初期値０．
+var ctrl_id_2 = &quot;&quot;;  //現在のコントローラのctrl_id文字列
+var ctrl_id_array_2 = &quot;&quot;;  //検索用ctrl_idの集合
+
+//前回保存された変数からctrl_countの値を取得。保存された値がない場合は、初期値０になる
+if (vars.get(&apos;ctrl_count_2&apos;)) {
+	ctrl_count_2=vars.get(&apos;ctrl_count_2&apos;);
+}
+
+//以下の処理を繰り返し、検索用ctrl_id文字列を生成
+
+//ループの開始位置を記録
+var loop_begin_2 = ctrl_count_2;
+//ループ回数を定義する。総回数n回のうち、最初のn-1回で固定値loop_repeat回繰り返す。最後の1回で残りのコントローラ分繰り返す。
+var loop_num_2 = ((${cont_num}-loop_begin_2)&lt;${loop_repeat}) ? ${cont_num}%${loop_repeat} : ${loop_repeat};
+//ループ開始
+for (var i=1;i&lt;=loop_num_2;i++) {
+	ctrl_count_2++;
+	//log.info(&quot;★★★★ctrl_count: &quot;+ctrl_count_2);
+	//決めたフォーマットに従ってctrl_idを生成する。
+	ctrl_id_2 = &quot;999&quot;+&quot;-&quot;+(&quot;000000000&quot;+ctrl_count_2).slice(-10);
+	//生成したctrl_idを検索用文字列ctrl_id_arrayに追加する。
+	ctrl_id_array_2=ctrl_id_array_2+&quot;,&quot;+ctrl_id_2;
+}
+//最初の余分な「,」を切り捨て
+ctrl_id_array_2=ctrl_id_array_2.slice(1);
+log.info(&quot;★★★★ctrl_id IN: &quot;+ctrl_id_array_2);
+
+//変数に保存
+vars.put(&apos;ctrl_count_2&apos;, ctrl_count_2);
+vars.put(&apos;ctrl_id_array_2&apos;, ctrl_id_array_2);
+</stringProp>
+          </BSFPreProcessor>
+          <hashTree/>
+          <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="蓄電池PV設定値取得" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="TestPlan.comments">・コントローラ瞬時値テーブルより時刻を取得。</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">http://172.19.162.154:8080/m2m-wfc/generic-interface/BIZtefH9jINHY3pdo0Q/gen2-workflow</stringProp>
+            <stringProp name="HTTPSamper.xml_data">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+  &lt;SOAP-ENV:Body xmlns:m2m=&quot;http://platform.m2m.nec.com/generics/schema&quot;&gt;
+ &lt;m2m:OBJECT TARGET=&quot;gen2_deviceval_info&quot; TYPE=&quot;TABLE&quot;&gt;
+    &lt;m2m:METHOD NAME=&quot;READ&quot;&gt;
+    &lt;m2m:KEYS&gt;
+      &lt;m2m:KEY NAME=&quot;ctrl_id&quot; OPERATOR=&quot;IN&quot;&gt;${ctrl_id_array_2}&lt;/m2m:KEY&gt;
+    &lt;/m2m:KEYS&gt;
+    &lt;m2m:ORDERS&gt;
+      &lt;m2m:ORDER NAME=&quot;ctrl_id&quot; ORDERBY=&quot;ASC&quot; /&gt;
+    &lt;/m2m:ORDERS&gt;
+    &lt;m2m:RESULTS OFFSET=&quot;0&quot;&gt;
+      &lt;m2m:RESULT NAME=&quot;ctrl_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;ctrl_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;datetime&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;ctrl_stts&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_pw_in&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_pw_out&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_temp&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_soc&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_learning_cap&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_stts&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;pv_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;pv_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;pv_wat&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;load_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;load_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;load_wat&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_wat_in&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_wat_out&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_stts&quot; /&gt;
+    &lt;/m2m:RESULTS&gt;
+    &lt;/m2m:METHOD&gt;
+  &lt;/m2m:OBJECT&gt;
+ &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;</stringProp>
+            <stringProp name="SoapSampler.xml_data_file"></stringProp>
+            <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+            <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+          </SoapSampler>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="結果をツリーで表示" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="統計レポート" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

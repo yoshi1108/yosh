@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="瞬時値取得APL" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="ユーザー定義変数" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="瞬時値パッチのCONEXIVEアクセス" enabled="true">
+        <stringProp name="TestPlan.comments">・各デバイスの瞬時値を取得
+・デバイス情報ビューよりデバイス(蓄電池、PV、負荷、整流器）の瞬時値を全コントローラ分一度に取得。(アクセス回数=1回)
+・コントローラ瞬時値テーブルより時刻を取得。また、蓄電池-PV設定ビューより蓄電池設定、PV設定を取得。これをコントローラ</stringProp>
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="ループコントローラ" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time"></stringProp>
+        <longProp name="ThreadGroup.start_time">1390456762000</longProp>
+        <longProp name="ThreadGroup.end_time">1390460362000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="ユーザー定義変数" enabled="true">
+          <collectionProp name="Arguments.arguments">
+            <elementProp name="cont_num" elementType="Argument">
+              <stringProp name="Argument.name">cont_num</stringProp>
+              <stringProp name="Argument.value">${__P(cont_num)}</stringProp>
+              <stringProp name="Argument.desc">${__P(cont_num)}  コントローラ数。パラメータとして指定する。</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="loop_repeat" elementType="Argument">
+              <stringProp name="Argument.name">loop_repeat</stringProp>
+              <stringProp name="Argument.value">${__P(loop_repeat)}</stringProp>
+              <stringProp name="Argument.desc">${__P(loop_repeat)}    N回ずつ瞬時値、設定情報を取得する。パラメータとして指定する。</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="data_id_low_limit_15min" elementType="Argument">
+              <stringProp name="Argument.name">data_id_low_limit_15min</stringProp>
+              <stringProp name="Argument.value">${__P(pre_wf_proc_15)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+              <stringProp name="Argument.desc">積算値15分テーブルのデータIDの検索下限。パラメータとして指定する。</stringProp>
+            </elementProp>
+            <elementProp name="data_id_low_limit_hour" elementType="Argument">
+              <stringProp name="Argument.name">data_id_low_limit_hour</stringProp>
+              <stringProp name="Argument.value">${__P(pre_wf_proc_60)}</stringProp>
+              <stringProp name="Argument.desc">積算値時間テーブルのデータIDの検索下限。パラメータとして指定する。</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="msr_time_15" elementType="Argument">
+              <stringProp name="Argument.name">msr_time_15</stringProp>
+              <stringProp name="Argument.value">${__P(msr_time_15)}</stringProp>
+              <stringProp name="Argument.desc">検索したい15分積算値の時刻を指定する。</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="msr_time_60" elementType="Argument">
+              <stringProp name="Argument.name">msr_time_60</stringProp>
+              <stringProp name="Argument.value">${__P(msr_time_60)}</stringProp>
+              <stringProp name="Argument.desc">検索したい60分積算値の時刻を指定する。</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="is_update_time_60" elementType="Argument">
+              <stringProp name="Argument.name">is_update_time_60</stringProp>
+              <stringProp name="Argument.value">${__P(is_update_time_60)}</stringProp>
+              <stringProp name="Argument.desc">60分テーブルを更新するかどうか</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </collectionProp>
+        </Arguments>
+        <hashTree/>
+        <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP ヘッダマネージャ" enabled="true">
+          <collectionProp name="HeaderManager.headers">
+            <elementProp name="" elementType="Header">
+              <stringProp name="Header.name">content-type</stringProp>
+              <stringProp name="Header.value">text/xml;charset=UTF-8</stringProp>
+            </elementProp>
+          </collectionProp>
+        </HeaderManager>
+        <hashTree/>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="デバイス情報ビュー " enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="TestPlan.comments">コントローラ数回電文を送信</stringProp>
+          <stringProp name="LoopController.loops">${__javaScript(Math.ceil(${cont_num}/${loop_repeat}))}</stringProp>
+        </LoopController>
+        <hashTree>
+          <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="BSF PreProcessor" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">var ctrl_count_1 = 0;  //現在のコントロータのシリアス番号。初期値０．
+var ctrl_id = &quot;&quot;;  //現在のコントローラのctrl_id文字列
+var ctrl_id_array = &quot;&quot;;  //検索用ctrl_idの集合
+
+//前回保存された変数からctrl_count_1の値を取得。保存された値がない場合は、初期値０になる
+if (vars.get(&apos;ctrl_count_1&apos;)) {
+	ctrl_count_1=vars.get(&apos;ctrl_count_1&apos;);
+}
+
+//以下の処理を繰り返し、検索用ctrl_id文字列を生成
+
+//ループの開始位置を記録
+var loop_begin = ctrl_count_1;
+//ループ回数を定義する。総回数n回のうち、最初のn-1回で固定値loop_repeat回繰り返す。最後の1回で残りのコントローラ分繰り返す。
+var loop_num = ((${cont_num}-loop_begin)&lt;${loop_repeat}) ? ${cont_num}%${loop_repeat} : ${loop_repeat};
+//ループ開始
+for (var i=1;i&lt;=loop_num;i++) {
+	ctrl_count_1++;
+	//log.info(&quot;★★★★ctrl_count_1: &quot;+ctrl_count_1);
+	//決めたフォーマットに従ってctrl_idを生成する。
+	ctrl_id = &quot;999&quot;+&quot;-&quot;+(&quot;000000000&quot;+ctrl_count_1).slice(-10);
+	//生成したctrl_idを検索用文字列ctrl_id_arrayの末尾に追加する。
+	ctrl_id_array=ctrl_id_array+&quot;,&quot;+ctrl_id;
+}
+//最初の余分な「,」を切り捨て
+ctrl_id_array=ctrl_id_array.slice(1);
+log.info(&quot;★★★★ctrl_id IN: &quot;+ctrl_id_array);
+
+//変数に保存
+vars.put(&apos;ctrl_count_1&apos;, ctrl_count_1);
+vars.put(&apos;ctrl_id_array&apos;, ctrl_id_array);
+</stringProp>
+          </BSFPreProcessor>
+          <hashTree/>
+          <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="デバイス情報ビュー " enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="TestPlan.comments">コントローラ瞬時値テーブルより時刻を取得。</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">http://172.19.162.154:8080/m2m-wfc/generic-interface/BIZtefH9jINHY3pdo0Q/gen2-workflow</stringProp>
+            <stringProp name="HTTPSamper.xml_data">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+  &lt;SOAP-ENV:Body xmlns:m2m=&quot;http://platform.m2m.nec.com/generics/schema&quot;&gt;
+ &lt;m2m:OBJECT TARGET=&quot;gen2_deviceval_info&quot; TYPE=&quot;TABLE&quot;&gt;
+    &lt;m2m:METHOD NAME=&quot;READ&quot;&gt;
+    &lt;m2m:KEYS&gt;
+      &lt;m2m:KEY NAME=&quot;ctrl_id&quot; OPERATOR=&quot;IN&quot;&gt;${ctrl_id_array}&lt;/m2m:KEY&gt;
+    &lt;/m2m:KEYS&gt;
+    &lt;m2m:ORDERS&gt;
+      &lt;m2m:ORDER NAME=&quot;ctrl_id&quot; ORDERBY=&quot;ASC&quot; /&gt;
+    &lt;/m2m:ORDERS&gt;
+    &lt;m2m:RESULTS OFFSET=&quot;0&quot;&gt;
+      &lt;m2m:RESULT NAME=&quot;ctrl_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;ctrl_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;datetime&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;ctrl_stts&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_pw_in&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_pw_out&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_temp&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_soc&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_learning_cap&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;bat_stts&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;pv_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;pv_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;pv_wat&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;load_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;load_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;load_wat&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_id&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_name&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_wat_in&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_wat_out&quot; /&gt;
+      &lt;m2m:RESULT NAME=&quot;rect_stts&quot; /&gt;
+    &lt;/m2m:RESULTS&gt;
+    &lt;/m2m:METHOD&gt;
+  &lt;/m2m:OBJECT&gt;
+ &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;</stringProp>
+            <stringProp name="SoapSampler.xml_data_file"></stringProp>
+            <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+            <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+          </SoapSampler>
+          <hashTree/>
+        </hashTree>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="15分積算値テーブル" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="TestPlan.comments">コントローラ数回電文を送信</stringProp>
+          <stringProp name="LoopController.loops">${__javaScript(Math.ceil(${cont_num}/${loop_repeat}))}</stringProp>
+        </LoopController>
+        <hashTree>
+          <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="BSF PreProcessor" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">var ctrl_count_2 = 0;  //現在のコントロータのシリアス番号。初期値０．
+var ctrl_id = &quot;&quot;;  //現在のコントローラのctrl_id文字列
+var ctrl_id_array = &quot;&quot;;  //検索用ctrl_idの集合
+
+//前回保存された変数からctrl_count_2の値を取得。保存された値がない場合は、初期値０になる
+if (vars.get(&apos;ctrl_count_2&apos;)) {
+	ctrl_count_2=vars.get(&apos;ctrl_count_2&apos;);
+}
+
+//以下の処理を繰り返し、検索用ctrl_id文字列を生成
+
+//ループの開始位置を記録
+var loop_begin = ctrl_count_2;
+//ループ回数を定義する。総回数n回のうち、最初のn-1回で固定値loop_repeat回繰り返す。最後の1回で残りのコントローラ分繰り返す。
+var loop_num = ((${cont_num}-loop_begin)&lt;${loop_repeat}) ? ${cont_num}%${loop_repeat} : ${loop_repeat};
+//ループ開始
+for (var i=1;i&lt;=loop_num;i++) {
+	ctrl_count_2++;
+	//log.info(&quot;★★★★ctrl_count_2: &quot;+ctrl_count_2);
+	//決めたフォーマットに従ってctrl_idを生成する。
+	ctrl_id = &quot;999&quot;+&quot;-&quot;+(&quot;000000000&quot;+ctrl_count_2).slice(-10);
+	//生成したctrl_idを検索用文字列ctrl_id_arrayの末尾に追加する。
+	ctrl_id_array=ctrl_id_array+&quot;,&quot;+ctrl_id;
+}
+//最初の余分な「,」を切り捨て
+ctrl_id_array=ctrl_id_array.slice(1);
+log.info(&quot;★★★★ctrl_id IN: &quot;+ctrl_id_array);
+
+//変数に保存
+vars.put(&apos;ctrl_count_2&apos;, ctrl_count_2);
+vars.put(&apos;ctrl_id_array&apos;, ctrl_id_array);
+</stringProp>
+          </BSFPreProcessor>
+          <hashTree/>
+          <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="15分積算値テーブル" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="TestPlan.comments">
+</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">http://172.19.162.154:8080/m2m-wfc/generic-interface/BIZtefH9jINHY3pdo0Q/gen2-workflow</stringProp>
+            <stringProp name="HTTPSamper.xml_data">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+  &lt;SOAP-ENV:Body xmlns:m2m=&quot;http://platform.m2m.nec.com/generics/schema&quot;&gt;
+ &lt;m2m:OBJECT TARGET=&quot;gen2_msr_15min&quot; TYPE=&quot;TABLE&quot;&gt;
+    &lt;m2m:METHOD NAME=&quot;READ&quot;&gt;
+    &lt;m2m:KEYS&gt;
+      &lt;m2m:KEY NAME=&quot;ctrl_id&quot; OPERATOR=&quot;IN&quot;&gt;${ctrl_id_array}&lt;/m2m:KEY&gt;
+      &lt;m2m:KEY NAME=&quot;wf_proc_data_id&quot; OPERATOR=&quot;GREATER_THAN&quot;&gt;${data_id_low_limit_15min}&lt;/m2m:KEY&gt;
+      &lt;m2m:KEY NAME=&quot;wf_proc_data_id&quot; OPERATOR=&quot;LESS_THAN_EQUAL&quot;&gt;${__javaScript(${data_id_low_limit_15min}+20000)}&lt;/m2m:KEY&gt;
+      &lt;m2m:KEY NAME=&quot;msr_time&quot; OPERATOR=&quot;EQUAL&quot;&gt;${msr_time_15}&lt;/m2m:KEY&gt;
+    &lt;/m2m:KEYS&gt;
+    &lt;m2m:ORDERS&gt;
+      &lt;m2m:ORDER NAME=&quot;ctrl_id&quot; ORDERBY=&quot;ASC&quot; /&gt;
+      &lt;m2m:ORDER NAME=&quot;msr_time&quot; ORDERBY=&quot;ASC&quot; /&gt;
+    &lt;/m2m:ORDERS&gt;
+    &lt;m2m:RESULTS OFFSET=&quot;0&quot;&gt;
+        &lt;m2m:RESULT NAME=&quot;wf_proc_data_id&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;wf_definition_id&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;registered_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;wf_proc_updated_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;wf_proc_status&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;deleted_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;start_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;end_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;place_id&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;ctrl_id&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;msr_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;bat_chg_engy&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;bat_dischg_engy&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;pv_engy&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;load_engy&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;rect_engy_in&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;rect_engy_out&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;add_count&quot; /&gt;
+    &lt;/m2m:RESULTS&gt;
+    &lt;/m2m:METHOD&gt;
+  &lt;/m2m:OBJECT&gt;
+ &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;</stringProp>
+            <stringProp name="SoapSampler.xml_data_file"></stringProp>
+            <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+            <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+          </SoapSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正規表現抽出" enabled="false">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">data_id_max</stringProp>
+              <stringProp name="RegexExtractor.regex">wf_proc_data_id&quot;&gt;(.*)&lt;/RESULT&gt;&lt;RESULT NAME=&quot;wf_definition_id&quot;&gt;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default"></stringProp>
+              <stringProp name="RegexExtractor.match_number">-1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <XPathExtractor guiclass="XPathExtractorGui" testclass="XPathExtractor" testname="XPath Extractor" enabled="true">
+              <stringProp name="TestPlan.comments">//OBJECT//RESULTS[last()]//RESULT[@NAME = &quot;wf_proc_data_id&quot;]</stringProp>
+              <stringProp name="XPathExtractor.default"></stringProp>
+              <stringProp name="XPathExtractor.refname">15_data_id_max</stringProp>
+              <stringProp name="XPathExtractor.xpathQuery">//OBJECT//RESULTS[last()]//RESULT[@NAME = &quot;wf_proc_data_id&quot;]</stringProp>
+              <boolProp name="XPathExtractor.validate">false</boolProp>
+              <boolProp name="XPathExtractor.tolerant">false</boolProp>
+              <boolProp name="XPathExtractor.namespace">false</boolProp>
+              <boolProp name="XPathExtractor.whitespace">true</boolProp>
+            </XPathExtractor>
+            <hashTree/>
+          </hashTree>
+          <BSFPostProcessor guiclass="TestBeanGUI" testclass="BSFPostProcessor" testname="BSF PostProcessor" enabled="true">
+            <stringProp name="scriptLanguage">beanshell</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">fileName = &quot;/var/m2m_install/an/tool/apache-jmeter-2.11/gen2_apl/2_ap_sekisan/15_wf_proc_data_id.txt&quot;;
+
+// ここから書き込み
+if(vars.get(&quot;15_data_id_max&quot;)!=null @and vars.get(&quot;15_data_id_max&quot;).length() &gt; 0) {
+    f = new FileOutputStream(fileName);
+    p = new PrintStream(f); 
+    this.interpreter.setOut(p);
+
+    print(vars.get(&quot;15_data_id_max&quot;));
+    p.close();
+    f.close();
+}
+
+</stringProp>
+          </BSFPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="60分積算値テーブル" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="TestPlan.comments">コントローラ数回電文を送信</stringProp>
+          <stringProp name="LoopController.loops">${__javaScript(Math.ceil(${cont_num}/${loop_repeat}))}</stringProp>
+        </LoopController>
+        <hashTree>
+          <BSFPreProcessor guiclass="TestBeanGUI" testclass="BSFPreProcessor" testname="BSF PreProcessor" enabled="true">
+            <stringProp name="scriptLanguage">javascript</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">var ctrl_count_3 = 0;  //現在のコントロータのシリアス番号。初期値０．
+var ctrl_id = &quot;&quot;;  //現在のコントローラのctrl_id文字列
+var ctrl_id_array = &quot;&quot;;  //検索用ctrl_idの集合
+
+//前回保存された変数からctrl_count_3の値を取得。保存された値がない場合は、初期値０になる
+if (vars.get(&apos;ctrl_count_3&apos;)) {
+	ctrl_count_3=vars.get(&apos;ctrl_count_3&apos;);
+}
+
+//以下の処理を繰り返し、検索用ctrl_id文字列を生成
+
+//ループの開始位置を記録
+var loop_begin = ctrl_count_3;
+//ループ回数を定義する。総回数n回のうち、最初のn-1回で固定値loop_repeat回繰り返す。最後の1回で残りのコントローラ分繰り返す。
+var loop_num = ((${cont_num}-loop_begin)&lt;${loop_repeat}) ? ${cont_num}%${loop_repeat} : ${loop_repeat};
+//ループ開始
+for (var i=1;i&lt;=loop_num;i++) {
+	ctrl_count_3++;
+	//log.info(&quot;★★★★ctrl_count_3: &quot;+ctrl_count_3);
+	//決めたフォーマットに従ってctrl_idを生成する。
+	ctrl_id = &quot;999&quot;+&quot;-&quot;+(&quot;000000000&quot;+ctrl_count_3).slice(-10);
+	//生成したctrl_idを検索用文字列ctrl_id_arrayの末尾に追加する。
+	ctrl_id_array=ctrl_id_array+&quot;,&quot;+ctrl_id;
+}
+//最初の余分な「,」を切り捨て
+ctrl_id_array=ctrl_id_array.slice(1);
+log.info(&quot;★★★★ctrl_id IN: &quot;+ctrl_id_array);
+
+//変数に保存
+vars.put(&apos;ctrl_count_3&apos;, ctrl_count_3);
+vars.put(&apos;ctrl_id_array&apos;, ctrl_id_array);
+</stringProp>
+          </BSFPreProcessor>
+          <hashTree/>
+          <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="60分積算値テーブル" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="TestPlan.comments">
+</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">http://172.19.162.154:8080/m2m-wfc/generic-interface/BIZtefH9jINHY3pdo0Q/gen2-workflow</stringProp>
+            <stringProp name="HTTPSamper.xml_data">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;
+&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+  &lt;SOAP-ENV:Body xmlns:m2m=&quot;http://platform.m2m.nec.com/generics/schema&quot;&gt;
+ &lt;m2m:OBJECT TARGET=&quot;gen2_msr_hour&quot; TYPE=&quot;TABLE&quot;&gt;
+    &lt;m2m:METHOD NAME=&quot;READ&quot;&gt;
+    &lt;m2m:KEYS&gt;
+      &lt;m2m:KEY NAME=&quot;ctrl_id&quot; OPERATOR=&quot;IN&quot;&gt;${ctrl_id_array}&lt;/m2m:KEY&gt;
+      &lt;m2m:KEY NAME=&quot;wf_proc_data_id&quot; OPERATOR=&quot;GREATER_THAN&quot;&gt;${data_id_low_limit_hour}&lt;/m2m:KEY&gt;
+      &lt;m2m:KEY NAME=&quot;wf_proc_data_id&quot; OPERATOR=&quot;LESS_THAN_EQUAL&quot;&gt;${__javaScript(${data_id_low_limit_hour}+20000)}&lt;/m2m:KEY&gt;
+      &lt;m2m:KEY NAME=&quot;msr_time&quot; OPERATOR=&quot;EQUAL&quot;&gt;${msr_time_60}&lt;/m2m:KEY&gt;
+    &lt;/m2m:KEYS&gt;
+    &lt;m2m:ORDERS&gt;
+      &lt;m2m:ORDER NAME=&quot;ctrl_id&quot; ORDERBY=&quot;ASC&quot; /&gt;
+      &lt;m2m:ORDER NAME=&quot;msr_time&quot; ORDERBY=&quot;ASC&quot; /&gt;
+    &lt;/m2m:ORDERS&gt;
+    &lt;m2m:RESULTS OFFSET=&quot;0&quot;&gt;
+        &lt;m2m:RESULT NAME=&quot;wf_proc_data_id&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;wf_definition_id&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;registered_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;wf_proc_updated_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;wf_proc_status&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;deleted_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;start_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;end_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;place_id&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;ctrl_id&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;msr_time&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;bat_chg_engy&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;bat_dischg_engy&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;pv_engy&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;load_engy&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;rect_engy_in&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;rect_engy_out&quot; /&gt;
+        &lt;m2m:RESULT NAME=&quot;add_count&quot; /&gt;
+    &lt;/m2m:RESULTS&gt;
+    &lt;/m2m:METHOD&gt;
+  &lt;/m2m:OBJECT&gt;
+ &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;</stringProp>
+            <stringProp name="SoapSampler.xml_data_file"></stringProp>
+            <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+            <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+          </SoapSampler>
+          <hashTree>
+            <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正規表現抽出" enabled="false">
+              <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+              <stringProp name="RegexExtractor.refname">data_id_max</stringProp>
+              <stringProp name="RegexExtractor.regex">wf_proc_data_id&quot;&gt;(.*)&lt;/RESULT&gt;&lt;RESULT NAME=&quot;wf_definition_id&quot;&gt;</stringProp>
+              <stringProp name="RegexExtractor.template">$1$</stringProp>
+              <stringProp name="RegexExtractor.default"></stringProp>
+              <stringProp name="RegexExtractor.match_number">-1</stringProp>
+            </RegexExtractor>
+            <hashTree/>
+            <XPathExtractor guiclass="XPathExtractorGui" testclass="XPathExtractor" testname="XPath Extractor" enabled="true">
+              <stringProp name="TestPlan.comments">//OBJECT//RESULTS[last()]//RESULT[@NAME = &quot;wf_proc_data_id&quot;]</stringProp>
+              <stringProp name="XPathExtractor.default"></stringProp>
+              <stringProp name="XPathExtractor.refname">60_data_id_max</stringProp>
+              <stringProp name="XPathExtractor.xpathQuery">//OBJECT//RESULTS[last()]//RESULT[@NAME = &quot;wf_proc_data_id&quot;]</stringProp>
+              <boolProp name="XPathExtractor.validate">false</boolProp>
+              <boolProp name="XPathExtractor.tolerant">false</boolProp>
+              <boolProp name="XPathExtractor.namespace">false</boolProp>
+              <boolProp name="XPathExtractor.whitespace">true</boolProp>
+            </XPathExtractor>
+            <hashTree/>
+          </hashTree>
+          <BSFPostProcessor guiclass="TestBeanGUI" testclass="BSFPostProcessor" testname="BSF PostProcessor" enabled="true">
+            <stringProp name="scriptLanguage">beanshell</stringProp>
+            <stringProp name="parameters"></stringProp>
+            <stringProp name="filename"></stringProp>
+            <stringProp name="script">fileName2 = &quot;/var/m2m_install/an/tool/apache-jmeter-2.11/gen2_apl/2_ap_sekisan/60_wf_proc_data_id.txt&quot;;
+
+// ここから書き込み
+// 3なのはperlで5文字入れているため
+if(vars.get(&quot;is_update_time_60&quot;) !=null @and vars.get(&quot;is_update_time_60&quot;).length() &gt; 3){
+    if(vars.get(&quot;60_data_id_max&quot;)!=null @and vars.get(&quot;60_data_id_max&quot;).length() &gt; 0) {
+    f2 = new FileOutputStream(fileName2);
+    p2 = new PrintStream(f2); 
+    this.interpreter.setOut(p2); 
+
+    print(vars.get(&quot;60_data_id_max&quot;));
+
+    p2.close();
+    f2.close();
+    }
+}</stringProp>
+          </BSFPostProcessor>
+          <hashTree/>
+        </hashTree>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="true">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+      </hashTree>
+      <BSFPostProcessor guiclass="TestBeanGUI" testclass="BSFPostProcessor" testname="BSF PostProcessor" enabled="true">
+        <stringProp name="scriptLanguage">beanshell</stringProp>
+        <stringProp name="parameters"></stringProp>
+        <stringProp name="filename"></stringProp>
+        <stringProp name="script">fileName = &quot;/var/m2m_install/an/tool/apache-jmeter-2.11/gen2_apl/2_ap_sekisan/15_wf_proc_data_id.txt&quot;;
+
+// ここから書き込み
+if(vars.get(&quot;15_data_id_max&quot;)!=null @and vars.get(&quot;15_data_id_max&quot;).length() &gt; 0) {
+    f = new FileOutputStream(fileName);
+    p = new PrintStream(f); 
+    this.interpreter.setOut(p);
+
+    print(vars.get(&quot;15_data_id_max&quot;));
+    p.close();
+    f.close();
+}
+
+fileName2 = &quot;/var/m2m_install/an/tool/apache-jmeter-2.11/gen2_apl/2_ap_sekisan/60_wf_proc_data_id.txt&quot;;
+
+// ここから書き込み
+// 3なのはperlで5文字入れているため
+if(vars.get(&quot;is_update_time_60&quot;) !=null @and vars.get(&quot;is_update_time_60&quot;).length() &gt; 3){
+    log.info(&quot;60分テーブル 前回データ更新処理&quot;);
+    
+    if(vars.get(&quot;60_data_id_max&quot;)!=null @and vars.get(&quot;60_data_id_max&quot;).length() &gt; 0) {
+    f2 = new FileOutputStream(fileName2);
+    p2 = new PrintStream(f2); 
+    this.interpreter.setOut(p2); 
+
+    print(vars.get(&quot;60_data_id_max&quot;));
+
+    p2.close();
+    f2.close();
+    }
+}</stringProp>
+      </BSFPostProcessor>
+      <hashTree/>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="結果をツリーで表示" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="統計レポート" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>

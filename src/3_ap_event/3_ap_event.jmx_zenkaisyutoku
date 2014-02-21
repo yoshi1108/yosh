@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="2.6" jmeter="2.11 r1554548">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="イベントAPL" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="ユーザー定義変数" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="ユーザー定義変数" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="wf_proc_data_id_init" elementType="Argument">
+            <stringProp name="Argument.name">wf_proc_data_id_init</stringProp>
+            <stringProp name="Argument.value">${__P(pre_wf_proc)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+            <stringProp name="Argument.desc">wf_proc_data_id初期値</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
+      <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP ヘッダマネージャ" enabled="true">
+        <collectionProp name="HeaderManager.headers">
+          <elementProp name="" elementType="Header">
+            <stringProp name="Header.name">content-type</stringProp>
+            <stringProp name="Header.value">text/xml;charset=UTF-8</stringProp>
+          </elementProp>
+        </collectionProp>
+      </HeaderManager>
+      <hashTree/>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="イベント情報コピーパッチのCONEXIVEアクセス" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="ループコントローラ" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time"></stringProp>
+        <longProp name="ThreadGroup.start_time">1390443111000</longProp>
+        <longProp name="ThreadGroup.end_time">1390443111000</longProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="最大加工データIDを取得" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="TestPlan.comments">指定したデータIDより大きなデータを検索し、最大値の1件を取り出す。アクセス回数：1回</stringProp>
+          <stringProp name="SoapSampler.URL_DATA">http://172.19.162.154:8080/m2m-wfc/generic-interface/BIZtefH9jINHY3pdo0Q/gen2-workflow</stringProp>
+          <stringProp name="HTTPSamper.xml_data">&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+   &lt;SOAP-ENV:Body xmlns:m2m=&quot;http://platform.m2m.nec.com/generics/schema&quot;&gt;
+      &lt;m2m:OBJECT TARGET=&quot;gen2_event_history&quot; TYPE=&quot;TABLE&quot;&gt;
+         &lt;m2m:METHOD NAME=&quot;READ&quot;&gt;
+         &lt;m2m:KEYS&gt;
+            &lt;m2m:KEY NAME=&quot;wf_proc_data_id&quot; OPERATOR=&quot;GREATER_THAN_EQUAL&quot;&gt;${wf_proc_data_id_init}&lt;/m2m:KEY&gt;
+            &lt;m2m:KEY NAME=&quot;wf_proc_data_id&quot; OPERATOR=&quot;LESS_THAN_EQUAL&quot;&gt;${__javaScript(${wf_proc_data_id_init}+10000)}&lt;/m2m:KEY&gt;
+         &lt;/m2m:KEYS&gt;
+        &lt;m2m:ORDERS&gt;
+          &lt;m2m:ORDER NAME=&quot;wf_proc_data_id&quot; ORDERBY=&quot;DESC&quot; /&gt;
+        &lt;/m2m:ORDERS&gt;
+          &lt;m2m:RESULTS MAX-RESULTS=&quot;1&quot;&gt;
+              &lt;m2m:RESULT NAME=&quot;wf_proc_data_id&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;place_id&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;ctrl_id&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;device_id&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;registered_time&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;alt_time&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;alt_type&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;alt_code&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;alt_detail&quot; /&gt;
+            &lt;/m2m:RESULTS&gt;
+         &lt;/m2m:METHOD&gt;
+      &lt;/m2m:OBJECT&gt;
+   &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;</stringProp>
+          <stringProp name="SoapSampler.xml_data_file"></stringProp>
+          <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+          <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+          <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+        </SoapSampler>
+        <hashTree>
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="正規表現抽出" enabled="true">
+            <stringProp name="RegexExtractor.useHeaders">false</stringProp>
+            <stringProp name="RegexExtractor.refname">wf_proc_data_id_max</stringProp>
+            <stringProp name="RegexExtractor.regex">wf_proc_data_id&quot;&gt;(.*)&lt;/RESULT&gt;&lt;RESULT NAME=&quot;place_id&quot;</stringProp>
+            <stringProp name="RegexExtractor.template">$1$</stringProp>
+            <stringProp name="RegexExtractor.default">0</stringProp>
+            <stringProp name="RegexExtractor.match_number">1</stringProp>
+            <stringProp name="Scope.variable"></stringProp>
+          </RegexExtractor>
+          <hashTree/>
+        </hashTree>
+        <IfController guiclass="IfControllerPanel" testclass="IfController" testname="If コントローラ" enabled="true">
+          <stringProp name="IfController.condition">!(&quot;${wf_proc_data_id_max}&quot;.equals(&quot;0&quot;)) </stringProp>
+          <boolProp name="IfController.evaluateAll">false</boolProp>
+        </IfController>
+        <hashTree>
+          <SoapSampler guiclass="SoapSamplerGui" testclass="SoapSampler" testname="最大加工データIDをベースして500データ取り出す" enabled="true">
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="TestPlan.comments">イベント情報テーブルのwf_proc_idが前回取得の最大値からのデータを取得。(アクセス回数=1回)</stringProp>
+            <stringProp name="SoapSampler.URL_DATA">http://172.19.162.154:8080/m2m-wfc/generic-interface/BIZtefH9jINHY3pdo0Q/gen2-workflow</stringProp>
+            <stringProp name="HTTPSamper.xml_data">&lt;SOAP-ENV:Envelope xmlns:SOAP-ENV=&quot;http://schemas.xmlsoap.org/soap/envelope/&quot;&gt;
+   &lt;SOAP-ENV:Body xmlns:m2m=&quot;http://platform.m2m.nec.com/generics/schema&quot;&gt;
+      &lt;m2m:OBJECT TARGET=&quot;gen2_event_history&quot; TYPE=&quot;TABLE&quot;&gt;
+         &lt;m2m:METHOD NAME=&quot;READ&quot;&gt;
+             &lt;m2m:KEYS&gt;
+                     &lt;m2m:KEY NAME=&quot;wf_proc_data_id&quot; OPERATOR=&quot;GREATER_THAN&quot;&gt;${wf_proc_data_id_init}&lt;/m2m:KEY&gt;
+                     &lt;m2m:KEY NAME=&quot;wf_proc_data_id&quot; OPERATOR=&quot;LESS_THAN_EQUAL&quot;&gt;${wf_proc_data_id_max}&lt;/m2m:KEY&gt;
+             &lt;/m2m:KEYS&gt;
+        &lt;m2m:ORDERS&gt;
+          &lt;m2m:ORDER NAME=&quot;wf_proc_data_id&quot; ORDERBY=&quot;ASC&quot; /&gt;
+        &lt;/m2m:ORDERS&gt;
+          &lt;m2m:RESULTS MAX-RESULTS=&quot;500&quot;&gt;
+              &lt;m2m:RESULT NAME=&quot;wf_proc_data_id&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;place_id&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;ctrl_id&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;device_id&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;registered_time&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;alt_time&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;alt_type&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;alt_code&quot; /&gt;
+              &lt;m2m:RESULT NAME=&quot;alt_detail&quot; /&gt;
+            &lt;/m2m:RESULTS&gt;
+         &lt;/m2m:METHOD&gt;
+      &lt;/m2m:OBJECT&gt;
+   &lt;/SOAP-ENV:Body&gt;
+&lt;/SOAP-ENV:Envelope&gt;</stringProp>
+            <stringProp name="SoapSampler.xml_data_file"></stringProp>
+            <stringProp name="SoapSampler.SOAP_ACTION"></stringProp>
+            <stringProp name="SoapSampler.SEND_SOAP_ACTION">true</stringProp>
+            <boolProp name="HTTPSampler.use_keepalive">false</boolProp>
+          </SoapSampler>
+          <hashTree/>
+        </hashTree>
+        <BSFPostProcessor guiclass="TestBeanGUI" testclass="BSFPostProcessor" testname="BSF PostProcessor" enabled="true">
+          <stringProp name="filename"></stringProp>
+          <stringProp name="parameters"></stringProp>
+          <stringProp name="script">fileName = &quot;/var/m2m_install/an/tool/apache-jmeter-2.11/gen2_apl/3_ap_event/wf_proc_data_id.txt&quot;;
+
+// ここから書き込み
+// 正規表現抽出の初期値が&quot;&quot;のため、lengthは3以上で評価する
+if(vars.get(&quot;wf_proc_data_id_max&quot;)!=null @and vars.get(&quot;wf_proc_data_id_max&quot;).length() &gt; 3) {
+    f = new FileOutputStream(fileName);
+    p = new PrintStream(f); 
+    this.interpreter.setOut(p); 
+    print(vars.get(&quot;wf_proc_data_id_max&quot;));
+    p.close();
+    f.close();
+}</stringProp>
+          <stringProp name="scriptLanguage">beanshell</stringProp>
+        </BSFPostProcessor>
+        <hashTree/>
+        <DebugSampler guiclass="TestBeanGUI" testclass="DebugSampler" testname="Debug Sampler" enabled="false">
+          <boolProp name="displayJMeterProperties">false</boolProp>
+          <boolProp name="displayJMeterVariables">true</boolProp>
+          <boolProp name="displaySystemProperties">false</boolProp>
+        </DebugSampler>
+        <hashTree/>
+      </hashTree>
+      <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="結果をツリーで表示" enabled="false">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+      <ResultCollector guiclass="StatVisualizer" testclass="ResultCollector" testname="統計レポート" enabled="true">
+        <boolProp name="ResultCollector.error_logging">false</boolProp>
+        <objProp>
+          <name>saveConfig</name>
+          <value class="SampleSaveConfiguration">
+            <time>true</time>
+            <latency>true</latency>
+            <timestamp>true</timestamp>
+            <success>true</success>
+            <label>true</label>
+            <code>true</code>
+            <message>true</message>
+            <threadName>true</threadName>
+            <dataType>true</dataType>
+            <encoding>false</encoding>
+            <assertions>true</assertions>
+            <subresults>true</subresults>
+            <responseData>false</responseData>
+            <samplerData>false</samplerData>
+            <xml>false</xml>
+            <fieldNames>false</fieldNames>
+            <responseHeaders>false</responseHeaders>
+            <requestHeaders>false</requestHeaders>
+            <responseDataOnError>false</responseDataOnError>
+            <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
+            <assertionsResultsToSave>0</assertionsResultsToSave>
+            <bytes>true</bytes>
+          </value>
+        </objProp>
+        <stringProp name="filename"></stringProp>
+      </ResultCollector>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
