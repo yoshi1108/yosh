@@ -15,10 +15,10 @@ use Time::Local;
 my $targetDir = "/opt/jboss/jboss/jboss-as/server/default/logs";
 
 ### ACCESSログファイル名
-my $targetName = "M2MPF_ACCESS.log";
+my $targetName = "ACCESS.log";
 
 ### outputファイル出力場所
-my $outPutDir  = "/var/m2m_install/an/tool/accessLogFilter/result";
+my $outPutDir  = "/var/result";
 ###  outputファイル名 [access_yyyymmddss(プログラム実行時間).csv]
 my ($sec,$min,$hour,$mday,$mon,$year) = (localtime(time))[0..5];
 my $outPutFile = sprintf( "access_%04d%02d%02d_%02d%02d%02d.csv", $year + 1900, $mon + 1, $mday, $hour, $min , $sec);
