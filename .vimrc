@@ -87,14 +87,16 @@ map ,pt ! perl c:\Perl\bin\perltidy.pl -st<CR>
 " ■ neobundle
 set nocompatible
 if has('vim_starting')
-	set runtimepath+=C:/tools/vim74-kaoriya-win32/plugins/neobundle.vim-master/plugin/neobundle.vim
+	set runtimepath+=~/vim74-kaoriya-win32/plugins/neobundle.vim-master/plugin/neobundle.vim
 endif
-call neobundle#rc(expand('C:/tools/vim74-kaoriya-win32/bundles/'))
+call neobundle#rc(expand('~/vim74-kaoriya-win32/bundles/'))
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-vcs'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'mattn/webapi-vim'
