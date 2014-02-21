@@ -96,7 +96,6 @@ NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
-NeoBundle 'thinca/vim-vcs'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'mattn/webapi-vim'
@@ -106,6 +105,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-scripts/L9'
 "NeoBundle 'vim-scripts/AutoComplPop'
 NeoBundle 'vim-jp/vital.vim'
+NeoBundle 'kmnk/vim-unite-svn'
 filetype plugin indent on
 
 " ■quickRun
