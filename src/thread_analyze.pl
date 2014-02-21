@@ -15,7 +15,7 @@ no warnings qw(once);    # 一回しか利用してない変数への警告(設�
 sub one_file_proc {
     my %kind_map = ();    # 分類毎のカウンタ
     my ( $file ) = @_;
-    my $mode="false";     # false/DPX/DGW/WFC の３モード
+    my $mode="false";     # false/READ/PRO/ADD の３モード
     my $state;            # スレッド状態
     my $detail="other" ;  # 分類 (socketRead, jdbcとか)
     my $flag="false";     # 1ブロック解析中フラグ
@@ -42,8 +42,8 @@ sub one_file_proc {
             next;
         }
 
-        if ( $line =~ /^"http-/ ) { # DPX
-             $mode="DPX";
+        if ( $line =~ /^"http-/ ) { # READ
+             $mode="READ";
              $flag="true";
              if ( $line =~ / runnable / ) {
                 $state = "run"; 
@@ -52,24 +52,8 @@ sub one_file_proc {
                 $state = "wait"; 
              }
              next;
-        } elsif ( $line =~ /^"pool-22/ ) {   # DGW
-             $mode="DGW";
-             $flag="true";
-             if ( $line =~ / runnable / ) {
-                $state = "run"; 
-             }
-             if ( $line =~ / Object.wait/ ) {
-                $state = "wait"; 
-             }
-             if ( $line =~ /waiting on condition/ ) {
-                $state = "wait"; 
-                $detail = "other";
-                $flag = "false";
-                next;
-             }
-             next;
-        } elsif ( $line =~ /^"RMI TCP Connection/ ) {   # WFC
-             $mode="WFC";
+        } elsif ( $line =~ /^"pool-22/ ) {   # PRO
+             $mode="PRO";
              $flag="true";
              if ( $line =~ / runnable / ) {
                 $state = "run"; 
@@ -84,12 +68,28 @@ sub one_file_proc {
                 next;
              }
              next;
-        } elsif ( $line =~ /^"/ ) {   # DPX/DGW/WFC以外
+        } elsif ( $line =~ /^"RMI TCP Connection/ ) {   # ADD
+             $mode="ADD";
+             $flag="true";
+             if ( $line =~ / runnable / ) {
+                $state = "run"; 
+             }
+             if ( $line =~ / Object.wait/ ) {
+                $state = "wait"; 
+             }
+             if ( $line =~ /waiting on condition/ ) {
+                $state = "wait"; 
+                $detail = "other";
+                $flag = "false";
+                next;
+             }
+             next;
+        } elsif ( $line =~ /^"/ ) {   # READ/PRO/ADD以外
             $mode = "false";
             next;
         }
 
-        # DPX/DGW/WFCのいずれでもない、もしくは、１ブロック解析済なら次の行へ
+        # READ/PRO/ADDのいずれでもない、もしくは、１ブロック解析済なら次の行へ
         if ( $mode eq "false" || $flag eq "false") { next; }
         
         if ( $line =~ /java.lang.Thread.State: BLOCKED/ ) {
@@ -103,12 +103,6 @@ sub one_file_proc {
             #$flag = "false"; # socketReadの場合、後でJDBCの場合もあるから解析フラグはfalseにしないでおく...
         } elsif ( $line =~ /socketAccept/ ) {
             $detail = "socketAccept";
-            $flag = "false";
-        } elsif ( $line =~ /before..*.convertBefore/ ) {
-            $detail = "beforeConverter";
-            $flag = "false";
-        } elsif ( $line =~ /DbQueueReceiver.receiveMessage/ ) {
-            $detail = "DbQueueReceiver";
             $flag = "false";
         } elsif ( $line =~ /[Jj]dbc/ ) {
             $detail = "JDBC";
@@ -164,15 +158,15 @@ foreach my $result ( @result_list ) {
 }
 
 # 固定ヘッダ追加
-$key_map{"DPX-block-other"} = "";
-$key_map{"DPX-run-other"} = "";
-$key_map{"DPX-wait-other"} = "";
-$key_map{"DGW-block-other"} = "";
-$key_map{"DGW-run-other"} = "";
-$key_map{"DGW-wait-other"} = "";
-$key_map{"WFC-block-other"} = "";
-$key_map{"WFC-run-other"} = "";
-$key_map{"WFC-wait-other"} = "";
+$key_map{"READ-block-other"} = "";
+$key_map{"READ-run-other"} = "";
+$key_map{"READ-wait-other"} = "";
+$key_map{"PRO-block-other"} = "";
+$key_map{"PRO-run-other"} = "";
+$key_map{"PRO-wait-other"} = "";
+$key_map{"ADD-block-other"} = "";
+$key_map{"ADD-run-other"} = "";
+$key_map{"ADD-wait-other"} = "";
 
 # 特殊ソートするために、一旦キー冒頭に番号を振る
 my @head_tmp_list=();            # ヘッダの特殊ソート用一時リスト
@@ -181,11 +175,11 @@ for my $key (keys %key_map) {
         $key = "01-$key";
     } elsif ( $key eq "file" ) {
         $key = "02-$key";
-    } elsif ( $key =~ "^DPX-" ) {
+    } elsif ( $key =~ "^READ-" ) {
         $key = "03-$key";
-    } elsif ( $key =~ "^DGW-" ) {
+    } elsif ( $key =~ "^PRO-" ) {
         $key = "04-$key";
-    } elsif ( $key =~ "^WFC-" ) {
+    } elsif ( $key =~ "^ADD-" ) {
         $key = "05-$key";
     } elsif ( $key =~ "^thread-all-cnt" ) {
         $key = "99-$key";
