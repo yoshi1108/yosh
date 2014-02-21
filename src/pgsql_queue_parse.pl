@@ -17,8 +17,7 @@ $BIN_PATH =~ s/\/[^\/]*$//g;
 Internals::SvREADONLY( $BIN_PATH, 1 );
 Internals::SvREADONLY( $BIN_NAME, 1 );
 
-my $QUEUE_STR="device_proxy_queue_normal"; # キューの文字列
-#my $QUEUE_STR="device_control_queue_normal"; # キューの文字列
+my $QUEUE_STR="queue"; # キューの文字列
 
 my ($PGSQL_DIR) = @ARGV;         # 引数 例 2014/01/02 10:00:00 2014/01/02 12:00:00
 if (!$PGSQL_DIR){
