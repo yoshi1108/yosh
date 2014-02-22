@@ -125,6 +125,7 @@ NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'vim-scripts/Trinity'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'kmnk/vim-unite-svn'
+NeoBundle 'rking/ag.vim'
 filetype plugin indent on
 
 " ■quickRun
