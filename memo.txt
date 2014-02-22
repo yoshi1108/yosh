@@ -1,7 +1,6 @@
 Gdiff: C:\MinGW\msys\1.0\bin\diff.exeのdiffにしてみる。
 
-Source Explorerというプラグイン
-
+SrcExpl環境でJavaを試す(groovyはとりまだめ。。。)
 
 amazonに入れたkaoriya vim、gitを落とす環境
 gitを固めて環境つくる方法を作る
