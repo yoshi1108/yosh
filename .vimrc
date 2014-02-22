@@ -60,6 +60,18 @@ nnoremap <silent> [git]s :Gstatus<CR>
 " ■ タブ操作
 map <C-TAB> :tabnext<CR>
 
+" ■SrcExpl
+"自動でプレビューを表示する。
+let g:SrcExpl_RefreshTime   = 1
+"プレビューウインドウの高さ
+let g:SrcExpl_WinHeight     = 9
+"tagsは自動で作成する
+let g:SrcExpl_UpdateTags    = 1
+"マッピング
+let g:SrcExpl_RefreshMapKey = "<Space>"
+let g:SrcExpl_GoBackMapKey  = "<C-b>"
+nmap <F8> ::TrinityToggleAll<CR>
+
 " ■ 画面でかくする
 if has('win32') 
     nmap <Leader>s :SM 4<CR>
@@ -80,6 +92,9 @@ if has('unix')
 elseif has('win32')
     inoremap <C-Space> <C-n>
 endif
+    
+nnoremap <Space>. :edit $MYVIMRC<CR>
+nnoremap <Space>s. :source $MYVIMRC<CR>
 
 " ■ perltidy
 map ,pt ! perl c:\Perl\bin\perltidy.pl -st<CR>
@@ -104,6 +119,10 @@ NeoBundle 'groovy.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-scripts/L9'
 "NeoBundle 'vim-scripts/AutoComplPop'
+"NeoBundle 'vim-scripts/ctags.vim' " uniteとぶつかる気がする
+NeoBundle 'vim-scripts/SrcExpl'
+NeoBundle 'vim-scripts/taglist.vim'
+NeoBundle 'vim-scripts/Trinity'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'kmnk/vim-unite-svn'
 filetype plugin indent on
