@@ -163,7 +163,7 @@ inoremap <RightMouse> <C-r><C-o>
 if has('unix') 
     let s:memofile = "~/memo.txt"
 elseif has('win32')
-    let s:memofile = $HOMEPATH . "/memo.txt"
+    let s:memofile = $HOME . "/memo.txt"
 endif
 
 let s:memo_list = []
