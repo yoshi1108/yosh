@@ -1,0 +1,170 @@
+
+<!-- saved from url=(0029)http://nagopachi.web.fc2.com/ -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
+
+<meta name="Keywords" content="JRA,IPAT,投票,オッズ,プログラム,プログラミング,自動投票">
+<meta name="Author" content="Chigaya">
+<meta name="robots" content="index,nofollow">
+<title>プログラマーの為のＩＰＡＴ研究会</title>
+</head>
+
+<body bgcolor="#669933" text="#FFFFFF" link="#CC99CC" vlink="#CCCCCC" alink="#FFFF00"><div id="fc2_ad_box" style="text-align: center; width: 100%; font-size: 14px; position: relative; z-index: 9998;"><div id="fc2_ad_container" style="border: 1px solid gray; text-align: left; margin: 0px auto; width: 320px; background-color: white; color: black;"><div title="close ads" style="text-align: right; margin: 4px; position: relative; z-index: 9999;"><img src="./プログラマーの為のＩＰＡＴ研究会_files/close.gif"></div><div id="adContainer" style="margin: 1em; text-align: left; text-indent: 0px; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal; font-family: sans-serif;"><div id="ad_script_box">
+<!--/* adfunnel.microad.jp iFrame Tag v */-->
+<iframe id="a178f599" name="a178f599" src="./プログラマーの為のＩＰＡＴ研究会_files/afr(1).htm" frameborder="0" scrolling="no" width="300" height="250">&lt;a href='http://adf.send.microad.jp/ck.php?n=a56f9ff7&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'&gt;&lt;img src='http://adf.send.microad.jp/avw.php?zoneid=6766&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;amp;n=a56f9ff7&amp;amp;ct0=INSERT_CLICKURL_HERE&amp;amp;snr=1' border='0' alt='' /&gt;&lt;/a&gt;</iframe>
+
+<!-- FC2管理用 -->
+<img src="./プログラマーの為のＩＰＡＴ研究会_files/counter_img.php" width="1" height="1">
+<!-- FC2管理用 -->
+</div></div><div style="margin: 0px 0px 1em 2em; font-style: normal; font-variant: normal; font-weight: normal; font-size: 10px; line-height: normal; font-family: sans-serif;"><span style="font-size: 10px;">この広告は6ヶ月以上更新のないサイト・作成以降未更新のサイトに表示されます。<br>ファイルマネージャまたはFTPでファイルが更新されると<br>この広告は表示されなくなります。</span></div></div></div>
+<div align="center">
+<p><b><font size="+2" font-weight="700">ようこそ、ＩＰＡＴ研究会へ！！</font></b><br>
+SINCE 2012/09</p>
+
+<div align="center">
+<nobr>
+<p>このＨＰは、ＪＲＡのオッズを元に、ＩＰＡＴの自動投票で一発当てようと企てる皆さんと、<br>プログラミングを通して意見を交換できればと思い立ち上げました。<br>
+私は、富士通のＦ－ＢＡＳＩＣで開発していきますが、<br>他の言語でも意見交換できる形で進めて行きたいと思います。</p>
+
+<p>当ＨＰにおける、全てのコンテンツについては、いかなる場合でも免責とさせていただきます。<br>
+馬券の購入も含め、全て、<big>自己責任</big>でお願いします。
+</p>
+
+<br>
+
+<table border="1">
+<caption>IPAT 投票メニューまでの手順</caption>
+<tbody><tr><td>手順</td><td>URL</td><td>parameter</td><td>入手できるパラメーター</td></tr>
+<tr><td>①</td><td>www.ipat.jra.go.jp/</td><td>ナシ</td><td>uh<br>g ･･･『010』</td></tr>
+
+<tr><td>②</td><td>/pw_080_i.cgi</td><td>
+inetid ･･･ ＩＮＥＴ－ＩＤ<br>
+uh ･･･ ①で入手したもの<br>
+g ･･･ ①で入手したもの</td><td>g ･･･『080』</td></tr>
+
+<tr><td>③</td><td>/pw_020_i.cgi</td><td>
+r ･･･ Ｐ－ＡＲＳ番号<br>
+uh ･･･ ①で入手したもの<br>
+inetid ･･･ ＩＮＥＴ－ＩＤ<br>
+g ･･･ ②で入手したもの<br>
+u ･･･ i + p + r<br>
+i ･･･ 加入者番号<br>
+p ･･･ パスワード<br>
+</td><td>uh<br>u<br>nm<br>zj<br>nbf<br>mpnf<br>nbc<br>g ･･･『020』</td></tr>
+</tbody></table>
+
+
+<br>
+作成したプログラム<br>
+<a href="http://nagopachi.web.fc2.com/IPAT_Login.exe">本体</a><br>
+<a href="http://nagopachi.web.fc2.com/IPAT_Login.ini">設定ファイル</a><br>
+
+<br>
+<br>
+<table border="1">
+<caption>IPAT 投票までの手順</caption>
+<tbody><tr><td>手順</td><td>URL</td><td>parameter</td><td>入手できるパラメーター</td></tr>
+
+<tr><td>④</td><td>/pw_050_i.cgi</td><td>
+uh ･･･ ③で入手したもの<br>
+inetid ･･･ ＩＮＥＴ－ＩＤ<br>
+g ･･･ ③で入手したもの<br>
+u ･･･ ③で入手したもの<br>
+nm ･･･ ③で入手したもの<br>
+zj ･･･ ③で入手したもの<br>
+</td><td>01～05<br>uh<br>u<br>nm<br>zj<br>g ･･･『050』</td></tr>
+
+<tr><td>⑤</td><td>/pw_060_i.cgi</td><td>
+01 ～ 50 ･･･投票内容 ナシは 『0』<br>
+uh ･･･ ④で入手したもの<br>
+inetid ･･･ ＩＮＥＴ－ＩＤ<br>
+g ･･･ ④で入手したもの<br>
+u ･･･ ④で入手したもの<br>
+nm ･･･ ④で入手したもの<br>
+zj ･･･ ③④で入手したもの<br>
+</td><td>uh<br>t<br>nm<br>zj<br>g ･･･『060』</td></tr>
+
+<tr><td>⑥</td><td>/pw_070_i.cgi</td><td>
+01 ～ 50 ･･･投票コード<br>
+uh ･･･ ⑤で入手したもの<br>
+inetid ･･･ ＩＮＥＴ－ＩＤ<br>
+g ･･･ ⑤で入手したもの<br>
+t ･･･⑤で入手したもの<br>
+u ･･･ i + p + r<br>
+nm ･･･ ⑤で入手したもの<br>
+zj ･･･ ③④⑤で入手したもの<br>
+i ･･･ 加入者番号<br>
+p ･･･ パスワード<br>
+r ･･･ Ｐ－ＡＲＳ番号<br>
+s ･･･金額 1000円→1000<br>
+l ･･･金額 1000円→1000
+</td><td>g ･･･『070』</td></tr>
+</tbody></table>
+
+
+
+
+<p>
+<font size="4">
+<a href="http://nagopachi.bbs.fc2.com/">掲示板</a><br>
+</font>
+</p>
+
+<a href="mailto:">メール</a><br>
+
+<br>
+<br>
+
+<p>掲示板等については節度をわきまえて（常識的に）使って下さい。<br>
+作者の器量の範囲を超えた場合、ＨＰを閉鎖しますので、ご了承下さい。</p>
+</nobr>
+
+</div>
+
+<script type="text/javascript"><!--
+var fhp_c_pc = navigator.userAgent.toLowerCase();
+var fhp_ie = ((fhp_c_pc.indexOf("msie") != -1) && (fhp_c_pc.indexOf("opera") == -1));
+var fhp_cs, fhp_wt, fhp_dm;
+var fhp_rnd = Math.floor(Math.random()*99999999999);
+if (fhp_ie) {
+        fhp_cs = document.charset;
+}else{
+        fhp_cs = document.characterSet;
+}
+fhp_dm = document.location;
+fhp_wt = '<' + 'script src="http://web.fc2.com/footer/footer.php?cs=' + fhp_cs + '&dm=' + fhp_dm + '&rnd=' + fhp_rnd + '" charset="UTF-8"><' + '/script>';
+document.write(fhp_wt);
+//--></script><script src="./プログラマーの為のＩＰＡＴ研究会_files/footer.php" charset="UTF-8"></script><div id="fc2_footer" style="text-align: center; width: 100%; line-height: 14px;"><span style="font-size:12px;"><br>Powered by <a target="_blank" href="http://fc2.com/">FC2.com</a></span></div>
+<script>
+(function(){ if(!document.getElementById("fc2_footer")){return;};var ff=document.getElementById("fc2_footer");ff.style.textAlign="center";ff.style.width="100%";ff.style.lineHeight="14px"; })();
+</script>
+<!-- new ad test -->
+<script type="text/javascript"><!--
+ad_config={
+fc2_attention: "この広告は6ヶ月以上更新のないサイト・作成以降未更新のサイトに表示されます。<br />ファイルマネージャまたはFTPでファイルが更新されると<br />この広告は表示されなくなります。",
+box_width: 320
+}
+//--></script>
+
+<script type="text/javascript" src="./プログラマーの為のＩＰＡＴ研究会_files/ad_insert.js"></script>
+<!-- passive:ad:171 -->
+<div id="fc2_bottom_bnr" style="position: fixed; z-index: 10000; left: 0px; bottom: 0px; width: 100%; display: block; background-color: rgba(0, 0, 0, 0.701961); top: auto; background-position: initial initial; background-repeat: initial initial;"><div id="fc2_bottom_bnr_img" style="display:block;width:728px;height:94px;margin:0px auto;padding:10px 0px 14px;">
+<!--/* adfunnel.microad.jp iFrame Tag v */-->
+<iframe id="ab42c6a2" name="ab42c6a2" src="./プログラマーの為のＩＰＡＴ研究会_files/afr.htm" frameborder="0" scrolling="no" width="728" height="90">&lt;a href='http://adf.send.microad.jp/ck.php?n=a6b44760&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE' target='_blank'&gt;&lt;img src='http://adf.send.microad.jp/avw.php?zoneid=13515&amp;amp;cb=INSERT_RANDOM_NUMBER_HERE&amp;amp;n=a6b44760&amp;amp;ct0=INSERT_CLICKURL_HERE&amp;amp;snr=1' border='0' alt='' /&gt;&lt;/a&gt;</iframe>
+
+<!-- FC2管理用 -->
+<img src="./プログラマーの為のＩＰＡＴ研究会_files/counter_img(1).php" width="1" height="1">
+<!-- FC2管理用 -->
+<div style="color:#C0C0C0;text-align:center;font-size:9px;margin:0px;padding:2px 0px 0px;">この広告は6ヶ月以上更新のないサイト・作成以降未更新のサイトに表示されます。ファイルマネージャまたはFTPでファイルが更新されるとこの広告は表示されなくなります。</div>
+</div>
+<span id="fc2_bottom_bnr_close" style="cursor:pointer;display:block;position:absolute;padding:5px;top:0;right:0;width:20px;height:20px;opacity:0.8;max-width:100%;max-height:100%;">
+<img src="./プログラマーの為のＩＰＡＴ研究会_files/fc2_bottom_bnr_close.png" width="20" height="20" style="border:none;width:20px;height:20px;max-width: 100%;">
+</span>
+<script type="text/javascript">(function(w, d) {var area = d.getElementById('fc2_bottom_bnr'),areaStyle = area.style;var getScrollMax = function() { return d.documentElement.getBoundingClientRect().height - w.innerHeight - 1; };var getScrollCurrent = function() { return d.documentElement.scrollTop || d.body.scrollTop; };var overlayPosition = function() {if (getScrollMax() > getScrollCurrent()) {areaStyle.bottom = 0;areaStyle.top = 'auto';} else {areaStyle.bottom = 'auto';areaStyle.top = 0;}};var closeBtn = d.getElementById('fc2_bottom_bnr_close'),close = function() { area.style.display = 'none'; };if (w.addEventListener) {w.addEventListener('resize', overlayPosition, false);w.addEventListener('scroll', overlayPosition, false);closeBtn.addEventListener('click', close, false);} else {w.attachEvent('onresize', overlayPosition);w.attachEvent('onscroll', overlayPosition);closeBtn.attachEvent('onclick', close);}})(window, document);</script>
+</div>
+
+<!-- FC2, inc.-->
+<img src="./プログラマーの為のＩＰＡＴ研究会_files/counter_img(2).php" style="visibility:hidden" alt="inserted by FC2 system" width="0" height="0">
+<!-- FC2, inc.-->
+
+
+</div></body></html>
