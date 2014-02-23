@@ -1,5 +1,3 @@
-スティックノリ
-
 Gdiff: C:\MinGW\msys\1.0\bin\diff.exeのdiffにしてみる。
 
 SrcExpl環境でJavaを試す(groovyはとりまだめ。。。)
