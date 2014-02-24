@@ -75,7 +75,7 @@ let g:SrcExpl_UpdateTags    = 1
 let g:SrcExpl_RefreshMapKey = "<Space>"
 let g:SrcExpl_GoBackMapKey  = "<C-b>"
 nmap <F8> ::TrinityToggleAll<CR>
-nmap <F7> :::TrinityToggleSourceExplorer<CR>
+nmap <F7> ::TrinityToggleSourceExplorer<CR>
 
 " ■ 画面でかくする
 if has('win32') 
