@@ -46,7 +46,6 @@ public class HogeMain {
         
         for (int iCnt=0; iCnt<100; iCnt++) {
             if (getParentMode) {
-                // 親を取得して、つなぎ直すモード（ただし、これは前回のWC動的更新が同一サービスの場合しか適用できない）
                 // Javaヒープ出力
                 System.gc(); // テストコードなので、毎回GC入れてます。
                 String memStr = CmnUtil.getMemoryInfo();
