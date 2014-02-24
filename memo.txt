@@ -5,6 +5,8 @@ SVN環境
 ○家のVAIOのgit環境固めてamazonに入れる
 ○フローラをLinuxにする
 
+hoge
+
 vim環境セット
 KLANを表示する
 FC2サイトにファイルをアップロードするプラグイン
