@@ -1,7 +1,7 @@
-amazonに入れたkaoriya vim、gitを落とす環境 gitを固めて環境つくる方法を作る
 SVN環境
 
 ○家のVAIOのgit環境固めてamazonに入れる
+  ・amazonに入れたkaoriya vim、gitを落とす環境 gitを固めて環境つくる方法を作る
 ○フローラをLinuxにする
 
 vim環境セット
