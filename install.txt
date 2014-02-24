@@ -1,34 +1,34 @@
-1. c:\‚ÉƒA[ƒJƒCƒu“WŠJ
+1. c:\ã«ã‚¢ãƒ¼ã‚«ã‚¤ãƒ–å±•é–‹
 Git.zip
 usr.zip
 
-2. PATH‚É’Ç‰Á
+2. PATHã«è¿½åŠ 
 C:\Git\cmd;C:\usr\bin;c:\oracle\home\bin;
 
 3.nyaos
-“K“–‚É“WŠJ
+é©å½“ã«å±•é–‹
 
-4.c:\oracle‚É“WŠJ
+4.c:\oracleã«å±•é–‹
 home.zip
 
-5. git İ’è
+5. git è¨­å®š
 cd c:\oracle\home
 git init
 git pull origin master
 
-5. tmpƒfƒBƒŒƒNƒgƒŠì¬
+5. tmpãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä½œæˆ
 mkdir c:\tmp
 
-6. vim‚ğc:\oracle‚É“WŠJ
+6. vimã‚’c:\oracleã«å±•é–‹
 
-7. ¡vimrc‚Ægvimrc‚É’Ç‰Á
+7. â– vimrcã¨gvimrcã«è¿½åŠ 
 let $HOME='/oracle/home'
 
-8. ¡neobundleƒvƒ‰ƒOƒCƒ“‚ğ’Ç‰Á
+8. â– neobundleãƒ—ãƒ©ã‚°ã‚¤ãƒ³ã‚’è¿½åŠ 
 neobundle.vim-master
-‚ğ
+ã‚’
 C:\oracle\vim74-kaoriya-win32\plugins
-‚É’Ç‰Á‚µ‚ÄvimÄ‹N“®
+ã«è¿½åŠ ã—ã¦vimå†èµ·å‹•
 
 9. neobundle install
 
