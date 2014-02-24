@@ -1,0 +1,35 @@
+1. c:\にアーカイブ展開
+Git.zip
+usr.zip
+
+2. PATHに追加
+C:\Git\cmd;C:\usr\bin;c:\oracle\home\bin;
+
+3.nyaos
+適当に展開
+
+4.c:\oracleに展開
+home.zip
+
+5. git 設定
+cd c:\oracle\home
+git init
+git pull origin master
+
+5. tmpディレクトリ作成
+mkdir c:\tmp
+
+6. vimをc:\oracleに展開
+
+7. ■vimrcとgvimrcに追加
+let $HOME='/oracle/home'
+
+8. ■neobundleプラグインを追加
+neobundle.vim-master
+を
+C:\oracle\vim74-kaoriya-win32\plugins
+に追加してvim再起動
+
+9. neobundle install
+
+:NeoBundleInstall
