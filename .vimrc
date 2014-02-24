@@ -10,7 +10,7 @@ let $TERM='msys'
 
 " ■perl-support
 let g:Perl_Perltidy  = 'on'
-let g:Perl_CodeSnippets  = $HOME . '/vim74-kaoriya-win32/bundles/perl-support.vim/perl-support/codesnippets/'
+let g:Perl_CodeSnippets  = $HOME . '/vim/bundles/perl-support.vim/perl-support/codesnippets/'
 
 " コマンド履歴の設定
 set viminfo='50,<2000,s100,:0,
@@ -130,9 +130,9 @@ endif
 " ■ neobundle
 set nocompatible
 if has('vim_starting')
-	set runtimepath+=~/vim74-kaoriya-win32/plugins/neobundle.vim-master/plugin/neobundle.vim
+	set runtimepath+=~/vim/plugins/neobundle.vim-master/plugin/neobundle.vim
 endif
-call neobundle#rc(expand('~/vim74-kaoriya-win32/bundles/'))
+call neobundle#rc(expand('~/vim/bundles/'))
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
