@@ -1,15 +1,13 @@
-▲Gdiff: C:\MinGW\msys\1.0\bin\diff.exeのdiffにしてみる。
 ▲Javaプロジェクトとかをgithubに入れる
-
 amazonに入れたkaoriya vim、gitを落とす環境 gitを固めて環境つくる方法を作る
-○フローラをLinuxにする
 SVN環境
 
-プロキシを分ける設定を考える
-KLANを表示する
-FC2サイトにファイルをアップロードするプラグイン
+○家のVAIOのgit環境固めてamazonに入れる
+○フローラをLinuxにする
 
 vim環境セット
+KLANを表示する
+FC2サイトにファイルをアップロードするプラグイン
 
 ■kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
 ■Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
