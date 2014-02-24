@@ -86,6 +86,10 @@ map <C-n> :tabnew<CR>
 " ■インクリメンタルサーチ
 set incsearch
 
+" ■ag
+
+nnoremap <F3> :Ag <C-R><C-W><CR>
+
 " ■ Ctrl-spaceで補完
 if has('unix') 
     inoremap <Nul> <C-n>
