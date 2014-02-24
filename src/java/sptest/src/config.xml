@@ -24,25 +24,25 @@
 	</bean>
 	<!-- RMIクライアント情報 -->
 	<util:list id="serverList">
-		<value>wfc01</value>
-		<value>wfc02</value>
-		<value>wfc03</value>
+		<value>server01</value>
+		<value>server02</value>
+		<value>server03</value>
 	</util:list>
-	<bean id="remoteHogeService_wfc01" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" lazy-init="true">
+	<bean id="remoteHogeService_server01" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" lazy-init="true">
 		<property name="serviceUrl" value="rmi://localhost:44444/hogeService1" />
 		<property name="serviceInterface" value="hoge.HogeIf" />
 		<property name="cacheStub" value="false" />
 		<property name="lookupStubOnStartup" value="false" />
 		<property name="refreshStubOnConnectFailure" value="false" />
 	</bean>
-	<bean id="remoteHogeService_wfc02" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" lazy-init="true">
+	<bean id="remoteHogeService_server02" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" lazy-init="true">
 		<property name="serviceUrl" value="rmi://localhost:44444/hogeService1" />
 		<property name="serviceInterface" value="hoge.HogeIf" />
 		<property name="cacheStub" value="false" />
 		<property name="lookupStubOnStartup" value="false" />
 		<property name="refreshStubOnConnectFailure" value="false" />
 	</bean>
-	<bean id="remoteHogeService_wfc03" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" lazy-init="true">
+	<bean id="remoteHogeService_server03" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" lazy-init="true">
 		<property name="serviceUrl" value="rmi://localhost:44445/hogeService1" />
 		<property name="serviceInterface" value="hoge.HogeIf" />
 		<property name="cacheStub" value="false" />
