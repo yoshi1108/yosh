@@ -221,7 +221,6 @@ if ($FILE) {
 foreach my $file ( glob ("ksar-*.log") ) {
     chomp $file;
     oneFile($START, $END, $file);
-    last;
 }
 
 
