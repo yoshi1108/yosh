@@ -1,10 +1,10 @@
-amazonに入れたkaoriya vim、gitを落とす環境 gitを固めて環境つくる方法を作る
-○フローラをLinuxにする
-SVN環境
-
 ▲SrcExpl環境でJavaを試す(groovyはとりまだめ。。。)
 ▲Gdiff: C:\MinGW\msys\1.0\bin\diff.exeのdiffにしてみる。
 ▲Javaプロジェクトとかをgithubに入れる
+
+amazonに入れたkaoriya vim、gitを落とす環境 gitを固めて環境つくる方法を作る
+○フローラをLinuxにする
+SVN環境
 
 プロキシを分ける設定を考える
 KLANを表示する
