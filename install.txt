@@ -1,14 +1,12 @@
-1. c:\に/usrアーカイブ展開
-usr.zip
+﻿1. c:\にusr.zipを展開
 
 2. PATHに追加
-C:\usr\bin;c:\oracle\home\bin;
+ユーザ変数の方にPATH変数を追加
+%PATH%;C:\usr\bin;c:\oracle\home\bin;
 
-3.nyaos
-適当に展開
+3.nyaosをc:\oracleに展開
 
-4.c:\oracleに展開
-home.zip
+4.c:\oracleにhome.zipを展開
 
 5. git 設定
 cd c:\oracle\home
@@ -19,6 +17,10 @@ git pull origin master
 mkdir c:\tmp
 
 6. vimをc:\oracleに展開
+
+6. vimショートカット
+gvim.exeのショートカットをプログラムファイルに作り
+Ctrl-Shift-Lでショートカット作成
 
 7. ■vimrcとgvimrcに追加
 let $HOME='/oracle/home'
