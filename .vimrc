@@ -8,6 +8,10 @@ set fileencodings=ucs-bom,iso-2022-jp,utf-8,cp932,euc-jp,default,latin
 " ■ Windows gitのdiff設定
 let $TERM='msys'
 
+" ■perl-support
+let g:Perl_Perltidy  = 'on'
+let g:Perl_CodeSnippets  = $HOME . '/vim74-kaoriya-win32/bundles/perl-support.vim/perl-support/codesnippets/'
+
 " コマンド履歴の設定
 set viminfo='50,<2000,s100,:0,
 
@@ -95,12 +99,32 @@ if has('unix')
 elseif has('win32')
     inoremap <C-Space> <C-n>
 endif
-    
+
+" ■ vimrcのショートカット
 nnoremap <Space>. :edit $MYVIMRC<CR>
 nnoremap <Space>s. :source $MYVIMRC<CR>
 
 " ■ perltidy
 map ,pt ! perl c:\Perl\bin\perltidy.pl -st<CR>
+
+" ■ neosnippet
+" Plugin key-mappings.
+imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
+
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+" For snippet_complete marker.
+if has('conceal')
+  set conceallevel=2 concealcursor=i
+endif
 
 " ■ neobundle
 set nocompatible
@@ -111,7 +135,8 @@ call neobundle#rc(expand('~/vim74-kaoriya-win32/bundles/'))
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
-NeoBundle 'Shougo/neosnippet.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
@@ -130,6 +155,7 @@ NeoBundle 'vim-scripts/Trinity'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'kmnk/vim-unite-svn'
 NeoBundle 'rking/ag.vim'
+NeoBundle 'perl-support.vim'
 filetype plugin indent on
 
 " ■quickRun
@@ -189,6 +215,9 @@ if has('unix')
 elseif has('win32')
     let s:memofile = $HOME . "/memo.txt"
 endif
+
+" メモファイルを開く
+nnoremap <Space>m :edit $HOME/memo.txt<CR>
 
 let s:memo_list = []
 for line in readfile(s:memofile)
