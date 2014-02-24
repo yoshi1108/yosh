@@ -1,0 +1,22 @@
+; ----- ã§í ê›íË --------------------
+User      = 'user'
+Password  = 'passwd'
+;KeyFile   = 'c:\id_rsa'
+KeyFile   = ''
+;------------------------------------
+
+; --- ê⁄ë± -------------
+strcompare KeyFile ''
+if result=0 then
+  sprintf2 Server '%s /ssh /2 /auth=password  /user=%s /passwd=%s /Y=%d /X=%d' Host User Password Y X
+else
+  sprintf2 Server '%s /ssh /2 /auth=publickey /user=%s /passwd=%s /keyfile=%s /Y=%d /X=%d' Host User Password KeyFile Y X
+endif
+
+connect Server
+settitle Title
+sprintf2 Size #$1b"[8;%d;%dt" height width
+dispstr Size
+
+;wait '$'
+;sendln 'ls'
