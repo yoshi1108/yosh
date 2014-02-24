@@ -141,6 +141,7 @@ NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'thinca/vim-ref'
 NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'thinca/vim-singleton'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'mattn/webapi-vim'
@@ -169,6 +170,10 @@ let g:quickrun_config = {
 \}
 
 " \       "outputter/buffer/split" : ":botright 8sp",
+
+" groovy設定
+let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
+
 
 " ■インサートモード時のハイライト
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
@@ -238,6 +243,6 @@ let g:startify_bookmarks = [
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 
-" ■quickRunのgroovy設定
-let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
+" ■ vim常駐化
+call singleton#enable()
 
