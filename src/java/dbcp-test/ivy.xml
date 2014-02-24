@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<ivy-module version="2.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
+	<info organisation="" module="dbcp-test" status="integration">
+	</info>
+	<dependencies>
+		<dependency org="commons-dbcp" name="commons-dbcp" rev="1.4"/>
+		<dependency org="postgresql" name="postgresql" rev="9.1-901.jdbc4"/>
+	</dependencies>
+</ivy-module>

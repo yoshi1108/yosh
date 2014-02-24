@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+	
+	<!-- 設定値 -->
+	<bean id="config" class="hoge.Config">
+		<property name="serverList" ref="serverList" />
+	</bean>
+	<!-- RMIサーバ情報 -->
+	<bean id="rmiServer" class="org.springframework.remoting.rmi.RmiServiceExporter">
+		<property name="serviceName" value="hogeService1" />
+		<property name="service">
+			<bean class="hoge.HogeImpl"></bean>
+		</property>
+		<property name="serviceInterface" value="hoge.HogeIf" />
+		<property name="registryPort" value="44444" />
+	</bean>
+	<bean id="rmiClient" class="hoge.HogeClient">
+		<property name="serverList" ref="serverList" />
+	</bean>
+	<!-- RMIクライアント情報 -->
+	<util:list id="serverList">
+		<value>wfc01</value>
+		<value>wfc02</value>
+		<value>wfc03</value>
+	</util:list>
+	<bean id="remoteHogeService_wfc01" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" lazy-init="true">
+		<property name="serviceUrl" value="rmi://localhost:44444/hogeService1" />
+		<property name="serviceInterface" value="hoge.HogeIf" />
+		<property name="cacheStub" value="false" />
+		<property name="lookupStubOnStartup" value="false" />
+		<property name="refreshStubOnConnectFailure" value="false" />
+	</bean>
+	<bean id="remoteHogeService_wfc02" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" lazy-init="true">
+		<property name="serviceUrl" value="rmi://localhost:44444/hogeService1" />
+		<property name="serviceInterface" value="hoge.HogeIf" />
+		<property name="cacheStub" value="false" />
+		<property name="lookupStubOnStartup" value="false" />
+		<property name="refreshStubOnConnectFailure" value="false" />
+	</bean>
+	<bean id="remoteHogeService_wfc03" class="org.springframework.remoting.rmi.RmiProxyFactoryBean" lazy-init="true">
+		<property name="serviceUrl" value="rmi://localhost:44445/hogeService1" />
+		<property name="serviceInterface" value="hoge.HogeIf" />
+		<property name="cacheStub" value="false" />
+		<property name="lookupStubOnStartup" value="false" />
+		<property name="refreshStubOnConnectFailure" value="false" />
+	</bean>
+	
+	<!-- バッチジョブここから  -->
+		<!-- バッチジョブスケジュール -->
+	<bean id="batchJobsSchedule" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="batchJobsTriggerHoge"/>
+			</list>
+		</property>
+	</bean>
+
+    <bean id="batchJobsTriggerHoge" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="batchJobsHoge"/>
+        <property name="cronExpression"  value="* * * * * ?"/>
+    </bean>
+
+	<!-- バッチジョブ -->
+    <bean id="batchJobsHoge" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass"  value="hoge.BatchJobEngine"/> 
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="batchJobs">
+                    <list>
+                        <bean id="batchJobHoge" class="hoge.BatchJob" />
+                    </list>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>

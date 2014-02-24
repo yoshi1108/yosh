@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+
+	<!-- バッチジョブここから  -->
+		<!-- バッチジョブスケジュール : スケジュールのID名だけは固定しておく-->
+	<bean id="batchJobsSchedule_2" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="batchJobsTriggerHoge_21"/>
+			</list>
+		</property>
+	</bean>
+
+    <bean id="batchJobsTriggerHoge_21" class="org.springframework.scheduling.quartz.CronTriggerBean">
+        <property name="jobDetail" ref="batchJobsHoge_21"/>
+        <property name="cronExpression"  value="* * * * * ?"/>
+    </bean>
+
+	<!-- バッチジョブ -->
+    <bean id="batchJobsHoge_21" class="org.springframework.scheduling.quartz.JobDetailBean">
+        <property name="jobClass"  value="hoge.BatchJobEngine"/> 
+        <property name="jobDataAsMap">
+            <map>
+                <entry key="batchJobs">
+                    <list>
+                        <bean id="batchJobHoge_21" class="hoge.BatchJob_2" />
+                    </list>
+                </entry>
+            </map>
+        </property>
+    </bean>
+</beans>
