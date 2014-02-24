@@ -1,5 +1,7 @@
 SVN環境
 
+○ksarをどこかに配置する
+
 ○diffとか主要な奴だけにしてc:\MingGW\のbinをc:\oracle\home\binにできないかな
 
 ○家のVAIOのgit環境固めてamazonに入れる
