@@ -1,9 +1,8 @@
-1. c:\にアーカイブ展開
-Git.zip
+1. c:\に/usrアーカイブ展開
 usr.zip
 
 2. PATHに追加
-C:\Git\cmd;C:\usr\bin;c:\oracle\home\bin;
+C:\usr\bin;c:\oracle\home\bin;
 
 3.nyaos
 適当に展開
