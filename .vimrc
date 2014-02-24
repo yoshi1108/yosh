@@ -87,7 +87,6 @@ map <C-n> :tabnew<CR>
 set incsearch
 
 " ■ag
-
 nnoremap <F3> :Ag <C-R><C-W><CR>
 
 " ■ Ctrl-spaceで補完
