@@ -6,9 +6,9 @@
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="com.mysql.jdbc.Driver"/>
-        <property name="url" value="jdbc:postgresql://10.25.107.17:9999/testdb"/>
-        <property name="username" value="m2mpf"/>
-        <property name="password" value="m2mpf123"/>
+        <property name="url" value="jdbc:postgresql://127.0.0.1:5432/testdb"/>
+        <property name="username" value="postgres"/>
+        <property name="password" value="postgres"/>
       </dataSource>
     </environment>
   </environments>
