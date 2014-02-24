@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="Shift_JIS" ?>
+<?xml-stylesheet type="text/xsl" href="for-each.xsl" ?>
+<EMPLOYEES>
+  <EMPLOYEE>
+    <Name>hoge1</Name>
+  </EMPLOYEE>
+  <EMPLOYEE >
+    <Name>hoge2</Name>
+  </EMPLOYEE>
+  <EMPLOYEE>
+    <Name>hoge3</Name>
+  </EMPLOYEE>
+  <EMPLOYEE>
+    <Name>hoge4</Name>
+  </EMPLOYEE>
+</EMPLOYEES>
