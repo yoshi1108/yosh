@@ -1,8 +1,5 @@
-▲SrcExpl環境でJavaを試す(groovyはとりまだめ。。。)
 ▲Gdiff: C:\MinGW\msys\1.0\bin\diff.exeのdiffにしてみる。
 ▲Javaプロジェクトとかをgithubに入れる
-
-
 
 amazonに入れたkaoriya vim、gitを落とす環境 gitを固めて環境つくる方法を作る
 ○フローラをLinuxにする
@@ -14,16 +11,5 @@ FC2サイトにファイルをアップロードするプラグイン
 
 vim環境セット
 
-■kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる
-let $HOME='/oracle/home'
-
---- diffの結果 ----
-$ diff hoge hoge2
-2,4c2
-<
-< da
-< dfda
----
-> da dfda
-[c:home]
-$
+■kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
+■Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
