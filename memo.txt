@@ -1,5 +1,7 @@
 SVN環境
 
+○diffとか主要な奴だけにしてc:\MingGW\のbinをc:\oracle\home\binにできないかな
+
 ○家のVAIOのgit環境固めてamazonに入れる
   ・amazonに入れたkaoriya vim、gitを落とす環境 gitを固めて環境つくる方法を作る
 
