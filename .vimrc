@@ -107,7 +107,7 @@ nnoremap <Space>. :edit $MYVIMRC<CR>
 nnoremap <Space>s. :source $MYVIMRC<CR>
 
 " ■ perltidy
-map ,pt ! perl /usr/bin/perltidy.pl -st<CR>
+map ,pt ! perl /usr/bin/perltidy.pl -pro=/oracle/home/.perltidyrc -st<CR>
 
 " ■ neosnippet
 " Plugin key-mappings.
