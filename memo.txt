@@ -4,9 +4,7 @@
 
 ○フローラをLinuxにする
 
-▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrcにしたい
-perltidy -pro=~/.perltidyrc
-↑たぶんこれ
+▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 
 ▲usrのシェイプアップ
 
