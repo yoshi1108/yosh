@@ -15,3 +15,4 @@ FC2サイトにファイルをアップロードするプラグイン
 ■Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
 ■maven,ivyのリポジトリ検索 http://mvnrepository.com/
 ■ivyはantにパス通して、ivy-2.3.0.jarを/usr/libに入れとけばOK
+■nyaos(DOS窓)でUTF8は chcp 65001
