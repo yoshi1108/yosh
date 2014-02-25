@@ -4,6 +4,7 @@ if has('gui_running') && !has('unix')
   set encoding=utf-8
 endif
 set fileencodings=ucs-bom,iso-2022-jp,utf-8,cp932,euc-jp,default,latin
+set termencoding=utf-8
 
 " ■ Windows gitのdiff設定
 let $TERM='msys'
@@ -154,10 +155,12 @@ NeoBundle 'vim-scripts/L9'
 NeoBundle 'vim-scripts/SrcExpl'
 NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'vim-scripts/Trinity'
+NeoBundle 'vim-scripts/SingleCompile'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'kmnk/vim-unite-svn'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'perl-support.vim'
+NeoBundle 'derekwyatt/vim-scala'
 filetype plugin indent on
 
 " ■quickRun
@@ -174,6 +177,7 @@ let g:quickrun_config = {
 " groovy設定
 let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
 
+"let g:quickrun_config.scala = {'cmdopt' : '-Dfile.encoding=' . '&termencoding' , 'hook/output_encode/encoding' : '&termencoding'}
 
 " ■インサートモード時のハイライト
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
