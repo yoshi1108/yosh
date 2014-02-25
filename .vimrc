@@ -1,10 +1,14 @@
 ﻿:cd ~/
+
 " ■文字コード設定
 if has('gui_running') && !has('unix')
   set encoding=utf-8
 endif
 set fileencodings=ucs-bom,iso-2022-jp,utf-8,cp932,euc-jp,default,latin
 set termencoding=utf-8
+
+" ■タブ
+set tabstop=4
 
 " ■ Windows gitのdiff設定
 let $TERM='msys'
