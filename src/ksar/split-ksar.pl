@@ -35,10 +35,10 @@ sub get_split_cnt {
         if ( $old_time eq "999999" ) {
             $old_time = $time;
         }
- 
+
         # 日またぎ発生処理:
         if ( $time < $old_time ) {
-            $split_cnt ++ ;
+            $split_cnt++;
         }
         $old_time = $time;
     }
@@ -207,22 +207,21 @@ sub modServerName {
 
 my ($START, $END, $FILE)=@ARGV;
 
-if (!$START) { $START = "00:00:00"; }
-if (!$END) { $END = "23:59:59"; }
+if ( !$START ) { $START = "00:00:00"; }
+if ( !$END )   { $END   = "23:59:59"; }
 
-$START =~ s/://g;   # : を削除する 10:30:25 -> 103025
-$END =~ s/://g;     # : を削除する
+$START =~ s/://g;    # : を削除する 10:30:25 -> 103025
+$END =~ s/://g;      # : を削除する
 
 # １ファイル指定時
 if ($FILE) {
-    oneFile($START, $END, $FILE);
+    oneFile( $START, $END, $FILE );
     exit;
 }
 
 # ファイル指定無しの場合、カレントディレクトリのksar-*.logのファイルリストを対象にする
-foreach my $file ( glob ("ksar-*.log") ) {
+foreach my $file ( glob("ksar-*.log") ) {
     chomp $file;
-    oneFile($START, $END, $file);
+    oneFile( $START, $END, $file );
 }
-
 
