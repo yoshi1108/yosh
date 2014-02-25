@@ -2,7 +2,7 @@
 
 2. PATHに追加
 ユーザ変数の方にPATH変数を追加
-%PATH%;C:\usr\bin;c:\oracle\home\bin;
+%PATH%;C:\oracle\vim74-kaoriya-win32;c:\usr\bin;C:\oracle\home\bin;
 
 3.nyaosをc:\oracleに展開
 
