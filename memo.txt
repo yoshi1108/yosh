@@ -18,6 +18,7 @@ C:\Perl\bin\perltidy.pl
 
 FC2サイトにファイルをアップロードするプラグイン
 
+■memo http://yoshi1108.web.fc2.com/
 ■kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
 ■Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
 ■maven,ivyのリポジトリ検索 http://mvnrepository.com/
