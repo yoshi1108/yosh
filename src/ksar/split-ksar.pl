@@ -187,7 +187,7 @@ sub make_pdf {
     my ( $file ) = @_;
     for (my $i=1;;$i++){
         my $tmp_file = $file . "_" . $i;
-        if ( ! -f $tmp_file ) {
+        if ( !-f $tmp_file ) {
             last;
         }
         my $pdf_file = $tmp_file . ".pdf";
