@@ -1,10 +1,7 @@
 SVN環境
 
-
-▲ksarをどこかに配置する
 ▲usrのシェイプアップ
-
-○フローラでvimの初期セットアップのテストをする
+▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrcにしたい
 
 ○フローラをLinuxにする
 
