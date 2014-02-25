@@ -1,4 +1,4 @@
-:cd ~/
+﻿:cd ~/
 " ■文字コード設定
 if has('gui_running') && !has('unix')
   set encoding=utf-8
@@ -107,7 +107,7 @@ nnoremap <Space>. :edit $MYVIMRC<CR>
 nnoremap <Space>s. :source $MYVIMRC<CR>
 
 " ■ perltidy
-map ,pt ! perl /usr/bin/perltidy.pl -pro=/oracle/home/.perltidyrc -st<CR>
+map <Space>p ! perl /usr/bin/perltidy.pl -pro=/oracle/home/.perltidyrc -st<CR>
 
 " ■ neosnippet
 " Plugin key-mappings.
