@@ -107,7 +107,7 @@ nnoremap <Space>. :edit $MYVIMRC<CR>
 nnoremap <Space>s. :source $MYVIMRC<CR>
 
 " ■ perltidy
-map ,pt ! perl c:\Perl\bin\perltidy.pl -st<CR>
+map ,pt ! perl /usr/bin/perltidy.pl -st<CR>
 
 " ■ neosnippet
 " Plugin key-mappings.
@@ -155,7 +155,7 @@ NeoBundle 'vim-scripts/L9'
 NeoBundle 'vim-scripts/SrcExpl'
 NeoBundle 'vim-scripts/taglist.vim'
 NeoBundle 'vim-scripts/Trinity'
-"NeoBundle 'vim-scripts/SingleCompile'
+"iNeoBundle 'vim-scripts/SingleCompile'
 NeoBundle 'vim-jp/vital.vim'
 NeoBundle 'kmnk/vim-unite-svn'
 NeoBundle 'rking/ag.vim'
