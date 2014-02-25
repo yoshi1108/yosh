@@ -2,6 +2,8 @@
 use strict;      # 変数宣言ミス等を厳格にチェック
 use warnings;    # 警告を出力
 no warnings qw(once);    # 一回しか利用してない変数への警告(設定値で普通に出てしまう)を無視
+        
+my $KSAR_JAR="/usr/local/kSar-5.0.6/kSar.jar";
 
 #use File::Spec;
 #use Math::BigFloat;
@@ -191,7 +193,7 @@ sub make_pdf {
         my $pdf_file = $tmp_file . ".pdf";
         $pdf_file = modServerName($pdf_file);
         unlink $pdf_file;
-        my $cmd = "java -jar /var/m2m_install/an/tool/kSar-5.0.6/kSar.jar -input $tmp_file -outputPDF $pdf_file";
+        my $cmd = "java -jar $KSAR_JAR -input $tmp_file -outputPDF $pdf_file";
         print "$cmd\n";
         system ($cmd);
 	#system ("explorer.exe $pdf_file");
