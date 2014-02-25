@@ -1,14 +1,18 @@
-▲Perlテイデイのどうかく、パス確認
-
 ▲usr差し替え。パス整理
 
 ▲インストールバッチ作成
 
-
-SVN環境
+・SVN環境
 
 ▲usrのシェイプアップ
+
 ▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrcにしたい
+perltidy -pro=~/.perltidyrc
+↑たぶんこれ
+
+○Perlテイデイ(Nマシンは '<,'> ! perltidy だけで動作する。)
+$ which perltidy
+C:\Perl\bin\perltidy.pl
 
 ○フローラをLinuxにする
 
