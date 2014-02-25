@@ -2,13 +2,12 @@ import scala.io.Source
 import scala.util.control.Breaks.{break,breakable} 
 breakable{
 
-System.setProperty("http.proxyHost","proxygate2.nic.nec.co.jp")
-System.setProperty("http.proxyPort","8080")
+//System.setProperty("http.proxyHost","proxygate2.nic.nec.co.jp")
+//System.setProperty("http.proxyPort","8080")
 
 println("--- from file--------------------------");
 for (line <- Source.fromFile("/oracle/home/memo.txt").getLines) {
 	if ( line.indexOf("する") != -1 ) {
-		continue
   		println(line)
 	}
 }
