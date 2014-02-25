@@ -24,3 +24,4 @@ FC2サイトにファイルをアップロードするプラグイン
 ■kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
 ■Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
 ■maven,ivyのリポジトリ検索 http://mvnrepository.com/
+■ivyはantにパス通して、ivy-2.3.0.jarを/usr/libに入れとけばOK
