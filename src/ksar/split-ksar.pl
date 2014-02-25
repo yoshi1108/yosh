@@ -20,15 +20,19 @@ sub get_split_cnt {
     my $old_time="999999";      # 日またぎ判定前回時刻
     while ( my $line = readline($file_fh) ) {
         chomp $line;
+
         #print "$line\n";
-        
+
         if ( $line =~ /^Average.*/ ) {
-            last; #
+            last;    #
         }
+
         # 時刻データじゃない場合
-        
+
         if ( $line eq "" ) { next; }
-        my ($time) = split / /, $line; $time =~ s/://g;
+        my ($time) = split / /, $line;
+        $time =~ s/://g;
+
         # 時刻データじゃない場合
         if ( $time =~ /[^0-9]/ ) { next; }
 
