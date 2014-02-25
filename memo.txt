@@ -1,11 +1,3 @@
-○perltidy対応
-Tidy.pmを/usr/lib/Perl/にコピー
-perltidy.plを/usr/bin/にコピー
-
-○Perlテイデイ(Nマシンは '<,'> ! perltidy だけで動作する。)
-$ which perltidy
-C:\Perl\bin\perltidy.pl
-
 ○インストールバッチ作成
 
 ○SVN環境
