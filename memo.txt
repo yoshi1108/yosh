@@ -1,13 +1,12 @@
 ▲assembleのSVNにNマシンからアクセスできるか確認
 
+
+○FC2のinstall.txtをhttps://github.com/yoshi1108/yosh/blob/master/install.txt
 ○インストールバッチ作成
-
 ○SVN環境
-
 ○フローラをLinuxにする
 
 ▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
-
 ▲usrのシェイプアップ
 
 FC2サイトにファイルをアップロードするプラグイン
