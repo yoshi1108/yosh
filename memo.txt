@@ -1,6 +1,5 @@
 ▲assembleのSVNにNマシンからアクセスできるか確認
 
-
 ○FC2のinstall.txtをhttps://github.com/yoshi1108/yosh/blob/master/install.txt
 ○インストールバッチ作成
 ○SVN環境
