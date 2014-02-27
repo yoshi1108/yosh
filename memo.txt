@@ -5,7 +5,6 @@
 ○SVN環境
 ○フローラをLinuxにする
 
-
 ▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 ▲usrのシェイプアップ
 
