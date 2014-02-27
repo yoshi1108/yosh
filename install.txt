@@ -13,6 +13,9 @@ cd c:\oracle\home
 git init
 git pull origin master
 
+5.  http://git-scm.com/download/win
+これを入れないとだめかも
+
 5. tmpディレクトリ作成
 mkdir c:\tmp
 
