@@ -10,15 +10,12 @@
 ▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 ▲usrのシェイプアップ
 ▲assembleのSVNにNマシンからアクセスできるか確認
-FC2サイトにファイルをアップロードするプラグイン
+FC2サイトにファイルをアップロードする
 
-■memo http://yoshi1108.web.fc2.com/
 ■kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
 ■Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
 ■maven,ivyのリポジトリ検索 http://mvnrepository.com/
 ■ivyはantにパス通して、ivy-2.3.0.jarを/usr/libに入れとけばOK
-  set ANT_OPTS=-Dhttp.proxyHost=proxygate2.nic.nec.co.jp -Dhttp.proxyPort=8080
+  set ANT_OPTS=-Dhttp.proxyHost= -Dhttp.proxyPort=8080
 ■nyaos(DOS窓)でUTF8は chcp 65001
 ■httport:8080 -> 8080:corega-router:8080 -> 8080:whs(httphost):8080
-■vaio 192.168.1.24
-■
