@@ -1,3 +1,4 @@
+サイレントマウス買う
 ▲N側でvimないからプルできない問題。
 ▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 ▲usrのシェイプアップ
