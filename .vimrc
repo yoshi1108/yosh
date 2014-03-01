@@ -60,11 +60,11 @@ nnoremap <silent> [unite]r :<C-u>UniteWithBufferDir file<CR>
 nnoremap <silent> ,vr :UniteResume<CR>
 
 " ■Git
-nnoremap    [git]   <Nop>
-nmap    <Leader>g [git]
-nnoremap <silent> [git]c :Gwrite<CR>:Gcommit -m 'hoge'<CR>:Git push<CR>
-nnoremap <silent> [git]r :Git pull origin master<CR>
-nnoremap <silent> [git]s :Gstatus<CR>
+nnoremap [git]     <Nop>
+nmap     <Leader>g [git]
+nnoremap <silent>  [git]c :Gwrite<CR>:Gcommit -m 'hoge'<CR>:Git push<CR>
+nnoremap <silent>  [git]r :Git pull origin master<CR>
+nnoremap <silent>  [git]s :Gstatus<CR>
 
 " ■ タブ操作
 map <C-TAB> :tabnext<CR>
@@ -100,9 +100,12 @@ set incsearch
 nnoremap <F3> :Ag <C-R><C-W><CR>
 
 " ■w3m
-nnoremap <F2> :W3m https://www.google.co.jp/search?as_q=<C-R><C-W><CR>
 let g:w3m#external_browser = '"c:\Program Files\Internet Explorer\iexplore.exe"'
-nnoremap <F4> :W3mShowExtenalBrowser<CR>
+nnoremap [w3m]     <Nop>
+nmap     <Leader>w [w3m]
+nnoremap [w3m]w :W3m https://www.google.co.jp/search?as_q=<C-R><C-W><CR>
+nnoremap [w3m]i :W3mShowExtenalBrowser<CR>
+nnoremap [w3m]s <C-u>:W3m https://www.google.co.jp/search?as_q=
 
 " ■ Ctrl-spaceで補完
 if has('unix') 
