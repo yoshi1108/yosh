@@ -101,6 +101,8 @@ nnoremap <F3> :Ag <C-R><C-W><CR>
 
 " ■w3m
 nnoremap <F2> :W3m https://www.google.co.jp/search?as_q=<C-R><C-W><CR>
+let g:w3m#external_browser = '"c:\Program Files\Internet Explorer\iexplore.exe"'
+nnoremap <F4> :W3mShowExtenalBrowser<CR>
 
 " ■ Ctrl-spaceで補完
 if has('unix') 
