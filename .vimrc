@@ -99,6 +99,9 @@ set incsearch
 " ■ag
 nnoremap <F3> :Ag <C-R><C-W><CR>
 
+" ■w3m
+nnoremap <F2> :W3m https://www.google.co.jp/search?as_q=<C-R><C-W><CR>
+
 " ■ Ctrl-spaceで補完
 if has('unix') 
     inoremap <Nul> <C-n>
@@ -165,6 +168,7 @@ NeoBundle 'kmnk/vim-unite-svn'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'perl-support.vim'
 NeoBundle 'derekwyatt/vim-scala'
+NeoBundle 'yuratomo/w3m.vim'
 filetype plugin indent on
 
 " ■quickRun
