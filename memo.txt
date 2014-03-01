@@ -18,5 +18,7 @@ FC2サイトにファイルをアップロードするプラグイン
 ■maven,ivyのリポジトリ検索 http://mvnrepository.com/
 ■ivyはantにパス通して、ivy-2.3.0.jarを/usr/libに入れとけばOK
   set ANT_OPTS=-Dhttp.proxyHost=proxygate2.nic.nec.co.jp -Dhttp.proxyPort=8080
-
 ■nyaos(DOS窓)でUTF8は chcp 65001
+■httport:8080 -> 8080:corega-router:8080 -> 8080:whs(httphost):8080
+■vaio 192.168.1.24
+■
