@@ -1,13 +1,17 @@
 サイレントマウス買う
-▲N側でvimないからプルできない問題。
-▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
-▲usrのシェイプアップ
-▲assembleのSVNにNマシンからアクセスできるか確認
 
+○AkiaにLinux入れる
+○Akiaでvim環境
+○デスクトップPC買いたいな
 ○インストールバッチ作成
 ○SVN環境
 ○フローラをLinuxにする
 
+▲w3mの動作確認
+▲N側でvimないからプルできない問題。
+▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
+▲usrのシェイプアップ
+▲assembleのSVNにNマシンからアクセスできるか確認
 FC2サイトにファイルをアップロードするプラグイン
 
 ■memo http://yoshi1108.web.fc2.com/
