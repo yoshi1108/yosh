@@ -142,9 +142,17 @@ endif
 
 " ■ neobundle
 set nocompatible
-if has('vim_starting')
-	set runtimepath+=~/vim/plugins/neobundle.vim-master/plugin/neobundle.vim
+if has('unix')
+	if has('vim_starting')
+		set runtimepath+=~/vim/plugins/neobundle.vim-master
+    endif
+elseif has('win32')
+    if has('vim_starting')
+    	set runtimepath+=~/vim/plugins/neobundle.vim-master/plugin/neobundle.vim
+    endif
 endif
+
+
 call neobundle#rc(expand('~/vim/bundles/'))
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'
@@ -261,5 +269,7 @@ let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
 
 " ■ vim常駐化
-call singleton#enable()
+if has('win32') 
+    call singleton#enable()
+endif
 
