@@ -12,8 +12,14 @@ mkdir -p vim/plugins/
 git clone https://github.com/Shougo/neobundle.vim ~/vim/plugins/neobundle.vim-master
 
 3. ctags w3m インストール
-sudo apt-get install ctags w3m
+sudo apt-get install ctags w3m ant
 
 4. vimprocのmake
 cd ~/vim/bundles/vimproc.vim/
 make
+
+5. ivy
+sudo cp -p ~/data/ivy-2.3.0.jar /usr/share/ant/lib/
+
+6. jdk
+sudo apt-get install openjdk-7-jdk

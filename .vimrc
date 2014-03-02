@@ -160,6 +160,7 @@ endif
 
 call neobundle#rc(expand('~/vim/bundles/'))
 NeoBundle 'Shougo/vimshell'
+NeoBundle 'Shougo/vimproc'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
