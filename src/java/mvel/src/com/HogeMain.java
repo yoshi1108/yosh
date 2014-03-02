@@ -68,7 +68,7 @@ public class HogeMain {
 		//		System.out.println(getMemoryInfo());
 		//}
 	    //AThread[] arr = new AThread[1000];
-	    AThread[] arr = new AThread[1];
+	    AThread[] arr = new AThread[3];
 
 	    // mazu 10 ko seisei
 	    for(int i=0;i<arr.length;i++){
