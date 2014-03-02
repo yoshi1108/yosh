@@ -1,5 +1,3 @@
-○AkiaにLinux入れる
-○Akiaでvim環境
 ○インストールバッチ作成
 ○SVN環境
 
