@@ -106,6 +106,7 @@ nmap     <Leader>w [w3m]
 nnoremap [w3m]w :W3m https://www.google.co.jp/search?as_q=<C-R><C-W><CR>
 nnoremap [w3m]i :W3mShowExtenalBrowser<CR>
 nnoremap [w3m]s <C-u>:W3m https://www.google.co.jp/search?as_q=
+nnoremap [w3m]h :W3mHistory<CR>
 
 " ■ Ctrl-spaceで補完
 if has('unix') 
