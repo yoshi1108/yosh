@@ -119,7 +119,11 @@ nnoremap <Space>. :edit $MYVIMRC<CR>
 nnoremap <Space>s. :source $MYVIMRC<CR>
 
 " ■ perltidy
-map <Space>p ! perl /usr/bin/perltidy.pl -pro=/oracle/home/.perltidyrc -st<CR>
+if has('unix')
+    map <Space>p ! perltidy<CR>
+elseif has('win32')
+    map <Space>p ! perl /usr/bin/perltidy.pl -pro=/oracle/home/.perltidyrc -st<CR>
+endif
 
 " ■ neosnippet
 " Plugin key-mappings.
@@ -241,11 +245,7 @@ nnoremap <RightMouse> "*p
 inoremap <RightMouse> <C-r><C-o>
 
 " ■ startify 
-if has('unix') 
-    let s:memofile = "~/memo.txt"
-elseif has('win32')
-    let s:memofile = $HOME . "/memo.txt"
-endif
+let s:memofile = $HOME . "/memo.txt"
 
 " メモファイルを開く
 nnoremap <Space>m :edit $HOME/memo.txt<CR>
