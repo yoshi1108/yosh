@@ -1,0 +1,19 @@
+﻿1. git
+git init 
+してから
+~/gitconfig
+~/.git/config
+.netrc
+を設定する
+
+2. neobundleインストール
+cd ~/
+mkdir -p vim/plugins/
+git clone https://github.com/Shougo/neobundle.vim ~/vim/plugins/neobundle.vim-master
+
+3. ctags w3m インストール
+sudo apt-get install ctags w3m
+
+4. vimprocのmake
+cd ~/vim/bundles/vimproc.vim/
+make
