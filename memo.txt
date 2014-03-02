@@ -1,11 +1,12 @@
-○インストールバッチ作成
-○SVN環境
-
+▲httport
 ▲w3mの動作確認
 ▲N側でvimないからプルできない問題。
 ▲perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 ▲usrのシェイプアップ
 ▲assembleのSVNにNマシンからアクセスできるか確認
+○インストールバッチ作成
+○SVN環境
+
 FC2サイトにファイルをアップロードする
 
 ■kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
