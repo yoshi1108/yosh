@@ -89,3 +89,7 @@ vim
 .xsession-errors
 .xsession-errors.old
 examples.desktop
+.mozc/
+.pki/
+.vnc/
+.w3m/
