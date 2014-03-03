@@ -1,24 +1,23 @@
-△8転送手段
-△groovy環境をaspireに構築
-△転送が切れてしまう問題（自動復旧できないか検討）
+@ 8転送手段
+@ 転送が切れてしまう問題（自動復旧できないか検討）
 
-○aspireのsquidが自動起動させられない
-○SVN環境
+@ aspireのsquidが自動起動させられない
+@ groovy環境をaspireに構築
+@ SVN環境
+@ assembleのSVNにNマシンからアクセスできるか確認
 
-△assembleのSVNにNマシンからアクセスできるか確認
+% usrのシェイプアップ
+% perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
+@ N側でvimないからプルできない問題。
+% インストールバッチ作成
 
-△usrのシェイプアップ
-△perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
-△N側でvimないからプルできない問題。
-○インストールバッチ作成
-
-■kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
-■Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
-■maven,ivyのリポジトリ検索 http://mvnrepository.com/
-■ivyはantにパス通して、ivy-2.3.0.jarを/usr/libに入れとけばOK
+# kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
+# Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
+# maven,ivyのリポジトリ検索 http://mvnrepository.com/
+# ivyはantにパス通して、ivy-2.3.0.jarを/usr/libに入れとけばOK
   set ANT_OPTS=-Dhttp.proxyHost= -Dhttp.proxyPort=8080
-■nyaos(DOS窓)でUTF8は chcp 65001
-■httport:8080 -> 8080:corega-router:8080 -> 8080:whs(httphost):8080
+# nyaos(DOS窓)でUTF8は chcp 65001
+# httport:8080 -> 8080:corega-router:8080 -> 8080:whs(httphost):8080
   192.168.1.3:22
   192.168.1.2:3389
   192.168.1.1:8080
