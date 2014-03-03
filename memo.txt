@@ -2,6 +2,7 @@
 △assembleのSVNにNマシンからアクセスできるか確認
 
 ○VAIOにultra-vnc入れる
+○aspireのsquidが自動起動させられない
 ○インストールバッチ作成
 ○SVN環境
 
