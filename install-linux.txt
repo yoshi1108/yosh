@@ -23,3 +23,24 @@ sudo cp -p ~/data/ivy-2.3.0.jar /usr/share/ant/lib/
 
 6. jdk
 sudo apt-get install openjdk-7-jdk
+
+------
+■ubuntu(LTS 12.04.4)squid構築メモ
+
+・squidインストール
+apt-get install squid
+
+・設定変更
+/etc/squid3/squid.confを変更
+
+-- 追記 --
+acl lan1 src 192.168.101.0/24
+http_access allow lan1
+
+-- 変更箇所 ---
+# Squid normally listens to port 3128
+http_port 8080 transparent
+---------------
+
+・再起動
+/etc/init.d/squid3
