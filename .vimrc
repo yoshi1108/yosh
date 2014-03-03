@@ -103,10 +103,11 @@ nnoremap <F3> :Ag <C-R><C-W><CR>
 let g:w3m#external_browser = '"c:\Program Files\Internet Explorer\iexplore.exe"'
 nnoremap [w3m]     <Nop>
 nmap     <Leader>w [w3m]
-nnoremap [w3m]w :W3m https://www.google.co.jp/search?as_q=<C-R><C-W><CR>
+nnoremap [w3m]w :W3m http://www.google.co.jp/search?as_q=<C-R><C-W><CR>
 nnoremap [w3m]i :W3mShowExtenalBrowser<CR>
-nnoremap [w3m]s <C-u>:W3m https://www.google.co.jp/search?as_q=
+nnoremap [w3m]s <C-u>:W3m http://www.google.co.jp/search?as_q=
 nnoremap [w3m]h :W3mHistory<CR>
+let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
 
 " ■ Ctrl-spaceで補完
 if has('unix') 
