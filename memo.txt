@@ -1,6 +1,7 @@
 △8転送手段
 △assembleのSVNにNマシンからアクセスできるか確認
 
+○VAIOにultra-vnc入れる
 ○インストールバッチ作成
 ○SVN環境
 
