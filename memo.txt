@@ -1,11 +1,10 @@
-@ 8転送手段
 @ 転送が切れてしまう問題（自動復旧できないか検討）
-
 @ aspireのsquidが自動起動させられない
 @ groovy環境をaspireに構築
 @ SVN環境
 @ assembleのSVNにNマシンからアクセスできるか確認
 
+% JRTをVAIOやHITACHIに適用
 % usrのシェイプアップ
 % perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 @ N側でvimないからプルできない問題。
