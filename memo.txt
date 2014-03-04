@@ -1,14 +1,18 @@
-@ 転送が切れてしまう問題（自動復旧できないか検討）
-@ aspireのsquidが自動起動させられない
-@ groovy環境をaspireに構築
+@ 2ch 環境
 @ SVN環境
-@ assembleのSVNにNマシンからアクセスできるか確認
 
 % JRTをVAIOやHITACHIに適用
+
+% aspireのsquidが自動起動させられない
+% groovy環境をaspireに構築
 % usrのシェイプアップ
 % perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 % インストールバッチ作成
+
+@ assembleのSVNにNマシンからアクセスできるか確認
 @ N側でvimないからプルできない問題。
+
+@ 転送が切れてしまう問題（自動復旧できないか検討） -> nyaosでsshでwhileで様子見
 
 # kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
 # Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
@@ -21,3 +25,5 @@
   192.168.1.2:3389
   192.168.1.1:8080
   192.168.1.4:5900
+# http://yoshi1108.9299.org/rep2/?b=i
+# ssh -p 3022 -L 8888:localhost:8080 -L 5901:localhost:5901 -R 2022:localhost:22 -R 5910:10.25.107.29:5900 -R 5900:10.25.107.19:5900 yoshi@localhost
