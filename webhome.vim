@@ -1,11 +1,11 @@
-" Vim global plugin for correcting typing mistakes
+" Vim global plugin for fx info from yahoo
 " Last Change:  2014 Feb 17
 " Maintainer:   yosh <yoshi1108@gmail.com>
 
 let s:save_cpo = &cpo
 set cpo&vim
 
-let s:home_url = "http://info.finance.yahoo.co.jp/fx/"
+let s:home_url = "http://info.finance.yahoo.co.jp/fx/list/"
 let s:proxy="false"
 
 " ローカルでSJIS設定
@@ -44,17 +44,35 @@ function! s:Webhome()
    if (s:DEBUG != "true")
        :new 'webhome'
    endif
+   let s:flag = 'false'
    for line in split(s:result_str, '\n')
 	   let line = substitute(line, "^ *", "", "g")
 	   let line = substitute(line, " *$", "", "g")
-	   
-	   if ( !(line =~# "[0-9][0-9]\.[0-9][0-9]") ) 
+	   if ( line =~# "^月足" ) 
+		   let s:flag = "true"
 	   	   continue
        endif
-	   if ( line =~# "トレーダーズ" ) 
+	   if ( s:flag == 'false' && !(line =~# "現在の日時"))
+	       continue
+	   endif
+	   if ( line =~# "^FXおすすめ" ) 
+	   	   break
+       endif
+	   if ( line =~# "^※" ) 
 	   	   continue
        endif
-
+	   if ( line =~# "^もっと見る" ) 
+	   	   continue
+       endif
+	   if ( line =~# "^情報提供元" ) 
+	   	   continue
+       endif
+	   if ( line =~# "^また、為替レート" ) 
+	   	   continue
+       endif
+	   if ( line =~# "^【ご注意】" ) 
+	   	   continue
+       endif
 	   if ( line == "" ) 
 	   	   continue
 	   endif
