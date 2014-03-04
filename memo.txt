@@ -1,3 +1,4 @@
+% vimで為替を確認する方法
 % groovy環境をaspireに構築
 
 @ assembleのSVNにNマシンからアクセスできるか確認
