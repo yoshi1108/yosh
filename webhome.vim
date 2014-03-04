@@ -5,14 +5,14 @@
 let s:save_cpo = &cpo
 set cpo&vim
 
-let s:home_url = "http://yoshi1108.web.fc2.com/"
-let s:proxy="true"
+let s:home_url = "http://info.finance.yahoo.co.jp/fx/"
+let s:proxy="false"
 
 " ローカルでSJIS設定
-setl encoding=sjis
+"setl encoding=sjis
 
 " デバッグモード
-let s:DEBUG="false"
+let s:DEBUG="true"
 
 if ( s:proxy == "true") 
     let $http_proxy   = 'http://proxygate2.nic.nec.co.jp:8080'
@@ -47,13 +47,21 @@ function! s:Webhome()
    for line in split(s:result_str, '\n')
 	   let line = substitute(line, "^ *", "", "g")
 	   let line = substitute(line, " *$", "", "g")
+	   
+	   if ( !(line =~# "[0-9][0-9]\.[0-9][0-9]") ) 
+	   	   continue
+       endif
+	   if ( line =~# "トレーダーズ" ) 
+	   	   continue
+       endif
+
 	   if ( line == "" ) 
-		   continue
+	   	   continue
 	   endif
-           if (s:DEBUG == "true")
+       if (s:DEBUG == "true")
 	       echo (line)
 	   else
-               call append('$', line)
+           call append('$', line)
 	   endif
    endfor
 endfunction
