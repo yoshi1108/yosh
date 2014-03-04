@@ -104,10 +104,13 @@ let g:w3m#external_browser = '"c:\Program Files\Internet Explorer\iexplore.exe"'
 nnoremap [w3m]     <Nop>
 nmap     <Leader>w [w3m]
 nnoremap [w3m]w :W3m http://www.google.co.jp/search?as_q=<C-R><C-W><CR>
+nnoremap [w3m]k :W3m http://info.finance.yahoo.co.jp/fx/list/<CR>
 nnoremap [w3m]i :W3mShowExtenalBrowser<CR>
 nnoremap [w3m]s <C-u>:W3m http://www.google.co.jp/search?as_q=
 nnoremap [w3m]h :W3mHistory<CR>
-let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
+nnoremap [w3m]r :W3mReload<CR>
+"let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
+let $HTTP_PROXY=''
 
 " ■ Ctrl-spaceで補完
 if has('unix') 
