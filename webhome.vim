@@ -1,5 +1,5 @@
 " Vim global plugin for fx info from yahoo
-" Last Change:  2014 Feb 17
+" Last Change:  2014 Mar 04
 " Maintainer:   yosh <yoshi1108@gmail.com>
 
 let s:save_cpo = &cpo
