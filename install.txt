@@ -16,6 +16,8 @@ git pull origin master
 5.  http://git-scm.com/download/win
 これを入れないとだめかも
 
+<a href="http://git-scm.com/download/win">hoge</a> 
+
 5. tmpディレクトリ作成
 mkdir c:\tmp
 
