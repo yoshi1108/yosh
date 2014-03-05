@@ -12,7 +12,7 @@ let s:proxy="true"
 "setl encoding=sjis
 
 " デバッグモード
-let s:DEBUG="false"
+let s:DEBUG='false'
 
 if ( s:proxy == "true") 
     let $http_proxy   = 'http://proxygate2.nic.nec.co.jp:8080'
@@ -35,41 +35,31 @@ if !executable('curl')
   finish
 endif
 
-" 表示ペア設定
-function! s:isDisp(str)
-   " 通貨ペア設定。@ をつけると表示されない
-   let s:pairList = [
-   \'USD/JPY',
-   \'EUR/JPY',
-   \'AUD/JPY',
-   \'GBP/JPY',
-   \'NZD/JPY-',
-   \'CAD/JPY@',
-   \'CHF/JPY@',
-   \'ZAR/JPY@',
-   \'CNY/JPY@',
-   \'EUR/USD',
-   \'GBP/USD',
-   \'AUD/USD',
-   \'NZD/USD@',
-   \'HKD/JPY@',
-   \'EUR/GBP@',
-   \'EUR/AUD',
-   \'USD/CHF',
-   \'EUR/CHF@',
-   \'GBP/CHF@',
-   \'AUD/CHF@',
-   \'CAD/CHF@',
-   \'USD/HKD@'
-   \]
-   for s:pair in s:pairList
-       if ( a:str =~# s:pair )
-	       return 1
-       endif
-   endfor
-
-   return 0 
-endfunction
+" 通貨ペア設定。@ をつけると表示されない
+let s:pair_disp_list = [
+\'EUR/JPY',
+\'EUR/USD',
+\'USD/JPY',
+\'AUD/JPY',
+\'AUD/USD',
+\'USD/CHF',
+\'GBP/JPY',
+\'GBP/USD',
+\'NZD/JPY@',
+\'CAD/JPY@',
+\'CHF/JPY@',
+\'ZAR/JPY@',
+\'CNY/JPY@',
+\'NZD/USD@',
+\'HKD/JPY@',
+\'EUR/GBP@',
+\'EUR/AUD',
+\'EUR/CHF@',
+\'GBP/CHF@',
+\'AUD/CHF@',
+\'CAD/CHF@',
+\'USD/HKD@'
+\]
 
 " 通貨ペア変換
 function! s:getPair(pair)
@@ -89,6 +79,9 @@ function! s:getPair(pair)
 endfunction
 
 function! s:Webhome()
+   let s:get_time = ''  " 取得時刻
+   let s:pair_map = {}  " 通貨ペア情報マップ
+   let s:news_list = [] " ニュースリスト
    let s:V = vital#of('vital')
    let s:M = s:V.import('Web.Xml')
    let s:resu = webapi#http#get(s:home_url) 
@@ -133,30 +126,50 @@ function! s:Webhome()
 	   if ( s:line == "" ) 
 	   	   continue
 	   endif
+
 	   if ( s:line =~# "^Bid" ) 
            let s:bid = substitute(s:line, "Bid *","", "g")
-		   let s:one_buff = printf("%s %10s", s:one_buff, s:bid)
+		   let s:one_buff = printf("%s %8s", s:one_buff, s:bid)
 	   	   continue
 	   elseif( s:line =~"^Ask" )
            let s:ask = substitute(s:line, "Ask *","", "g")
-		   let s:one_buff = printf("%s %10s", s:one_buff, s:ask)
-		   if ( s:isDisp(s:one_buff) != 1 )
-		       continue
-		   endif
+		   let s:one_buff = printf("%s %8s", s:one_buff, s:ask)
+		   let s:pair = substitute(s:one_buff, " .*$", "", "g")
+		   let s:pair_map[s:pair] = s:one_buff " 通貨ペアをキーにASK/BID含んだ文字列を追加
+		   continue
 	   elseif( s:line =~"^現在の日時" )
-		   let s:one_buff = printf("%s", substitute(s:line, "--.*$", "", "g"))
+		   let s:get_time = printf("%s", substitute(s:line, "--.*$", "", "g"))
 	   elseif( s:news_flag == 'true' )
-		   " ニュースの場合はそのまま表示
-	       let s:one_buff = printf("%s", s:line)
+		   " ニュース
+		   call add(s:news_list, s:line)
        else
 		   let s:one_buff = printf("%s", s:line)
 	       let s:one_buff = s:getPair(s:one_buff)
 		   continue
        endif
-	   echo (s:one_buff)
-	   let s:one_buff = ''
+   endfor
+   " 情報表示
+   echo s:get_time
+   echo ''
+   let s:tmp_cnt=0
+   for s:pair in s:pair_disp_list
+       if (has_key(s:pair_map, s:pair))
+           echon ('■' . s:pair_map[s:pair] . ' ')
+           let s:tmp_cnt += 1
+           if ( s:tmp_cnt % 3 == 0)
+               echo ''
+           endif
+       endif
+   endfor
+   echo '--- FX news ------'
+   for s:news in s:news_list
+       echo s:news
    endfor
 endfunction
+
+if ( s:DEBUG == "true" )
+	:Webhome
+endif
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
