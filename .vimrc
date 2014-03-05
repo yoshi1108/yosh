@@ -110,7 +110,10 @@ nnoremap [w3m]s <C-u>:W3m http://www.google.co.jp/search?as_q=
 nnoremap [w3m]h :W3mHistory<CR>
 nnoremap [w3m]r :W3mReload<CR>
 "let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
-let $HTTP_PROXY=''
+let $HTTP_PROXY='http://localhost:8888'
+let $HTTPS_PROXY='http://localhost:8888'
+let $http_proxy='http://localhost:8888'
+let $https_proxy='http://localhost:8888'
 
 " ■Webhome
 source ~/webhome.vim

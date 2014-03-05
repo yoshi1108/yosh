@@ -6,19 +6,12 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 let s:home_url = "http://info.finance.yahoo.co.jp/fx/list/"
-let s:proxy="true"
 
 " ローカルでSJIS設定
 "setl encoding=sjis
 
 " デバッグモード
 let s:DEBUG='false'
-
-if ( s:proxy == "true") 
-    let $http_proxy   = 'http://proxygate2.nic.nec.co.jp:8080'
-else
-    let $http_proxy   = ''
-endif
 
 if ( s:DEBUG == "false" )
     if exists("g:loaded_webhome")
