@@ -1,15 +1,13 @@
 % groovy環境をaspireに構築
 
-@ assembleのSVNにNマシンからアクセスできるか確認
-
 ----------------------------------------
 
-% perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
+@ assembleのSVNにNマシンからアクセスできるか確認
 @ SVN環境
-% usrのシェイプアップ
 % インストールバッチ作成
+% perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
+% usrのシェイプアップ
 @ N側でvimないからプルできない問題。
-
 ----------------------------------------
 
 # kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
