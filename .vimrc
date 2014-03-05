@@ -112,6 +112,10 @@ nnoremap [w3m]r :W3mReload<CR>
 "let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
 let $HTTP_PROXY=''
 
+" ■Webhome
+source ~/webhome.vim
+nmap <F12> :Webhome<CR>
+
 " ■ Ctrl-spaceで補完
 if has('unix') 
     inoremap <Nul> <C-n>

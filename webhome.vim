@@ -6,7 +6,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 let s:home_url = "http://info.finance.yahoo.co.jp/fx/list/"
-let s:proxy="false"
+let s:proxy="true"
 
 " ローカルでSJIS設定
 "setl encoding=sjis
@@ -94,15 +94,6 @@ function! s:Webhome()
    let s:resu = webapi#http#get(s:home_url) 
    let s:result_str = substitute(s:resu.content, "<[^>]*>", " ", "g")
    let s:result_str = substitute(s:result_str, "&nbsp;", "\n", "g")
-   if (s:DEBUG != "true")
-       :vnew10 'webhome'
-       let s:buff_flag='true'
-       :setlocal buftype=nowrite
-       :setlocal noswapfile
-       :setlocal bufhidden=wipe
-       :setlocal nonumber
-       :setlocal nowrap
-   endif
    let s:flag = 'false'
    let s:news_flag = 'false'
    " 1行表示バッファ
@@ -162,19 +153,10 @@ function! s:Webhome()
 	       let s:one_buff = s:getPair(s:one_buff)
 		   continue
        endif
-
-       if (s:DEBUG == "true")
-	       echo (s:one_buff)
-	   else
-           call append('$', s:one_buff)
-	   endif
+	   echo (s:one_buff)
 	   let s:one_buff = ''
    endfor
 endfunction
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
-
-if (s:DEBUG == "true")
-    :Webhome
-endif
