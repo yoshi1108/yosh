@@ -17,6 +17,8 @@ class BootStrap {
 		WindowData.dateE = String.format("%04d%02d%02d",yyyy,mm,dd);
 		WindowData.progressBar = new JProgressBar();
 		WindowData.lbRace = new JLabel();
+
+        MainWindow.mainMethod()
     }
     def destroy = {
     }

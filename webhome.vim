@@ -75,8 +75,6 @@ function! s:Webhome()
    let s:get_time = ''  " 取得時刻
    let s:pair_map = {}  " 通貨ペア情報マップ
    let s:news_list = [] " ニュースリスト
-   let s:V = vital#of('vital')
-   let s:M = s:V.import('Web.Xml')
    let s:resu = webapi#http#get(s:home_url) 
    let s:result_str = substitute(s:resu.content, "<[^>]*>", " ", "g")
    let s:result_str = substitute(s:result_str, "&nbsp;", "\n", "g")

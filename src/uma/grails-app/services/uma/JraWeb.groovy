@@ -65,8 +65,7 @@ class JraWeb {
 					ozzStr.append(umaban).append(":").append(oztan).append(",")
 				}
 				String resultStr = pageRace + "\n" + ozzStr.toString()
-				Ulog.info "resultStr=" . resultStr;
-				Ulog.info "pageRace=" . pageRace;
+				//Ulog.info(resultStr)
 				JraWebUtil.createFileRS(Prop.OUTPUT_RS, resultStr);
 				webCachSet.add(doaRace.toString()) // 取得済として設定
 			}
@@ -118,7 +117,12 @@ class JraWeb {
         def subTitle = ""
         subTitleList.each {subTitle += it + " "}
         // R取得
-        String R = ((List)TextUtil.grepBand(page, "kekkaRaceTitle", "</div>")).get(0);
+		// 2013/2月くらいからタグ名が変更になった。。。両対応
+        List rTmpList = ((List)TextUtil.grepBand(page, "kekkaRaceTitle", "</div>"));
+		if ( rTmpList == null ) {
+        	rTmpList = ((List)TextUtil.grepBand(page, "kekkaRaceInfo", "</div>"));
+		}
+        String R = rTmpList.get(0);
         // 条件取得
         def kekkaRaceJoken = ""
         TextUtil.getText(TextUtil.grepBand(page, "kekkaRaceJoken", "</div>")).each{
@@ -252,7 +256,11 @@ class JraWeb {
         subTitleList.each {subTitle += it + " "}
        
         // R取得
-        String R = ((List)TextUtil.grepBand(page, "kyosoMei", "</div>")).get(0);
+        List rTmpList = ((List)TextUtil.grepBand(page, "kyosoMei", "</div>"));
+        if ( rTmpList == null ) {
+			rTmpList = ((List)TextUtil.grepBand(page, "titleBox", "</div>"));
+		}
+        String R = rTmpList.get(0);
         // 条件取得
         def kyosoJoken = ""
         TextUtil.getText(TextUtil.grepBand(page, "kyosoJoken", "</div>")).each{
