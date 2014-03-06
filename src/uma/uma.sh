@@ -1,0 +1,1 @@
+/usr/lib/jvm/java-6-openjdk-i386/bin/java  -Dgroovy.source.encoding=UTF-8 -Dfilse.encoding=UTF-8 -cp "./:./grails-app/services/:./src/:./lib/*:" groovy.ui.GroovyMain grails-app/services/uma/view/MainWindow.groovy
