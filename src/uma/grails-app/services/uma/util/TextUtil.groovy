@@ -20,9 +20,11 @@ class TextUtil {
 	
 	/** start文字列からend文字列まで間の行のテキストを取得 */
 	static List<String> grepBand(List<String> input, String start, String end){
-		List list = new ArrayList();
-        list = ((List)grepBandList(input, start, end)).get(0);
-		return list;
+        List tmpList = (List)grepBandList(input, start, end);
+		if ( tmpList == null || tmpList.size() == 0) {
+			return null;
+		}
+		return tmpList.get(0);
 	}
 	static List<String> grepBand(String str, String start, String end){
         List tmpList = new ArrayList();
