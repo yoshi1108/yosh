@@ -103,14 +103,35 @@ nnoremap <F3> :Ag <C-R><C-W><CR>
 let g:w3m#external_browser = '"c:\Program Files\Internet Explorer\iexplore.exe"'
 nnoremap [w3m]     <Nop>
 nmap     <Leader>w [w3m]
-nnoremap [w3m]w :W3m http://www.google.co.jp/search?as_q=<C-R><C-W><CR>
-nnoremap [w3m]k :W3m http://info.finance.yahoo.co.jp/fx/list/<CR>
 nnoremap [w3m]i :W3mShowExtenalBrowser<CR>
-nnoremap [w3m]s <C-u>:W3m http://www.google.co.jp/search?as_q=
-nnoremap [w3m]h :W3mHistory<CR>
 nnoremap [w3m]r :W3mReload<CR>
-"let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
-let $HTTP_PROXY=''
+nnoremap [w3m]h :W3mHistory<CR>
+nnoremap [w3m]w :call ChgProxy(0)<CR>:W3m http://www.google.co.jp/search?as_q=<C-R><C-W><CR>
+nnoremap [w3m]k :call ChgProxy(0)<CR>:W3m http://info.finance.yahoo.co.jp/fx/list/<CR>
+nnoremap [w3m]s :call ChgProxy(0)<CR>:<C-u>:W3m http://www.google.co.jp/search?as_q=
+nnoremap [w3m]2 :call ChgProxy(1)<CR>:W3m http://www.2nn.jp/<CR>
+nnoremap [w3m]p :call ChgProxy('')<CR>
+
+" プロクシの切り替え。指定なければ交互に切り替え
+let s:http_proxy_mode='0'
+function! ChgProxy(mode)
+    if ( a:mode != '' )
+        let s:http_proxy_mode=a:mode
+	endif
+    if ( s:http_proxy_mode == 0 )
+        let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
+        let s:http_proxy_mode='1'
+    elseif ( s:http_proxy_mode == 1 )
+        let $HTTP_PROXY='http://localhost:8888'
+        let s:http_proxy_mode='0'
+	endif
+	echo $HTTP_PROXY
+endfunction
+call ChgProxy(0)
+
+" ■Webhome
+source ~/webhome.vim
+nmap <F12> :Webhome<CR>
 
 " ■ Ctrl-spaceで補完
 if has('unix') 
