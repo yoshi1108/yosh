@@ -129,11 +129,6 @@ function! ChgProxy(mode)
         "let $HTTP_PROXY='http://192.168.1.3:8080'
         let s:http_proxy_mode='0'
 	endif
-<<<<<<< HEAD
-=======
-	"echo $HTTP_PROXY
->>>>>>> ab88984332496d81f62a527981d3d5d7b56be583
-endfunction
 call ChgProxy(0)
 
 " ■Webhome
