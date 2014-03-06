@@ -109,7 +109,7 @@ nnoremap [w3m]r :W3mReload<CR>
 nnoremap [w3m]h :W3mHistory<CR>
 nnoremap [w3m]w :call ChgProxy(0)<CR>:W3m http://www.google.co.jp/search?as_q=<C-R><C-W><CR>
 nnoremap [w3m]k :call ChgProxy(0)<CR>:W3m http://info.finance.yahoo.co.jp/fx/list/<CR>
-nnoremap [w3m]s :call ChgProxy(0)<CR>:<C-u>:W3m http://www.google.co.jp/search?as_q=
+nnoremap [w3m]s :call ChgProxy(0)<CR>:W3m
 nnoremap [w3m]m :call ChgProxy(0)<CR>:W3m http://yoshi1108.github.com/yosh/memo.html<CR>
 nnoremap [w3m]2 :call ChgProxy(1)<CR>:W3m http://www.2nn.jp/<CR>
 nnoremap [w3m]p :call ChgProxy('')<CR>
