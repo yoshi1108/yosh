@@ -65,6 +65,8 @@ class JraWeb {
 					ozzStr.append(umaban).append(":").append(oztan).append(",")
 				}
 				String resultStr = pageRace + "\n" + ozzStr.toString()
+				Ulog.info "resultStr=" . resultStr;
+				Ulog.info "pageRace=" . pageRace;
 				JraWebUtil.createFileRS(Prop.OUTPUT_RS, resultStr);
 				webCachSet.add(doaRace.toString()) // 取得済として設定
 			}
