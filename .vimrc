@@ -7,8 +7,9 @@ endif
 set fileencodings=ucs-bom,iso-2022-jp,utf-8,cp932,euc-jp,default,latin
 set termencoding=utf-8
 
-" ■タブ
+" ■タブ、改行
 set tabstop=4
+set formatoptions=q
 
 " ■ Windows gitのdiff設定
 let $TERM='msys'
@@ -109,6 +110,7 @@ nnoremap [w3m]h :W3mHistory<CR>
 nnoremap [w3m]w :call ChgProxy(0)<CR>:W3m http://www.google.co.jp/search?as_q=<C-R><C-W><CR>
 nnoremap [w3m]k :call ChgProxy(0)<CR>:W3m http://info.finance.yahoo.co.jp/fx/list/<CR>
 nnoremap [w3m]s :call ChgProxy(0)<CR>:<C-u>:W3m http://www.google.co.jp/search?as_q=
+nnoremap [w3m]m :call ChgProxy(0)<CR>:W3m http://yoshi1108.github.com/yosh/memo.html<CR>
 nnoremap [w3m]2 :call ChgProxy(1)<CR>:W3m http://www.2nn.jp/<CR>
 nnoremap [w3m]p :call ChgProxy('')<CR>
 
@@ -119,15 +121,15 @@ function! ChgProxy(mode)
         let s:http_proxy_mode=a:mode
 	endif
     if ( s:http_proxy_mode == 0 )
-        "let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
-        let $HTTP_PROXY=''
+        let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
+        "let $HTTP_PROXY=''
         let s:http_proxy_mode='1'
     elseif ( s:http_proxy_mode == 1 )
         let $HTTP_PROXY='http://localhost:8888'
         "let $HTTP_PROXY='http://192.168.1.3:8080'
         let s:http_proxy_mode='0'
 	endif
-	echo $HTTP_PROXY
+	echo 'proxy : ' . $HTTP_PROXY
 endfunction
 call ChgProxy(0)
 
