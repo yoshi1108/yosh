@@ -20,8 +20,12 @@ class JraWebUtil {
 		String place = subTitle2Place(subTitle);
 
 		// R取得
-		String kyosoMei = ((List)TextUtil.grepStr(pageRace, "kyosoMei")).get(0);
-		String R = ((List)TextUtil.getText(kyosoMei)).get(0);
+		//Ulog.info(pageRace);
+		List tmpList = ((List)TextUtil.grepStr(pageRace, "kyosoMei"));
+		if ( tmpList == null ) {
+			tmpList = ((List)TextUtil.grepStr(pageRace, "titleRaceNo"));
+		}
+		String R = tmpList.get(0);
 		
 		// 距離、芝・ダート取得
 		def kyosoJoken = TextUtil.grepBand(pageRace, "kyosoJoken", "</div>");
@@ -43,7 +47,12 @@ class JraWebUtil {
 		String place = subTitle2Place(subTitle);
 
 		// R取得
-		String R = ((List)TextUtil.grepBand(pageRace, "kekkaRaceTitle", "</div>")).get(0);
+		Ulog.info(pageRace);
+		List tmpList = 	(List)TextUtil.grepBand(pageRace, "kekkaRaceTitle", "</div>");
+		if ( tmpList == null ) {
+			tmpList = (List)TextUtil.grepBand(pageRace, "kekkaRaceInfo", "</div>");
+		}
+		String R = tmpList.get(0);
 	
 		// 距離、芝・ダート取得	
 		def kekkaRaceJoken = TextUtil.grepBand(pageRace, "kekkaRaceJoken", "</div>");
