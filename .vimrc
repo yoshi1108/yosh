@@ -125,7 +125,7 @@ function! ChgProxy(mode)
         let $HTTP_PROXY='http://localhost:8888'
         let s:http_proxy_mode='0'
 	endif
-	echo $HTTP_PROXY
+	"echo $HTTP_PROXY
 endfunction
 call ChgProxy(0)
 
