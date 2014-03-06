@@ -24,6 +24,13 @@ sudo cp -p ~/data/ivy-2.3.0.jar /usr/share/ant/lib/
 6. jdk
 sudo apt-get install openjdk-7-jdk
 
+7. grails
+
+sudo apt-get install groovy
+curl -s get.gvmtool.net | bash
+gvm install grails 2.2.3
+# バージョンを指定する。
+
 ------
 ■ubuntu(LTS 12.04.4)squid構築メモ
 
