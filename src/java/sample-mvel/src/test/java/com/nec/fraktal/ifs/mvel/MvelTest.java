@@ -33,7 +33,7 @@ public class MvelTest {
         ExecutorService pool = Executors.newFixedThreadPool(1);
         try {
             List<Future<?>> list = new ArrayList<>();
-            for (int i = 0; i < 1000; i++) {
+            for (int i = 0; i < 153; i++) {
               Future<?> future = pool.submit(new Runner());
               list.add(future);
             }
