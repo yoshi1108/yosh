@@ -11,22 +11,10 @@ let s:home_url = "http://info.finance.yahoo.co.jp/fx/list/"
 "setl encoding=sjis
 
 " デバッグモード
-let s:DEBUG='false'
+let s:DEBUG='true'
 
-if ( s:DEBUG == "false" )
-    if exists("g:loaded_webhome")
-	finish
-    endif
-    let g:loaded_webhome = 1
-    map <unique> <Leader>h  <Plug>Webhome
-endif
-
-command! Webhome :call s:Webhome()
-
-if !executable('curl')
-  echohl ErrorMsg | echomsg "require 'curl' command" | echohl None
-  finish
-endif
+" 通貨ペアを横に並べる数
+let s:pairNum=3
 
 " 通貨ペア設定。@ をつけると表示されない
 let s:pair_disp_list = [
@@ -54,6 +42,21 @@ let s:pair_disp_list = [
 \'USD/HKD@'
 \]
 
+if ( s:DEBUG == "false" )
+    if exists("g:loaded_webhome")
+	finish
+    endif
+    let g:loaded_webhome = 1
+    map <unique> <Leader>h  <Plug>Webhome
+endif
+
+command! Webhome :call s:Webhome()
+
+if !executable('curl')
+  echohl ErrorMsg | echomsg "require 'curl' command" | echohl None
+  finish
+endif
+
 " 通貨ペア変換
 function! s:getPair(pair)
    let s:result = substitute(a:pair,   "米ドル",      "USD", "g")
@@ -69,6 +72,19 @@ function! s:getPair(pair)
    let s:result = substitute(s:result, "ドル",        "USD", "g")
    let s:result = substitute(s:result, "円",          "JPY", "g")
    return s:result
+endfunction
+           
+function! s:keta(value)
+	let s:value_0 = substitute(a:value, "\.[0-9]*$","", "g")
+	let s:value_1 = substitute(a:value, "^[0-9]*\.","", "g")
+	while 1
+		if ( s:value_1 < 10000 )
+			let s:value_1 = s:value_1 . "0" " 桁合わせ
+		else
+			break
+		endif
+	endwhile
+	return s:value_0 . "." . s:value_1
 endfunction
 
 function! s:Webhome()
@@ -120,11 +136,13 @@ function! s:Webhome()
 
 	   if ( s:line =~# "^Bid" ) 
            let s:bid = substitute(s:line, "Bid *","", "g")
-		   let s:one_buff = printf("%s %8s", s:one_buff, s:bid)
+		   let s:bid = s:keta(s:bid)
+		   let s:one_buff = printf("%s %10s", s:one_buff, s:bid)
 	   	   continue
 	   elseif( s:line =~"^Ask" )
            let s:ask = substitute(s:line, "Ask *","", "g")
-		   let s:one_buff = printf("%s %8s", s:one_buff, s:ask)
+		   let s:ask = s:keta(s:ask)
+		   let s:one_buff = printf("%s %10s", s:one_buff, s:ask)
 		   let s:pair = substitute(s:one_buff, " .*$", "", "g")
 		   let s:pair_map[s:pair] = s:one_buff " 通貨ペアをキーにASK/BID含んだ文字列を追加
 		   continue
@@ -147,7 +165,7 @@ function! s:Webhome()
        if (has_key(s:pair_map, s:pair))
            echon ('■' . s:pair_map[s:pair] . ' ')
            let s:tmp_cnt += 1
-           if ( s:tmp_cnt % 3 == 0)
+           if ( s:tmp_cnt % s:pairNum == 0)
                echo ''
            endif
        endif
