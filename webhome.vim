@@ -11,7 +11,7 @@ let s:home_url = "http://info.finance.yahoo.co.jp/fx/list/"
 "setl encoding=sjis
 
 " デバッグモード
-let s:DEBUG='true'
+let s:DEBUG='false'
 
 " 通貨ペアを横に並べる数
 let s:pairNum=3
