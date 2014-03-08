@@ -148,6 +148,7 @@ nnoremap [w3m]m :call ChgProxy(0)<CR>:W3m http://yoshi1108.github.com/yosh/memo.
 nnoremap [w3m]2 :call ChgProxy(1)<CR>:W3m http://www.2nn.jp/<CR>
 nnoremap [w3m]ik :call ChgProxy(1)<CR>:W3m http://www.invest-keiba.com/articles/top/index.html?mid=32bbae6495da0cfb7e05f0b810fd1e2e&no=7333<CR>
 nnoremap [w3m]da :call ChgProxy(1)<CR>:W3m http://www.dabiana.com/articles/top/2/index.html?usid=c90bc7a7c8fa65b293597b0752f75759&no=7984<CR>
+nnoremap [w3m]ni :call ChgProxy(1)<CR>:W3m http://sp.ch.nicovideo.jp/portal/anime<CR>
 nnoremap [w3m]p :call ChgProxy('')<CR>
 
 " プロクシの切り替え。指定なければ交互に切り替え
@@ -254,7 +255,12 @@ NeoBundle 'rking/ag.vim'
 NeoBundle 'perl-support.vim'
 NeoBundle 'derekwyatt/vim-scala'
 NeoBundle 'yuratomo/w3m.vim'
+NeoBundle 'yuratomo/gmail.vim'
 filetype plugin indent on
+
+" ■gmail
+source ~/.gmailrc
+nmap <F2> :Gmail<CR>
 
 " ■quickRun
 let g:quickrun_config = {
