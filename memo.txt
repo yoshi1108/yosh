@@ -1,13 +1,13 @@
 @ umaの修正
 
 % httportのポート番号変更
-% aspireをケーブル接続にする
 @ groovyのポート番号8080でいい？（現状httportとぶつかってて微妙）
 % インストールバッチ作成
 % perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 @ SVNをvimから操作したい
 % usrのシェイプアップ
 @ N側でvimないからプルできない問題。
+% aspireをケーブル接続にする(vaio側がおかしいだけ）
 ----------------------------------------
 
 # kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
