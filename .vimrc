@@ -48,7 +48,6 @@ endfunction
 function! g:Date()
     return strftime("%x(%a) %H:%M")
 endfunction
-set statusline=%<%f\ %m%r%h%w%=\%{g:Date()}\ \%{GetStatusEx()}\ \ %l,%c%V%8P
 
 " ■unite
 nnoremap    [unite]   <Nop>
@@ -121,12 +120,12 @@ function! ChgProxy(mode)
         let s:http_proxy_mode=a:mode
 	endif
     if ( s:http_proxy_mode == 0 )
-        let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
-        "let $HTTP_PROXY=''
+        "let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
+        let $HTTP_PROXY=''
         let s:http_proxy_mode='1'
     elseif ( s:http_proxy_mode == 1 )
-        let $HTTP_PROXY='http://localhost:8888'
-        "let $HTTP_PROXY='http://192.168.1.3:8080'
+        "let $HTTP_PROXY='http://localhost:8888'
+        let $HTTP_PROXY='http://192.168.1.3:8080'
         let s:http_proxy_mode='0'
     endif
 endfunction
@@ -233,6 +232,10 @@ let g:quickrun_config = {
 let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
 
 "let g:quickrun_config.scala = {'cmdopt' : '-Dfile.encoding=' . '&termencoding' , 'hook/output_encode/encoding' : '&termencoding'}
+
+" ■ステータスライン
+set statusline=%<%f\ %m%r%h%w%=\ %{fugitive#statusline()}\ %{g:Date()}\ \%{GetStatusEx()}\ \ %l,%c%V%8P
+
 
 " ■インサートモード時のハイライト
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
