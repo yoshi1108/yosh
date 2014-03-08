@@ -49,6 +49,41 @@ function! g:Date()
     return strftime("%x(%a) %H:%M")
 endfunction
 
+" ■ステータスライン
+set statusline=%<%f\ %m%r%h%w%=\ %{fugitive#statusline()}\ %{g:Date()}\ \%{GetStatusEx()}\ \ %l,%c%V%8P
+
+
+" ■インサートモード時のハイライト
+let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+
+if has('syntax') 
+  augroup InsertHook    
+    autocmd!
+    autocmd InsertEnter * call s:StatusLine('Enter')
+    autocmd InsertLeave * call s:StatusLine('Leave')  
+  augroup END
+endif
+
+let s:slhlcmd = ''
+function! s:StatusLine(mode)  
+  if a:mode == 'Enter'
+	  silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')    
+	  silent exec g:hi_insert  
+  else    
+	  highlight clear StatusLine    
+	  silent exec s:slhlcmd  
+  endif
+endfunction
+
+function! s:GetHighlight(hi)  
+	redir => hl  
+	exec 'highlight '.a:hi  
+	redir END  
+	let hl = substitute(hl, '[\r\n]', '', 'g')  
+	let hl = substitute(hl, 'xxx', '', '')  
+	return hl
+endfunction
+
 " ■unite
 nnoremap    [unite]   <Nop>
 nmap    <Leader>f [unite]
@@ -233,40 +268,6 @@ let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
 
 "let g:quickrun_config.scala = {'cmdopt' : '-Dfile.encoding=' . '&termencoding' , 'hook/output_encode/encoding' : '&termencoding'}
 
-" ■ステータスライン
-set statusline=%<%f\ %m%r%h%w%=\ %{fugitive#statusline()}\ %{g:Date()}\ \%{GetStatusEx()}\ \ %l,%c%V%8P
-
-
-" ■インサートモード時のハイライト
-let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-
-if has('syntax') 
-  augroup InsertHook    
-    autocmd!
-    autocmd InsertEnter * call s:StatusLine('Enter')
-    autocmd InsertLeave * call s:StatusLine('Leave')  
-  augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)  
-  if a:mode == 'Enter'
-	  silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')    
-	  silent exec g:hi_insert  
-  else    
-	  highlight clear StatusLine    
-	  silent exec s:slhlcmd  
-  endif
-endfunction
-
-function! s:GetHighlight(hi)  
-	redir => hl  
-	exec 'highlight '.a:hi  
-	redir END  
-	let hl = substitute(hl, '[\r\n]', '', 'g')  
-	let hl = substitute(hl, 'xxx', '', '')  
-	return hl
-endfunction
 
 " ■ 選択箇所のコピー、右クリックでペースト
 " copy paste GUI
