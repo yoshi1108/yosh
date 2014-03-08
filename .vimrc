@@ -146,6 +146,8 @@ nnoremap [w3m]k :call ChgProxy(0)<CR>:W3m http://info.finance.yahoo.co.jp/fx/lis
 nnoremap [w3m]s :call ChgProxy(0)<CR>:<C-u>:W3m http://www.google.co.jp/search?as_q=
 nnoremap [w3m]m :call ChgProxy(0)<CR>:W3m http://yoshi1108.github.com/yosh/memo.html<CR>
 nnoremap [w3m]2 :call ChgProxy(1)<CR>:W3m http://www.2nn.jp/<CR>
+nnoremap [w3m]ik :call ChgProxy(1)<CR>:W3m http://www.invest-keiba.com/articles/top/index.html?mid=32bbae6495da0cfb7e05f0b810fd1e2e&no=7333<CR>
+nnoremap [w3m]da :call ChgProxy(1)<CR>:W3m http://www.dabiana.com/articles/top/2/index.html?usid=c90bc7a7c8fa65b293597b0752f75759&no=7984<CR>
 nnoremap [w3m]p :call ChgProxy('')<CR>
 
 " プロクシの切り替え。指定なければ交互に切り替え
@@ -222,7 +224,9 @@ endif
 
 call neobundle#rc(expand('~/vim/bundles/'))
 NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/vimproc'
+if has('unix')
+	NeoBundle 'Shougo/vimproc'
+endif
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neosnippet'
