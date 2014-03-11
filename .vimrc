@@ -158,16 +158,16 @@ function! ChgProxy(mode)
         let s:http_proxy_mode=a:mode
 	endif
     if ( s:http_proxy_mode == 0 )
-        "let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
-        let $HTTP_PROXY=''
+        let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
+        "let $HTTP_PROXY=''
         let s:http_proxy_mode='1'
     elseif ( s:http_proxy_mode == 1 )
-        "let $HTTP_PROXY='http://localhost:8888'
-        let $HTTP_PROXY='http://192.168.1.3:8080'
+        let $HTTP_PROXY='http://localhost:8888'
+        "let $HTTP_PROXY='http://192.168.1.3:8080'
         let s:http_proxy_mode='0'
     endif
+	echo $HTTP_PROXY
 endfunction
-call ChgProxy(0)
 
 " ■Webhome
 source ~/webhome.vim
@@ -260,7 +260,7 @@ filetype plugin indent on
 
 " ■gmail
 source ~/.gmailrc
-nmap <F2> :Gmail<CR>
+nmap <F2> :call ChgProxy(1)<CR>:Gmail<CR>
 
 " ■quickRun
 let g:quickrun_config = {
