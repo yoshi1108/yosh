@@ -263,13 +263,25 @@ source ~/.gmailrc
 nmap <F2> :call ChgProxy(1)<CR>:Gmail<CR>
 
 " ■quickRun
+let g:quickrun_config['vim'] = { 
+\   "hook/output_encode/enable" : 1,
+\   "hook/output_encode/encoding" : "sjis",
+\}
 let g:quickrun_config = {
+\   "hook/output_encode/enable" : 1,
+\   "hook/output_encode/encoding" : "sjis",
 \   "_" : {
 \       "outputter" : "multi:buffer:quickfix",
 \       "runner" : "vimproc",
 \       "runner/vimproc/updatetime" : 40,
-\   }
+\   },
+\
+\   "java" : {
+\       'exec' : ['javac -J-Dfile.encoding=UTF8 %o %s', '%c -Dfile.encoding=UTF8 %s:t:r %a']
+\   },
 \}
+
+
 
 " \       "outputter/buffer/split" : ":botright 8sp",
 
@@ -277,7 +289,7 @@ let g:quickrun_config = {
 let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
 
 "let g:quickrun_config.scala = {'cmdopt' : '-Dfile.encoding=' . '&termencoding' , 'hook/output_encode/encoding' : '&termencoding'}
-
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 " ■ 選択箇所のコピー、右クリックでペースト
 " copy paste GUI
