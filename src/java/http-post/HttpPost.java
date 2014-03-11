@@ -140,9 +140,6 @@ public class HttpPost {
 					con.setRequestProperty(e.getKey(), e.getValue());
 				}
 
-				//String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
-				String urlParameters = "";
-
 				// Send post request
 				con.setDoOutput(true);
 				DataOutputStream wr = new DataOutputStream(con.getOutputStream());
