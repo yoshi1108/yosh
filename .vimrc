@@ -263,10 +263,6 @@ source ~/.gmailrc
 nmap <F2> :call ChgProxy(1)<CR>:Gmail<CR>
 
 " ■quickRun
-let g:quickrun_config['vim'] = { 
-\   "hook/output_encode/enable" : 1,
-\   "hook/output_encode/encoding" : "sjis",
-\}
 let g:quickrun_config = {
 \   "hook/output_encode/enable" : 1,
 \   "hook/output_encode/encoding" : "sjis",
