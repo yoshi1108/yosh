@@ -1,3 +1,4 @@
+apire上のwineでhttphost動作しない？
 鍋のネジ
 とびらのネジ
 
