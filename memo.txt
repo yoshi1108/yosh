@@ -13,6 +13,7 @@ apire上のwineでhttphost動作しない？
 % aspireをケーブル接続にする(vaio側がおかしいだけ）
 ----------------------------------------
 
+# quickRun引数: let b:quickrun_config={'args': 'hoge'}
 # kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
 # Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
 # maven,ivyのリポジトリ検索 http://mvnrepository.com/
