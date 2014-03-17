@@ -1,4 +1,5 @@
-apire上のwineでhttphost動作しない？
+@ httport 443がNから通るか確認
+
 鍋のネジ
 とびらのネジ
 
