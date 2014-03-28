@@ -1,5 +1,7 @@
 @ umaの修正
 
+http://www.oracle.com/technetwork/jp/content/timesten-ord-20101027-print-254804-ja.pdf
+
 % インストールバッチ作成
 % perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 @ SVNをvimから操作したい
