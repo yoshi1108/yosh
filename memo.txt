@@ -7,6 +7,9 @@
 @ N側でvimないからプルできない問題。
 % aspireをケーブル接続にする(vaio側がおかしいだけ）
 
+GP01-202BC142DD9A
+35465
+
 ----------------------------------------
 # quickRun引数: let b:quickrun_config={'args': 'hoge'}
 # kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
