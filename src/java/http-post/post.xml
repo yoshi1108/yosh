@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DeviceInfoReq>
+<SerialId>${serial_id}</SerialId>
+<DataList>
+	<Data key="ctrl_id" value="${ctrl_id}" />
+	<Data key="datetime" value="${datetime}" />
+    <Data key="event_level" value="0" />
+    <Data key="event_code" value="001" />
+    <Data key="event_msg" value="START" />
+</DataList>
+</DeviceInfoReq>

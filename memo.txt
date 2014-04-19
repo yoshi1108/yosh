@@ -1,24 +1,33 @@
 @ umaの修正
 
-% httportのポート番号変更
-@ groovyのポート番号8080でいい？（現状httportとぶつかってて微妙）
+http://www.oracle.com/technetwork/jp/content/timesten-ord-20101027-print-254804-ja.pdf
+
 % インストールバッチ作成
 % perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 @ SVNをvimから操作したい
-% usrのシェイプアップ
-@ N側でvimないからプルできない問題。
 % aspireをケーブル接続にする(vaio側がおかしいだけ）
-----------------------------------------
 
+GP01-202BC142DD9A
+35465
+
+----------------------------------------
+# quickRun引数: let b:quickrun_config={'args': 'hoge'}
 # kaoriyaのgvimrcとvimrcの冒頭に以下を設定することでHOMEが変わる let $HOME='/oracle/home'
 # Javaでquick-runはjavacにパス通す。ソース保存してないと無理。
 # maven,ivyのリポジトリ検索 http://mvnrepository.com/
 # ivyはantにパス通して、ivy-2.3.0.jarを/usr/libに入れとけばOK
   set ANT_OPTS=-Dhttp.proxyHost= -Dhttp.proxyPort=8080
 # nyaos(DOS窓)でUTF8は chcp 65001
-# httport:8080 -> 8080:corega-router:8080 -> 8080:whs(httphost):8080
+# httport:8080 -> 8080:corega-router:8080 -> 8080:whs(httphost)
+# httport:443  -> 443:corega-router:443   -> 443:whs(httphost)
   192.168.1.3:22
   192.168.1.2:3389
   192.168.1.1:8080
   192.168.1.4:5900
 # ssh -p 3022 -L 8088:192.168.1.1:80 -L 8888:localhost:8080 -L 5901:localhost:5901 -L 5904:192.168.1.4:5900 -R 2022:localhost:22 -R 5929:10.25.107.29:5900 -R 5919:10.25.107.19:5900 yoshi@localhost
+
+# m ip 202.225.124.72
+
+#----------------------
+TimesTen ( linux ubuntu)
+apt-get install libaio1
