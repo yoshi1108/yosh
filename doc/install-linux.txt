@@ -1,0 +1,53 @@
+﻿1. git
+git init 
+してから
+~/gitconfig
+~/.git/config
+.netrc
+を設定する
+
+2. neobundleインストール
+cd ~/
+mkdir -p vim/plugins/
+git clone https://github.com/Shougo/neobundle.vim ~/vim/plugins/neobundle.vim-master
+
+3. ctags w3m インストール
+sudo apt-get install ctags w3m ant
+
+4. vimprocのmake
+cd ~/vim/bundles/vimproc.vim/
+make
+
+5. ivy
+sudo cp -p ~/data/ivy-2.3.0.jar /usr/share/ant/lib/
+
+6. jdk
+sudo apt-get install openjdk-7-jdk
+
+7. grails
+
+sudo apt-get install groovy
+curl -s get.gvmtool.net | bash
+gvm install grails 2.2.3
+# バージョンを指定する。
+
+------
+■ubuntu(LTS 12.04.4)squid構築メモ
+
+・squidインストール
+apt-get install squid
+
+・設定変更
+/etc/squid3/squid.confを変更
+
+-- 追記 --
+acl lan1 src 192.168.101.0/24
+http_access allow lan1
+
+-- 変更箇所 ---
+# Squid normally listens to port 3128
+http_port 8080 transparent
+---------------
+
+・再起動
+/etc/init.d/squid3
