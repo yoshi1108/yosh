@@ -158,16 +158,16 @@ function! ChgProxy(mode)
         let s:http_proxy_mode=a:mode
 	endif
     if ( s:http_proxy_mode == 0 )
-        "let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
-        let $HTTP_PROXY=''
+        let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
+        "let $HTTP_PROXY=''
         let s:http_proxy_mode='1'
     elseif ( s:http_proxy_mode == 1 )
-        "let $HTTP_PROXY='http://localhost:8888'
-        let $HTTP_PROXY='http://192.168.1.3:8080'
+        let $HTTP_PROXY='http://localhost:8888'
+        "let $HTTP_PROXY='http://192.168.1.3:8080'
         let s:http_proxy_mode='0'
     endif
+	echo $HTTP_PROXY
 endfunction
-call ChgProxy(0)
 
 " ■Webhome
 source ~/webhome.vim
@@ -260,16 +260,24 @@ filetype plugin indent on
 
 " ■gmail
 source ~/.gmailrc
-nmap <F2> :Gmail<CR>
+nmap <F2> :call ChgProxy(1)<CR>:Gmail<CR>
 
 " ■quickRun
 let g:quickrun_config = {
+\   "hook/output_encode/enable" : 1,
+\   "hook/output_encode/encoding" : "sjis",
 \   "_" : {
 \       "outputter" : "multi:buffer:quickfix",
 \       "runner" : "vimproc",
 \       "runner/vimproc/updatetime" : 40,
-\   }
+\   },
+\
+\   "java" : {
+\       'exec' : ['javac -J-Dfile.encoding=UTF8 %o %s', '%c -Dfile.encoding=UTF8 %s:t:r %a']
+\   },
 \}
+
+
 
 " \       "outputter/buffer/split" : ":botright 8sp",
 
@@ -277,7 +285,7 @@ let g:quickrun_config = {
 let g:quickrun_config.groovy = {'command' : 'groovy', 'cmdopt' : ''}
 
 "let g:quickrun_config.scala = {'cmdopt' : '-Dfile.encoding=' . '&termencoding' , 'hook/output_encode/encoding' : '&termencoding'}
-
+nnoremap <expr><silent> <C-c> quickrun#is_running() ? quickrun#sweep_sessions() : "\<C-c>"
 
 " ■ 選択箇所のコピー、右クリックでペースト
 " copy paste GUI
