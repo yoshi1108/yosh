@@ -1,0 +1,41 @@
+﻿<html><body><pre>
+1. c:\にusr.zipを展開
+
+2. PATHに追加
+ユーザ変数の方にPATH変数を追加
+%PATH%;C:\oracle\vim74-kaoriya-win32;c:\usr\cmd;c:\usr\bin;C:\oracle\home\bin;
+
+3.nyaosをc:\oracleに展開
+
+4.c:\oracleにhome.zipを展開
+
+5. git 設定
+cd c:\oracle\home
+git init
+git pull origin master
+
+5.  http://git-scm.com/download/win
+これを入れないとだめかも
+
+5. tmpディレクトリ作成
+mkdir c:\tmp
+
+6. vimをc:\oracleに展開
+
+6. vimショートカット
+gvim.exeのショートカットをプログラムファイルに作り
+Ctrl-Shift-Lでショートカット作成
+
+7. ■vimrcとgvimrcに追加
+let $HOME='/oracle/home'
+
+8. ■neobundleプラグインを追加
+neobundle.vim-master
+を
+C:\oracle\vim74-kaoriya-win32\plugins
+に追加してvim再起動
+
+9. neobundle install
+
+:NeoBundleInstall
+</pre></body></html>
