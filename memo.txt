@@ -1,14 +1,7 @@
 @ umaの修正
 
-http://www.oracle.com/technetwork/jp/content/timesten-ord-20101027-print-254804-ja.pdf
-
-% インストールバッチ作成
 % perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
 @ SVNをvimから操作したい
-% aspireをケーブル接続にする(vaio側がおかしいだけ）
-
-GP01-202BC142DD9A
-35465
 
 ----------------------------------------
 # quickRun引数: let b:quickrun_config={'args': 'hoge'}
@@ -29,5 +22,5 @@ GP01-202BC142DD9A
 # m ip 202.225.124.72
 
 #----------------------
-TimesTen ( linux ubuntu)
+TimesTen (linux ubuntu)
 apt-get install libaio1
