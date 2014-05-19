@@ -1,0 +1,64 @@
+1. regedit.exeを起動する
+
+2. 以下の場所へ移動する [HKEY_LOCAL_MACHINE] 
+[SYSTEM] 
+[CurrentControlSet] 
+[Control] 
+[Keyboard Layout]
+
+3. 新規作成で「バイナリ」を選択し、名前を「Scancode Map」に変更
+
+4. 変更した「Scancode Map」をクリックし、値を以下のように書き変える
+
+00 00 00 00 00 00 00 00
+02 00 00 00 1D 00 3A 00
+00 00 00 00
+
+ログオフし、再度ログオンするとCaps LockキーがCtrlに変わります。
+
+左ctrl   00 3A
+CapsLock 00 1D
+
+00 00 00 00 00 00 00 00 ; header version[4byte]  flags[4byte]
+03 00 00 00 1D 00 3A 00 ; エントリ数（terminateを含んだ数) (1D 00 -> 3A 00)
+1D 00 3A 00 00 00 00 00 ; (1D 00 -> 3A 00) terminate (終了)
+
+intel CPUはリトルエンディアン（これを最下位のバイトから順番に記録/送信する方式）なので、次のようにひっくり返して書き込んで下さい。
+
+他のキーコード(106キーボードの場合)は以下のとおりです。
+
+スペース            00 39
+半角/全角(漢字)     00 29
+Esc                 00 01
+TAB                 00 0F
+英数(Caps Lock)     00 3A
+右Ctrl              E0 1D
+左Ctrl              00 1D
+右Ctrl              E0 1D
+左Alt               00 38
+右Alt               E0 38
+左Shift             00 2A
+右Shift             00 36
+無変換              00 7B
+変換                00 79
+￥｜(*)             00 7D
+ひらがな（カタカナ）00 70
+Num Lock            00 45
+PAUSE               00 45
+Scroll Lock         00 46
+F1-F10              3B 44
+F11-F12             57 58
+左Windows           E0 5B
+右Windows           E0 5C
+Application         E0 5D
+Home                E0 47
+End                 E0 4F
+PageUp              E0 49
+PageDown            E0 51
+PrintScreen         E0 37
+上矢印              E0 48
+下矢印              E0 50
+右矢印              E0 4D
+左矢印              E0 4B
+Insert              E0 52
+Delete              E0 53
