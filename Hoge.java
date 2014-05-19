@@ -6,7 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.*;
 
-public class hoge
+public class Hoge
 {
   private static final String timestenDriver = "com.timesten.jdbc.TimesTenDriver";
   private static final String directURLPrefix = "jdbc:timesten:direct:";
