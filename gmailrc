@@ -1,0 +1,3 @@
+"ユーザ名
+let g:gmail_user_name = 'xxx@gmail.com'
+let g:gmail_user_pass = 'aaa'
