@@ -111,6 +111,9 @@ function! s:Webhome()
 	   if ( s:line =~# "^FXおすすめ" ) 
 	   	   break
        endif
+	   if ( s:line =~# "^おすすめコンテンツ" ) 
+	   	   break
+       endif
 	   if ( s:line =~# "^※" ) 
 	   	   continue
        endif
