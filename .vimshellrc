@@ -1,0 +1,6 @@
+alias h='history'
+alias c='clear'
+alias l='ls -l'
+alias la='ls -al'
+alias cls='clear;ls -F'
+alias rmbk='rm -f *~'
