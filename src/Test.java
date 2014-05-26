@@ -11,6 +11,14 @@ class Test{
 			System.out.println(key + "," + map.get(key));	
 		}
 		hogeMap.put("hoge","hoge");
+
+		String hexString = "7fffffff";
+		//String hexString = "7f ff ff ff";
+
+		//int byteNum = Integer.toHexString(hexString);
+		int byteNum = Integer.parseInt(hexString, 16);
+
+		System.out.println("byteNum="+byteNum);
 	}
 	public static void main(String args[]){
 		System.out.println("hoge\n");
