@@ -11,18 +11,18 @@ class Test{
         System.out.println(getMemoryInfo());
     
         class HogeData {
-            public int time;
-            public int eventNum;
+            public long time;
+            public long eventNum;
         }
         
-        Map<String, HogeData> hogeMap = new ConcurrentHashMap<String, HogeData>(); 
+        Map<Integer, HogeData> hogeMap = new ConcurrentHashMap<Integer, HogeData>(); 
 
         long start = System.currentTimeMillis();
         for (int idx=0; idx<SM_NUM; idx++ ) {
             HogeData hogeData = new HogeData();
             hogeData.time = idx;
             hogeData.eventNum = idx;
-            hogeMap.put(idx + "", hogeData);
+            hogeMap.put(idx, hogeData);
         }
         long delta = System.currentTimeMillis() - start;
         System.out.println("put=" + delta + "(ms)");
