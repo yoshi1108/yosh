@@ -6,7 +6,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 class Test{
     final static long SM_NUM=100 * 10000;
+    public static void main(String args[]){
+        hoge();
+    }
     private static void hoge(){
+		System.out.println("test--------------\n");
         // メモリ表示
         System.out.println(getMemoryInfo());
     
@@ -36,11 +40,6 @@ class Test{
 
         // メモリ表示
         System.out.println(getMemoryInfo());
-    }
-    public static void main(String args[]){
-        System.out.println("hoge\n");
-
-        hoge();
     }
 
     /**
