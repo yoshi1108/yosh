@@ -9,6 +9,17 @@
 
 4.c:\oracleにhome.zipを展開
 
+4.5 .gitconfigのプロクシ設定
+
+c:\oracle\home\.gitconfig
+に
+
+[http]
+        proxy = http://プロクシIP:プロクシポート番号
+
+を追記する。
+# git config --global http.proxy での設定は永続しないので、vimに反映されないから注意
+
 5. git 設定
 cd c:\oracle\home
 git init
