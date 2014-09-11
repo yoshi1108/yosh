@@ -123,7 +123,7 @@ if has('win32')
 endif
 
 " ■ 開いてるファイルのディレクトリをカレントディレクトリ
-nmap <Leader>cd :cd %:p:h<CR>
+"nmap <Leader>cd :cd %:p:h<CR>
 
 "map <C-w> :tabclose<CR>
 map <C-n> :tabnew<CR>
@@ -158,11 +158,11 @@ function! ChgProxy(mode)
         let s:http_proxy_mode=a:mode
 	endif
     if ( s:http_proxy_mode == 0 )
-        let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
+        "let $HTTP_PROXY='http://proxygate1.nic.nec.co.jp:8080'
         "let $HTTP_PROXY=''
         let s:http_proxy_mode='1'
     elseif ( s:http_proxy_mode == 1 )
-        let $HTTP_PROXY='http://localhost:8888'
+        "let $HTTP_PROXY='http://localhost:8888'
         "let $HTTP_PROXY='http://192.168.1.3:8080'
         let s:http_proxy_mode='0'
     endif
