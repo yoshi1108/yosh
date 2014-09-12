@@ -89,3 +89,8 @@ my $tmpF = 1 / 3;
 print "tmpF       =" . $tmpF. "\n";
 print "tmpBigFloat=" . $tmpBigFloat . "\n";
 
+sub hogeFunc {
+	print "hoge\n";
+}
+
+hogeFunc();
