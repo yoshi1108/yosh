@@ -1,0 +1,137 @@
+/*--ページ--*/
+.ui-page{
+    background:#ffffff;
+}
+/*--ヘッダー--*/
+.ui-header{
+    background: linear-gradient(#efefef, #446083);
+    background: -moz-linear-gradient(#efefef, #446083);
+    background: -webkit-linear-gradient(#efefef, #446083);
+}
+/*--フッター--*/
+.ui-footer{
+    background: linear-gradient(#efefef, #446083);
+    background: -moz-linear-gradient(#efefef, #446083);
+    background: -webkit-linear-gradient(#efefef, #446083);
+}
+/*--タイトル(ヘッダー、フッターとかの）--*/
+.ui-title{
+    color:#ffffff;
+    text-shadow:none;
+}
+/*--フッタータイトルのみ--*/
+.ui-footer .ui-title{
+    color:#ffffff;
+    text-shadow:none;
+    font-size:13px;
+}
+/*--コンテンツ--*/
+.ui-content{
+    color:#4c566c;
+    text-shadow:none;
+    background:url(images/c_bg.gif);
+}
+ 
+ 
+/*---表示文字数を増やす（全文字表示---
+(ヘッダー,フッター,ボタン,リスト見出し,リンクリスト,リスト詳細部分)---*/
+.ui-header .ui-title,
+.ui-footer .ui-title,
+.ui-btn-inner,
+.ui-li-heading,
+.ui-li .ui-btn-text a.ui-link-inherit,
+.ui-li-desc
+{ 
+    overflow: visible;
+    white-space: normal;
+}
+ 
+/* ヘッダータイトルの外側余白なし*/
+.ui-header .ui-title
+{
+    margin-left:0%;
+    margin-right:0%;
+}
+
+/*---リスト・ボタンの影を消す----*/
+.ui-shadow{
+    box-shadow:none;
+}
+ 
+/*---ボタンコーナーの角丸---*/
+.ui-btn-corner-all{
+    border-radius:5px;
+}
+ 
+/*---ボタンサイズ---*/
+.ui-btn-inner{
+    padding:5px 20px;
+}
+ 
+ 
+/*---リスト・ボタン背景色---*/
+ 
+.ui-btn-up-c,
+.ui-btn-hover-c,
+.ui-btn-down-c{
+    background:#ffffff;
+}
+ 
+/*---リスト・ボタンのタップ時---*/
+.ui-btn-active{
+    background:#7193be;
+    text-shadow:none;
+}
+ 
+ 
+/*---ヘッダー内ボタン装飾---*/
+.ui-header .ui-btn-up-a,
+.ui-header .ui-btn-hover-a,
+.ui-header .ui-btn-down-a{
+    background:#446083;
+}
+ 
+.ui-header .ui-btn-active{
+    border:1px solid #7193be;
+    background:#7193be;
+}
+ 
+ 
+/*---arrow-r アイコン(リスト右端部分）---*/
+.ui-icon-arrow-r{
+    background: transparent url(images/icons-18-black.png) no-repeat -108px 50%;
+    box-shadow:none;
+}
+/*---star アイコン(page2へボタン部分）---*/
+.ui-icon-star{
+    background: #446083 url(images/icons-18-white.png) no-repeat -468px 50%;
+    box-shadow:none;
+}
+/*---info アイコン(dialogボタン部分）---*/
+.ui-icon-info{
+    background: #446083 url(images/icons-18-white.png) no-repeat -540px 50%;
+    box-shadow:none;
+}
+ 
+ 
+/*---リストビュー サムネイル画像部分----*/
+.ui-li-thumb{
+    padding:15px 10px 0px 10px;
+    max-width:60px;
+    max-height:60px;
+}
+ 
+ 
+/*---リストビュー 見出し・説明文エリア部分-----*/
+.ui-li-has-thumb .ui-btn-inner a.ui-link-inherit{
+    padding-left:60px;
+    min-height:70px;
+}
+ 
+.ui-li-heading{
+    font-size:15px;
+}
+ 
+.ui-li-desc{
+    color:#1955d8;
+}
