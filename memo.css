@@ -82,26 +82,3 @@ div#footerArea {
 	top: 3px;
 	box-shadow: none;
 }
-
-.button3 {
-	position: relative;
-	background:-webkit-gradient(linear, 0% 0%, 0% 80%, from(#dcb), to(#b98));
-	border-radius: 4px;
-	color: #000;
-	line-height: 32px;
-	margin:5;
-	padding: 4px;
-	-webkit-transition: none;
-	transition: none;
-	box-shadow: 0 3px 0 #9a8779;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, .4);
-}
-
-.button3:hover {
-	top: -4px;
-	box-shadow: 0 7px 0 #9a8779;
-}
-.button3:active {
-	top: 3px;
-	box-shadow: none;
-}
