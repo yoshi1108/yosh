@@ -1,6 +1,24 @@
 body {
 	background-color: #D5D5BC;
+	margin: 0;
 }
+* html body{  
+    overflow: hidden;  
+} 
+div#footerArea {  
+    position: fixed !important;  
+    position: absolute;  
+    bottom: 0;  
+    left: 0;  
+    width: 100%;  
+    height: 50px;  
+    background-color: #949F94;  
+    color: #fff;  
+}  
+* html div#contentsArea{  
+    height: 100%;  
+    overflow: auto;  
+} 
 
 .button {
 	position: relative;
@@ -61,6 +79,29 @@ body {
 	box-shadow: 0 7px 0 #9a8779;
 }
 .button2:active {
+	top: 3px;
+	box-shadow: none;
+}
+
+.button3 {
+	position: relative;
+	background:-webkit-gradient(linear, 0% 0%, 0% 80%, from(#dcb), to(#b98));
+	border-radius: 4px;
+	color: #000;
+	line-height: 32px;
+	margin:5;
+	padding: 4px;
+	-webkit-transition: none;
+	transition: none;
+	box-shadow: 0 3px 0 #9a8779;
+	text-shadow: 0 1px 1px rgba(0, 0, 0, .4);
+}
+
+.button3:hover {
+	top: -4px;
+	box-shadow: 0 7px 0 #9a8779;
+}
+.button3:active {
 	top: 3px;
 	box-shadow: none;
 }
