@@ -98,7 +98,7 @@ nnoremap <silent> ,vr :UniteResume<CR>
 nnoremap [git]     <Nop>
 nmap     <Leader>g [git]
 nnoremap <silent>  [git]c :Gwrite<CR>:Gcommit -m 'hoge'<CR>:Git push<CR>
-nnoremap <silent>  [git]r :Git pull origin master<CR>
+nnoremap <silent>  [git]r :Git pull<CR>
 nnoremap <silent>  [git]s :Gstatus<CR>
 
 " ■ タブ操作
