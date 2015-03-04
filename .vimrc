@@ -97,8 +97,7 @@ nnoremap <silent> ,vr :UniteResume<CR>
 " ■Git
 nnoremap [git]     <Nop>
 nmap     <Leader>g [git]
-"nnoremap <silent>  [git]c :Gwrite<CR>:Gcommit -m 'hoge'<CR>:Git push<CR>
-nnoremap <silent>  [git]c :Gcommit -m 'hoge'<CR>:Git push<CR>
+nnoremap <silent>  [git]c :Gwrite<CR>:Gcommit -m 'hoge'<CR>:Git push<CR>
 nnoremap <silent>  [git]r :Git pull<CR>
 nnoremap <silent>  [git]s :Gstatus<CR>
 
