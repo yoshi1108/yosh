@@ -239,7 +239,7 @@ NeoBundle 'thinca/vim-singleton'
 NeoBundle 'itchyny/calendar.vim'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'mattn/webapi-vim'
-NeoBundle 'mhinz/vim-startify'
+"NeoBundle 'mhinz/vim-startify'
 NeoBundle 'groovy.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'vim-scripts/L9'
@@ -296,26 +296,6 @@ set clipboard+=autoselect
 nnoremap <RightMouse> "*p
 inoremap <RightMouse> <C-r><C-o>
 
-" ■ startify 
-let s:memofile = $HOME . "/memo.txt"
-
-" メモファイルを開く
-nnoremap <Space>m :edit $HOME/memo.txt<CR>
-
-let s:memo_list = []
-for line in readfile(s:memofile)
-	call add(s:memo_list, line)
-endfor
-
-let g:startify_custom_header = map([g:Date()], '"   ". v:val')
-let g:startify_custom_footer = map(s:memo_list, '"   ". v:val')
-
-let g:startify_bookmarks = [
-  \ '~/.vimrc',
-  \ 'c:\oracle',
-  \ 'y:\',
-  \ ]
-
 " ■calender-vim設定
 let g:calendar_google_calendar = 1
 let g:calendar_google_task = 1
@@ -325,3 +305,6 @@ if has('win32')
     call singleton#enable()
 endif
 
+if has('vim_starting')
+    autocmd VimEnter * nested :Unite file_mru
+endif
