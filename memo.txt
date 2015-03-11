@@ -1,7 +1,4 @@
-@ umaの修正
-
 % perltidyの初期化ファイル読み込みを/home/oracle/.perltidyrc -> ~/で指定したい
-@ SVNをvimから操作したい
 
 ----------------------------------------
 # quickRun引数: let b:quickrun_config={'args': 'hoge'}
